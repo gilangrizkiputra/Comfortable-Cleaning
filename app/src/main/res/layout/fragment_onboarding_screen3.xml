@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="20dp"
+    tools:context=".Onboarding.Screen.OnboardingScreen3">
+
+    <ImageView
+        android:id="@+id/iv_onboarding3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/onboarding3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="108dp"/>
+
+    <TextView
+        android:id="@+id/tv_judulonboarding3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_onboarding3"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Bersihkan Sepatu Anda"
+        android:textSize="19sp"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:id="@+id/tv_deskripsi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ayo bersihkan sepatu anda sekarang, Kami\nakan membersihkan sepatu anda sampai\nanda full senyum"
+        android:layout_below="@+id/tv_judulonboarding3"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="14sp"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"/>
+
+</RelativeLayout>

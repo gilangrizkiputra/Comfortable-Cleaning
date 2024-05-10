@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    tools:context=".Admin.TambahCleaning.TambahCleaningActivity">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Tambahkan Cleaning!"
+        android:textSize="23sp"/>
+
+    <TextView
+        android:id="@+id/tv_nama_cleaning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_title"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Nama Cleaning"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/edt_nama_cleaning"
+        style="@style/EditTextGeneral.SecondaryVariant"
+        android:layout_below="@+id/tv_nama_cleaning"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/custom_edt_radius_bg"
+        android:fontFamily="@font/poppins_bold"
+        android:hint="Masukkan Nama Cleaning"
+        android:padding="12dp"
+        android:textSize="12sp"
+        android:inputType="text"/>
+
+    <TextView
+        android:id="@+id/tv_harga_cleaning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edt_nama_cleaning"
+        android:layout_marginTop="7dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Harga"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/edt_harga_cleaning"
+        style="@style/EditTextGeneral.SecondaryVariant"
+        android:layout_below="@+id/tv_harga_cleaning"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/custom_edt_radius_bg"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="Masukkan Harga"
+        android:padding="12dp"
+        android:textSize="12sp"
+        android:inputType="textPassword"/>
+
+    <TextView
+        android:id="@+id/tv_deskripsi_cleaning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_below="@+id/edt_harga_cleaning"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Deskripsi"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/edt_deskripsi_cleaning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_deskripsi_cleaning"
+        android:minLines="1"
+        android:maxLines="5"
+        android:inputType="textMultiLine"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/custom_edt_radius_bg"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="Masukkan Deskripsi Cleaning"
+        android:padding="12dp"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/tv_image_cleaning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_below="@+id/edt_deskripsi_cleaning"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Foto (minimal 3)"
+        android:textSize="12sp" />
+    
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_up_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/backgroundColor"
+        android:src="@drawable/ic_plus_tambah_foto_admin"
+        android:layout_below="@id/tv_image_cleaning"
+        android:layout_marginTop="10dp"/>
+    
+    <Button
+        android:id="@+id/btn_masuk"
+        style="@style/ButtonGeneral.PrimaryVariant"
+        android:layout_height="50dp"
+        android:layout_below="@+id/btn_up_image"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/custom_button_bg"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="Tambahkan"
+        android:textSize="16sp"/>
+
+</RelativeLayout>

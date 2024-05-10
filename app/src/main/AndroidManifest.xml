@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ComfortableCleaningCopy"
+        tools:targetApi="31">
+        <activity
+            android:name=".DropDownActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.Profile.ProfileAdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Customer.FormPembayaran.FormPaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.EditData.Cleaning.EditDataCleaningActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.ListTerdaftar.ListTerdaftarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.DetailPesananAdmin.DetailPesananActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.TambahCleaning.TambahCleaningActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.Pesanan.PesananActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.BerandaAdmin.BerandaAdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Customer.Profile.BantuanDanLaporan.BantuanDanLaporanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Customer.Profile.TentangKami.TentangKamiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Customer.Profile.GantiKataSandi.GantiKataSandiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Customer.Pesanan.DetailPesanan.DetailPesananActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Customer.DetailCleaning.DetailCleaningActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Customer.ListCleaningShoes.ListCleaningShoesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Register.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Onboarding.OnboardingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Login.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SplashScreen.Splashscreen"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,51 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.ComfortableCleaningCopy" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/primaryBlue</item>
+        <item name="colorOnPrimary">@color/backgroundColor</item>
+
+        <item name="colorSecondary">@color/primaryBlue</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <item name="colorButtonNormal">@color/white</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="background">@color/backgroundColor</item>
+        <item name="backgroundColor">@color/backgroundColor</item>
+        <item name="android:windowBackground">@color/backgroundColorDark</item>
+    </style>
+
+    <!--    custom button continue onboarding-->
+    <style name="ButtonGeneral">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="ButtonGeneral.PrimaryVariant">
+        <item name="android:backgroundTint">@color/primaryBlue</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ButtonGeneral.SecondaryVariant">
+        <item name="background">@drawable/custom_edt_radius_bg</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:radius">5dp</item>
+    </style>
+
+    <!--    custom edittext-->
+    <style name="EditTextGeneral">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="cornerRadius">56dp</item>
+    </style>
+
+    <style name="EditTextGeneral.SecondaryVariant">
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+    </style>
+</resources>

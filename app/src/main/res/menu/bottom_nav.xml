@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:title="Beranda"
+        android:id="@+id/berandaFragment"
+        android:icon="@drawable/ic_button_navigasi_home"/>
+
+    <item android:title="Pesanan"
+        android:id="@+id/pesananFragment"
+        android:icon="@drawable/ic_button_navigasi_pesanan"/>
+
+    <item android:title="Profile"
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_button_navigation_profile"/>
+</menu>

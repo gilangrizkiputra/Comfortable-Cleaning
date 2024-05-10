@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="20dp"
+    tools:context=".Onboarding.Screen.OnboardingScreen2">
+
+    <ImageView
+        android:id="@+id/iv_onboarding2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/onboarding2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="163dp"/>
+
+    <TextView
+        android:id="@+id/tv_judulonboarding2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_onboarding2"
+        android:layout_marginTop="80dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Kami Jemput"
+        android:textSize="19sp"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/tv_deskripsi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kamu tidak perlu datang, kami yang akan\ndatang ke rumah untuk mengambil sepatu\nanda"
+        android:layout_below="@+id/tv_judulonboarding2"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="14sp"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"/>
+
+
+</RelativeLayout>

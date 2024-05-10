@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Comfortable Cleaning</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="isi_desk">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero, saepe. Quos neque culpa quidem blanditiis dolores vitae totam perferendis dolorum, aliquid laudantium nisi sunt animi nihil! Quo sapiente voluptatem earum.</string>
+    <string name="detail_pesanan_form">Nama : Gilang\nPesanan : Repaint\nQty : 1\nNo Telp : 088123451456\nAlamat : Perum Bekasi Timur, Jl. Mustikasari RT 12/03\nCatatan : Sepatu Saya AeroStreet bahan canvas ingin di repaint warna HITAM.\nOngkir : Rp. 5000\nTotal Harga : Rp. 65000\n</string>
+    <string name="detail_pesanan_success">Nama : Gilang\nPesanan : Barcelona - Type Cleaning 1\nQty : 1\nNo Telp : 088123451456\nAlamat : Perum Bekasi Timur, Jl. Mustikasari RT 12/03\nCatatan : -\nOngkir : Rp. 5000\nTotal Harga : Rp. 35000\nStatus : Paid\n</string>
+    <string name="bantuan_dan_laporan"><![CDATA[Bantuan & Laporan]]></string>
+    <string name="deskripsi_tentang_kami">Clean Comfortable Shoes adalah sebuah toko cuci sepatu di daerah Bekasi Timur kecamatan mustika jaya Kota Bekasi. Kami menyediakan tiga tipe pencucian sepatu yaitu fast cleaning, deep cleaning dan unyellowcleaning. Di aplikasi ini juga kami menambahkah repaint sepatu untuk mewarnai sepatu anda seperti semula dari yang tadinya kusam menjadi warna asli kembali.</string>
+    <string name="bantuan_laporan"><![CDATA[Bantuan & Laporan]]></string>
+
+    <string name="select">Select Item</string>
+</resources>

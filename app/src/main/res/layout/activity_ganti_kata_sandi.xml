@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="20dp"
+    tools:context=".Customer.Profile.GantiKataSandi.GantiKataSandiActivity">
+
+    <ImageView
+        android:id="@+id/iv_logo_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo_login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_logo_login"
+        android:layout_marginTop="42dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Ganti Kata Sandi"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/tv_password_lama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_title"
+        android:layout_marginTop="42dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Kata Sandi Lama"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/edt_password_lama"
+        style="@style/EditTextGeneral.SecondaryVariant"
+        android:layout_below="@+id/tv_password_lama"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/custom_edt_radius_bg"
+        android:fontFamily="@font/poppins_bold"
+        android:hint="Masukkan Kata Sandi Lama"
+        android:padding="12dp"
+        android:textSize="12sp"
+        android:inputType="text"/>
+
+    <TextView
+        android:id="@+id/tv_password_baru"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edt_password_lama"
+        android:layout_marginTop="7dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Kata Sandi Baru"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/edt_password_baru"
+        style="@style/EditTextGeneral.SecondaryVariant"
+        android:layout_below="@+id/tv_password_baru"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/custom_edt_radius_bg"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="Masukkan Kata Sandi Baru"
+        android:padding="12dp"
+        android:textSize="12sp"
+        android:inputType="textPassword"/>
+
+    <TextView
+        android:id="@+id/tv_konfirm_password_baru"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edt_password_baru"
+        android:layout_marginTop="7dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Konfirmasi Kata Sandi"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/edt_konfirm_password_baru"
+        style="@style/EditTextGeneral.SecondaryVariant"
+        android:layout_below="@+id/tv_konfirm_password_baru"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/custom_edt_radius_bg"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="Konfirmasi Kata Sandi Baru"
+        android:padding="12dp"
+        android:textSize="12sp"
+        android:inputType="textPassword"/>
+
+    <Button
+        android:id="@+id/btn_masuk"
+        style="@style/ButtonGeneral.PrimaryVariant"
+        android:layout_height="50dp"
+        android:layout_below="@+id/edt_konfirm_password_baru"
+        android:layout_marginTop="126dp"
+        android:background="@drawable/custom_button_bg"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="Ubah"
+        android:textSize="20sp"/>
+
+</RelativeLayout>

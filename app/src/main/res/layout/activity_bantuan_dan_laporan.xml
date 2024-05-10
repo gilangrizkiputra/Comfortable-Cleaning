@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="20dp"
+    tools:context=".Customer.Profile.BantuanDanLaporan.BantuanDanLaporanActivity">
+
+    <ImageView
+        android:id="@+id/iv_logo_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo_login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_logo_login"
+        android:layout_marginTop="42dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/bantuan_laporan"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/tv_nama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_title"
+        android:layout_marginTop="42dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Nama"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/edt_nama"
+        style="@style/EditTextGeneral.SecondaryVariant"
+        android:layout_below="@+id/tv_nama"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/custom_edt_radius_bg"
+        android:fontFamily="@font/poppins_bold"
+        android:hint="Masukkan Nama"
+        android:padding="12dp"
+        android:textSize="12sp"
+        android:inputType="text"/>
+
+    <TextView
+        android:id="@+id/tv_email_bantuan_laporan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edt_nama"
+        android:layout_marginTop="7dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Email"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/edt_email_bantuan_laporan"
+        style="@style/EditTextGeneral.SecondaryVariant"
+        android:layout_below="@+id/tv_email_bantuan_laporan"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/custom_edt_radius_bg"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="Masukkan Email"
+        android:padding="12dp"
+        android:textSize="12sp"
+        android:inputType="textPassword"/>
+
+    <TextView
+        android:id="@+id/tv_no_tep_bantuan_laporan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edt_email_bantuan_laporan"
+        android:layout_marginTop="7dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="No Telephone"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/edt_no_telp_bantuan_laporan"
+        style="@style/EditTextGeneral.SecondaryVariant"
+        android:layout_below="@+id/tv_no_tep_bantuan_laporan"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/custom_edt_radius_bg"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="Masukkan Nomor Telephone"
+        android:padding="12dp"
+        android:textSize="12sp"
+        android:inputType="textPassword"/>
+
+    <TextView
+        android:id="@+id/tv_laporan_bantuan_dan_laporan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_below="@+id/edt_no_telp_bantuan_laporan"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Laporan"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/edt_laporan_bantuan_dan_laporan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_laporan_bantuan_dan_laporan"
+        android:minLines="1"
+        android:maxLines="5"
+        android:inputType="textMultiLine"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/custom_edt_radius_bg"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="Tuliskan Laporan anda disini"
+        android:padding="12dp"
+        android:textSize="12sp"/>
+
+
+
+    <Button
+        android:id="@+id/btn_masuk"
+        style="@style/ButtonGeneral.PrimaryVariant"
+        android:layout_height="50dp"
+        android:layout_below="@+id/edt_laporan_bantuan_dan_laporan"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/custom_button_bg"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="Lapor"
+        android:textSize="16sp"/>
+
+</RelativeLayout>
