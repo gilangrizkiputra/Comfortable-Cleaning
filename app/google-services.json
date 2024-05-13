@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "244601423876",
+    "project_id": "comfortable-cleaning",
+    "storage_bucket": "comfortable-cleaning.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:244601423876:android:f26565b56f149c76174d51",
+        "android_client_info": {
+          "package_name": "com.example.comfortablecleaning_copy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcjAxvUJNW9oRbwOwaVKlb5q7VMp6BYqk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
