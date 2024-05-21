@@ -15,6 +15,7 @@ import com.example.comfortablecleaning_copy.Customer.Beranda.BerandaFragment
 import com.example.comfortablecleaning_copy.MainActivity
 import com.example.comfortablecleaning_copy.R
 import com.example.comfortablecleaning_copy.Register.RegisterActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -23,11 +24,12 @@ import com.google.firebase.database.ValueEventListener
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var edtUsername : EditText
-    private lateinit var edtPassword : EditText
-    private lateinit var btnMasuk : Button
+    private lateinit var edtEmail: EditText
+    private lateinit var edtPassword: EditText
+    private lateinit var btnMasuk: Button
 
-    private lateinit var database : DatabaseReference
+    //private lateinit var database : DatabaseReference
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,13 +41,13 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
-        edtUsername = findViewById(R.id.edt_username)
+        edtEmail = findViewById(R.id.edt_email)
         edtPassword = findViewById(R.id.edt_password)
         btnMasuk = findViewById(R.id.btn_masuk)
 
+        auth = FirebaseAuth.getInstance()
 
-
-        val tvDaftar:TextView = findViewById(R.id.tv_daftar)
+        val tvDaftar: TextView = findViewById(R.id.tv_daftar)
         tvDaftar.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
@@ -54,40 +56,37 @@ class LoginActivity : AppCompatActivity() {
 
 
         btnMasuk.setOnClickListener {
-            val username = edtUsername.text.toString()
+            val email = edtEmail.text.toString()
             val password = edtPassword.text.toString()
 
-            database = FirebaseDatabase.getInstance().getReference("users")
-            if (username.isEmpty() || password.isEmpty()){
-                Toast.makeText(applicationContext, "Username atau Password Salah!", Toast.LENGTH_SHORT).show()
-            }else  {
-                database.addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        if (snapshot.child(username).exists()){
-                            if (snapshot.child(username).child("password").getValue(String::class.java) == password){
-                                Toast.makeText(applicationContext, "Login Berhasil", Toast.LENGTH_SHORT).show()
-                                val masuk = Intent(applicationContext, MainActivity::class.java)
-                                startActivity(masuk)
-                            }
-                        }else {
-                            Toast.makeText(applicationContext, "Data belum terdaftar", Toast.LENGTH_SHORT).show()
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(
+                    applicationContext,
+                    "Email atau password tidak boleh kosong",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        if (auth.currentUser?.isEmailVerified == true) {
+                            Toast.makeText(
+                                applicationContext,
+                                "Login Berhasil",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            startActivity(Intent(applicationContext, MainActivity::class.java))
+                        } else {
+                            edtEmail.setError("Email belum diverifikasi")
                         }
+                    } else {
+                        Toast.makeText(
+                            applicationContext,
+                            "Email atau password salah",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-
-                    override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
-                    }
-
-                })
+                }
             }
         }
-
-        val btnGoogle:Button = findViewById(R.id.btn_google)
-        btnGoogle.setOnClickListener {
-            val intent = Intent(this, BerandaAdminActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-
     }
 }

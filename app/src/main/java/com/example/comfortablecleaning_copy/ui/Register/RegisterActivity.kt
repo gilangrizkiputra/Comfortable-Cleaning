@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.comfortablecleaning_copy.Login.LoginActivity
 import com.example.comfortablecleaning_copy.R
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
@@ -26,6 +27,9 @@ class RegisterActivity : AppCompatActivity() {
     //dekllarasi variabel koneksi firebase
     private lateinit var database : DatabaseReference
 
+    //aunthentification
+    private lateinit var auth : FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -36,13 +40,16 @@ class RegisterActivity : AppCompatActivity() {
             insets
         }
         //panggil database
-        database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://comfortable-cleaning-default-rtdb.firebaseio.com/")
+        //database = FirebaseDatabase.getInstance().getReferenceFromUrl("https://comfortable-cleaning-default-rtdb.firebaseio.com/")
+
+        auth = FirebaseAuth.getInstance()
 
         edtUsernameReg = findViewById(R.id.edt_username_reg)
         edtEmailReg = findViewById(R.id.edt_email_reg)
         edtPasswordReg = findViewById(R.id.edt_kata_sandi_reg)
         edtPasswordKonfirmReg = findViewById(R.id.edt_konfirm_kata_sandi_reg)
         btnDaftar = findViewById(R.id.btn_daftar)
+
 
         val tvLogin: TextView = findViewById(R.id.tv_login)
         tvLogin.setOnClickListener {
@@ -55,24 +62,43 @@ class RegisterActivity : AppCompatActivity() {
             val username = edtUsernameReg.text.toString()
             val email = edtEmailReg.text.toString()
             val password = edtPasswordReg.text.toString()
-            val passwordKonfirmasi = edtUsernameReg.text.toString()
+            val passwordKonfirmasi = edtPasswordKonfirmReg.text.toString()
 
-            if (username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordKonfirmasi.isEmpty()){
-                Toast.makeText(applicationContext, "Ada Data Yang Masih Kosong!!", Toast.LENGTH_SHORT).show()
-            }else{
-                database = FirebaseDatabase.getInstance().getReference("users")
-                database.child(username).child("username").setValue(username)
-                database.child(username).child("email").setValue(email)
-                database.child(username).child("password").setValue(password)
-                database.child(username).child("password_konfirmasi").setValue(passwordKonfirmasi)
-
-                Toast.makeText(applicationContext, "Registrasi Berhasil", Toast.LENGTH_SHORT).show()
-                val register =Intent(applicationContext, LoginActivity::class.java)
-                startActivity(register)
-                finish()
+            if (username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordKonfirmasi.isEmpty()) {
+                Toast.makeText(applicationContext, "Ada Data yang masih kosong", Toast.LENGTH_SHORT).show()
+            } else if (password.length <= 6) {
+                edtPasswordReg.setError("Password harus lebih dari 6 karakter")
+            } else if (!passwordKonfirmasi.equals(password)) {
+                edtPasswordKonfirmReg.setError("Password tidak sama")
+            } else {
+                auth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            auth.currentUser?.sendEmailVerification()?.addOnCompleteListener { verificationTask ->
+                                if (verificationTask.isSuccessful) {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Daftar Berhasil. Silakan verifikasi email Anda.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    startActivity(Intent(applicationContext, LoginActivity::class.java))
+                                } else {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Gagal mengirim email verifikasi.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
+                        } else {
+                            Toast.makeText(
+                                applicationContext,
+                                "Gagal mendaftar. Mohon coba lagi.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
             }
         }
-
-
     }
 }
