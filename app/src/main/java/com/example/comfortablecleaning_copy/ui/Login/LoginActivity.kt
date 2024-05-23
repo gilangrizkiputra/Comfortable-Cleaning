@@ -28,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var edtPassword: EditText
     private lateinit var btnMasuk: Button
 
-    //private lateinit var database : DatabaseReference
+    private lateinit var database : DatabaseReference
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +54,6 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
-
         btnMasuk.setOnClickListener {
             val email = edtEmail.text.toString()
             val password = edtPassword.text.toString()
@@ -68,17 +67,43 @@ class LoginActivity : AppCompatActivity() {
             } else {
                 auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        if (auth.currentUser?.isEmailVerified == true) {
-                            Toast.makeText(
-                                applicationContext,
-                                "Login Berhasil",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            startActivity(Intent(applicationContext, MainActivity::class.java))
-                        } else {
-                            edtEmail.setError("Email belum diverifikasi")
-                        }
+                        val userId = auth.currentUser?.uid
+                        val userReference = FirebaseDatabase.getInstance().getReference("users").child(
+                            userId.toString())
+                        userReference.addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                val role = snapshot.child("role").getValue(String::class.java)
+                                if (role == "admin") {
+                                    // Jika pengguna adalah admin, arahkan mereka ke halaman admin
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Login Berhasil sebagai Admin",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    startActivity(Intent(applicationContext, BerandaAdminActivity::class.java))
+                                } else {
+                                    // Jika pengguna bukan admin, arahkan mereka ke halaman biasa
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Login Berhasil sebagai User",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    startActivity(Intent(applicationContext, MainActivity::class.java))
+                                }
+                                finish()
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                // Penanganan kesalahan
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Error: ${error.message}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        })
                     } else {
+                        // Penanganan kesalahan saat masuk
                         Toast.makeText(
                             applicationContext,
                             "Email atau password salah",
@@ -88,5 +113,40 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
+
+//        btnMasuk.setOnClickListener {
+//            val email = edtEmail.text.toString()
+//            val password = edtPassword.text.toString()
+//
+//            if (email.isEmpty() || password.isEmpty()) {
+//                Toast.makeText(
+//                    applicationContext,
+//                    "Email atau password tidak boleh kosong",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            } else {
+//                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+//                    if (task.isSuccessful) {
+//                        if (auth.currentUser?.isEmailVerified == true) {
+//                            Toast.makeText(
+//                                applicationContext,
+//                                "Login Berhasil",
+//                                Toast.LENGTH_SHORT
+//                            ).show()
+//                            startActivity(Intent(applicationContext, MainActivity::class.java))
+//                            finish()
+//                        } else {
+//                            edtEmail.setError("Email belum diverifikasi")
+//                        }
+//                    } else {
+//                        Toast.makeText(
+//                            applicationContext,
+//                            "Email atau password salah",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                    }
+//                }
+//            }
+//        }
     }
 }

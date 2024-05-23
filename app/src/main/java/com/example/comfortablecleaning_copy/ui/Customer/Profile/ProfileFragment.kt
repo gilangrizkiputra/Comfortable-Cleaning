@@ -47,6 +47,7 @@ class ProfileFragment : Fragment() {
         btnKeluar.setOnClickListener {
             val intent = Intent(activity, LoginActivity::class.java)
             startActivity(intent)
+            requireActivity().finish()
         }
 
         return view

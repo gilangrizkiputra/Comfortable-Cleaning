@@ -14,6 +14,7 @@ import com.example.comfortablecleaning_copy.Onboarding.Screen.OnboardingScreen1
 import com.example.comfortablecleaning_copy.Onboarding.Screen.OnboardingScreen2
 import com.example.comfortablecleaning_copy.Onboarding.Screen.OnboardingScreen3
 import com.example.comfortablecleaning_copy.R
+import com.example.comfortablecleaning_copy.Register.RegisterActivity
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 
 class OnboardingActivity : AppCompatActivity() {
@@ -46,7 +47,7 @@ class OnboardingActivity : AppCompatActivity() {
             if (nextIndex < adapter.itemCount) {
                 viewPager.setCurrentItem(nextIndex, true)
             } else {
-                val intent = Intent(this, LoginActivity::class.java)
+                val intent = Intent(this, RegisterActivity::class.java)
                 startActivity(intent)
                 finish()
             }

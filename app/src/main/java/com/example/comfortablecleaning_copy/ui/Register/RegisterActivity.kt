@@ -57,7 +57,6 @@ class RegisterActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
         btnDaftar.setOnClickListener {
             val username = edtUsernameReg.text.toString()
             val email = edtEmailReg.text.toString()
@@ -71,26 +70,55 @@ class RegisterActivity : AppCompatActivity() {
             } else if (!passwordKonfirmasi.equals(password)) {
                 edtPasswordKonfirmReg.setError("Password tidak sama")
             } else {
+                // Membuat pengguna di Firebase Authentication
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
-                            auth.currentUser?.sendEmailVerification()?.addOnCompleteListener { verificationTask ->
-                                if (verificationTask.isSuccessful) {
-                                    Toast.makeText(
-                                        applicationContext,
-                                        "Daftar Berhasil. Silakan verifikasi email Anda.",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                    startActivity(Intent(applicationContext, LoginActivity::class.java))
-                                } else {
-                                    Toast.makeText(
-                                        applicationContext,
-                                        "Gagal mengirim email verifikasi.",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
+                            // Pengguna berhasil dibuat
+                            val currentUser = auth.currentUser
+                            currentUser?.let { user ->
+                                // Mengambil ID pengguna dari autentikasi
+                                val userId = user.uid
+                                // Menyimpan informasi pengguna ke Realtime Database
+                                val userReference = FirebaseDatabase.getInstance().getReference("users").child(userId)
+                                val userData = HashMap<String, String>()
+                                userData["username"] = username
+                                userData["email"] = email
+                                userData["role"] = "user" // Menetapkan peran pengguna secara otomatis
+                                userReference.setValue(userData)
+                                    .addOnCompleteListener { databaseTask ->
+                                        if (databaseTask.isSuccessful) {
+                                            // Berhasil menyimpan data pengguna ke Realtime Database
+                                            // Kirim email verifikasi
+                                            user.sendEmailVerification().addOnCompleteListener { verificationTask ->
+                                                if (verificationTask.isSuccessful) {
+                                                    Toast.makeText(
+                                                        applicationContext,
+                                                        "Daftar Berhasil. Silakan verifikasi email Anda, cek di folder Spam",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
+                                                    startActivity(Intent(applicationContext, LoginActivity::class.java))
+                                                    finish()
+                                                } else {
+                                                    Toast.makeText(
+                                                        applicationContext,
+                                                        "Gagal mengirim email verifikasi.",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
+                                                }
+                                            }
+                                        } else {
+                                            // Gagal menyimpan data pengguna ke Realtime Database
+                                            Toast.makeText(
+                                                applicationContext,
+                                                "Gagal mendaftar. Mohon coba lagi.",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        }
+                                    }
                             }
                         } else {
+                            // Gagal membuat pengguna di Firebase Authentication
                             Toast.makeText(
                                 applicationContext,
                                 "Gagal mendaftar. Mohon coba lagi.",
@@ -100,5 +128,48 @@ class RegisterActivity : AppCompatActivity() {
                     }
             }
         }
+
+//        btnDaftar.setOnClickListener {
+//            val username = edtUsernameReg.text.toString()
+//            val email = edtEmailReg.text.toString()
+//            val password = edtPasswordReg.text.toString()
+//            val passwordKonfirmasi = edtPasswordKonfirmReg.text.toString()
+//
+//            if (username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordKonfirmasi.isEmpty()) {
+//                Toast.makeText(applicationContext, "Ada Data yang masih kosong", Toast.LENGTH_SHORT).show()
+//            } else if (password.length <= 6) {
+//                edtPasswordReg.setError("Password harus lebih dari 6 karakter")
+//            } else if (!passwordKonfirmasi.equals(password)) {
+//                edtPasswordKonfirmReg.setError("Password tidak sama")
+//            } else {
+//                auth.createUserWithEmailAndPassword(email, password)
+//                    .addOnCompleteListener { task ->
+//                        if (task.isSuccessful) {
+//                            auth.currentUser?.sendEmailVerification()?.addOnCompleteListener { verificationTask ->
+//                                if (verificationTask.isSuccessful) {
+//                                    Toast.makeText(
+//                                        applicationContext,
+//                                        "Daftar Berhasil. Silakan verifikasi email Anda.",
+//                                        Toast.LENGTH_SHORT
+//                                    ).show()
+//                                    startActivity(Intent(applicationContext, LoginActivity::class.java))
+//                                } else {
+//                                    Toast.makeText(
+//                                        applicationContext,
+//                                        "Gagal mengirim email verifikasi.",
+//                                        Toast.LENGTH_SHORT
+//                                    ).show()
+//                                }
+//                            }
+//                        } else {
+//                            Toast.makeText(
+//                                applicationContext,
+//                                "Gagal mendaftar. Mohon coba lagi.",
+//                                Toast.LENGTH_SHORT
+//                            ).show()
+//                        }
+//                    }
+//            }
+//        }
     }
 }
