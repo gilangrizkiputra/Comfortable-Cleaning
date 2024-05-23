@@ -1,6 +1,8 @@
 package com.example.comfortablecleaning_copy.Login
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -28,8 +30,13 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var edtPassword: EditText
     private lateinit var btnMasuk: Button
 
-    private lateinit var database : DatabaseReference
     private lateinit var auth: FirebaseAuth
+    private lateinit var sharedPreferences: SharedPreferences
+
+    companion object {
+        const val REQUEST_LOGOUT = 123
+        const val RESULT_LOGOUT = 124
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +46,15 @@ class LoginActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        sharedPreferences = getSharedPreferences("login_status", Context.MODE_PRIVATE)
+
+        // Cek apakah pengguna sudah login sebelumnya
+        if (isLoggedIn()) {
+            // Jika sudah login, arahkan ke halaman sesuai peran
+            redirectToAppropriateScreen()
+            return
         }
 
         edtEmail = findViewById(R.id.edt_email)
@@ -68,13 +84,17 @@ class LoginActivity : AppCompatActivity() {
                 auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val userId = auth.currentUser?.uid
-                        val userReference = FirebaseDatabase.getInstance().getReference("users").child(
-                            userId.toString())
+                        val userReference =
+                            FirebaseDatabase.getInstance().getReference("users").child(userId.toString())
                         userReference.addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onDataChange(snapshot: DataSnapshot) {
                                 val role = snapshot.child("role").getValue(String::class.java)
+
+                                // Menyimpan status login setelah berhasil login
+                                saveLoginStatus(role)
+
+                                // Redirect ke halaman sesuai peran
                                 if (role == "admin") {
-                                    // Jika pengguna adalah admin, arahkan mereka ke halaman admin
                                     Toast.makeText(
                                         applicationContext,
                                         "Login Berhasil sebagai Admin",
@@ -82,7 +102,6 @@ class LoginActivity : AppCompatActivity() {
                                     ).show()
                                     startActivity(Intent(applicationContext, BerandaAdminActivity::class.java))
                                 } else {
-                                    // Jika pengguna bukan admin, arahkan mereka ke halaman biasa
                                     Toast.makeText(
                                         applicationContext,
                                         "Login Berhasil sebagai User",
@@ -94,7 +113,6 @@ class LoginActivity : AppCompatActivity() {
                             }
 
                             override fun onCancelled(error: DatabaseError) {
-                                // Penanganan kesalahan
                                 Toast.makeText(
                                     applicationContext,
                                     "Error: ${error.message}",
@@ -103,7 +121,6 @@ class LoginActivity : AppCompatActivity() {
                             }
                         })
                     } else {
-                        // Penanganan kesalahan saat masuk
                         Toast.makeText(
                             applicationContext,
                             "Email atau password salah",
@@ -113,40 +130,55 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
+    }
 
-//        btnMasuk.setOnClickListener {
-//            val email = edtEmail.text.toString()
-//            val password = edtPassword.text.toString()
-//
-//            if (email.isEmpty() || password.isEmpty()) {
-//                Toast.makeText(
-//                    applicationContext,
-//                    "Email atau password tidak boleh kosong",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            } else {
-//                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-//                    if (task.isSuccessful) {
-//                        if (auth.currentUser?.isEmailVerified == true) {
-//                            Toast.makeText(
-//                                applicationContext,
-//                                "Login Berhasil",
-//                                Toast.LENGTH_SHORT
-//                            ).show()
-//                            startActivity(Intent(applicationContext, MainActivity::class.java))
-//                            finish()
-//                        } else {
-//                            edtEmail.setError("Email belum diverifikasi")
-//                        }
-//                    } else {
-//                        Toast.makeText(
-//                            applicationContext,
-//                            "Email atau password salah",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//                    }
-//                }
-//            }
-//        }
+    // Fungsi untuk menyimpan status login ke SharedPreferences
+    private fun saveLoginStatus(role: String?) {
+        with(sharedPreferences.edit()) {
+            putBoolean("isLoggedIn", true)
+            putString("userRole", role)
+            apply()
+        }
+    }
+
+    // Fungsi untuk mengecek apakah pengguna sudah login
+    private fun isLoggedIn(): Boolean {
+        return sharedPreferences.getBoolean("isLoggedIn", false)
+    }
+
+    // Fungsi untuk mengarahkan pengguna ke halaman yang sesuai berdasarkan status login
+    private fun redirectToAppropriateScreen() {
+        val role = sharedPreferences.getString("userRole", "")
+
+        if (role == "admin") {
+            startActivity(Intent(applicationContext, BerandaAdminActivity::class.java))
+        } else {
+            startActivity(Intent(applicationContext, MainActivity::class.java))
+        }
+        finish()
+    }
+
+    // Fungsi untuk logout
+    private fun logout() {
+        with(sharedPreferences.edit()) {
+            remove("isLoggedIn")
+            remove("userRole")
+            apply()
+        }
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        setResult(RESULT_LOGOUT)
+        finish()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_LOGOUT && resultCode == RESULT_LOGOUT) {
+            // Pengguna telah logout, tidak perlu melakukan apa-apa
+        }
     }
 }

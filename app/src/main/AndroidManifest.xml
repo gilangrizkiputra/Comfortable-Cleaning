@@ -13,9 +13,6 @@
         android:theme="@style/Theme.ComfortableCleaningCopy"
         tools:targetApi="31">
         <activity
-            android:name=".DropDownActivity"
-            android:exported="false" />
-        <activity
             android:name=".Admin.Profile.ProfileAdminActivity"
             android:exported="false" />
         <activity
@@ -28,7 +25,7 @@
             android:name=".Admin.ListTerdaftar.ListTerdaftarActivity"
             android:exported="false" />
         <activity
-            android:name=".Admin.DetailPesananAdmin.DetailPesananActivity"
+            android:name=".Admin.DetailPesananAdmin.DetailPesananAdminActivity"
             android:exported="false" />
         <activity
             android:name=".Admin.TambahCleaning.TambahCleaningActivity"

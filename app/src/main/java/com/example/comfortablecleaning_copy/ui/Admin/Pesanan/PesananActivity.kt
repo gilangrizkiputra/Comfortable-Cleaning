@@ -6,15 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.viewpager2.widget.ViewPager2
-import com.example.comfortablecleaning_copy.Customer.Pesanan.Adaptor.FragmentPageAdaptor
 import com.example.comfortablecleaning_copy.R
 import com.google.android.material.tabs.TabLayout
 
 class PesananActivity : AppCompatActivity() {
 
-    private lateinit var vpPesananSelesaiAdmin: ViewPager2
+    private lateinit var vpPesananAdmin: ViewPager2
     private lateinit var tabLayout: TabLayout
-    private lateinit var adapter: FragmentPageAdaptor
+    private lateinit var adapter: AdaptorPesananAdminFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,14 +26,14 @@ class PesananActivity : AppCompatActivity() {
         }
 
         tabLayout = findViewById(R.id.tablayout_pesanan_admin)
-        vpPesananSelesaiAdmin = findViewById(R.id.vp_pesananAdmin)
-        adapter = FragmentPageAdaptor(supportFragmentManager, lifecycle)
-        vpPesananSelesaiAdmin.adapter = adapter
+        vpPesananAdmin = findViewById(R.id.vp_pesananAdmin)
+        adapter = AdaptorPesananAdminFragment(supportFragmentManager, lifecycle)
+        vpPesananAdmin.adapter = adapter
 
         tabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab != null){
-                    vpPesananSelesaiAdmin.currentItem = tab.position
+                    vpPesananAdmin.currentItem = tab.position
                 }
             }
 
@@ -45,7 +44,7 @@ class PesananActivity : AppCompatActivity() {
             }
         })
 
-        vpPesananSelesaiAdmin.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+        vpPesananAdmin.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 tabLayout.selectTab(tabLayout.getTabAt(position))

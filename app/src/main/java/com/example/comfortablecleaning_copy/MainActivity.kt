@@ -1,5 +1,8 @@
 package com.example.comfortablecleaning_copy
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -10,10 +13,13 @@ import androidx.fragment.app.replace
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.comfortablecleaning_copy.Admin.BerandaAdmin.BerandaAdminActivity
 import com.example.comfortablecleaning_copy.Customer.Beranda.BerandaFragment
 import com.example.comfortablecleaning_copy.Customer.Pesanan.PesananFragment
 import com.example.comfortablecleaning_copy.Customer.Profile.ProfileFragment
+import com.example.comfortablecleaning_copy.Login.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,7 +36,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         bottomNavigationView = findViewById(R.id.btm_nav_bar)
-
         bottomNavigationView.setOnItemSelectedListener {menuItem ->
             when(menuItem.itemId){
                 R.id.berandaFragment ->{
@@ -54,4 +59,5 @@ class MainActivity : AppCompatActivity() {
     private fun replaceFragment(fragment: Fragment){
         supportFragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit()
     }
+
 }

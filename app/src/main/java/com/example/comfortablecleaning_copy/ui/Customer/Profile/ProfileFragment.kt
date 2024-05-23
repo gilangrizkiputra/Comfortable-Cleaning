@@ -1,6 +1,8 @@
 package com.example.comfortablecleaning_copy.Customer.Profile
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,22 +14,26 @@ import com.example.comfortablecleaning_copy.Customer.Profile.BantuanDanLaporan.B
 import com.example.comfortablecleaning_copy.Customer.Profile.GantiKataSandi.GantiKataSandiActivity
 import com.example.comfortablecleaning_copy.Customer.Profile.TentangKami.TentangKamiActivity
 import com.example.comfortablecleaning_copy.Login.LoginActivity
+import com.example.comfortablecleaning_copy.MainActivity
 import com.example.comfortablecleaning_copy.R
 
 class ProfileFragment : Fragment() {
+
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        val ubahFotoProfile : LinearLayout = view.findViewById(R.id.ubah_foto_profil)
-        val gantiKataSandi : LinearLayout = view.findViewById(R.id.ganti_kata_sandi)
-        val tentangKami : LinearLayout = view.findViewById(R.id.tentang_kami)
-        val BantuanDanLaporan : LinearLayout = view.findViewById(R.id.bantuan_dan_laporan)
-        val btnKeluar : Button = view.findViewById(R.id.btn_keluar)
+        sharedPreferences = requireActivity().getSharedPreferences("login_status", Context.MODE_PRIVATE)
+
+        val ubahFotoProfile: LinearLayout = view.findViewById(R.id.ubah_foto_profil)
+        val gantiKataSandi: LinearLayout = view.findViewById(R.id.ganti_kata_sandi)
+        val tentangKami: LinearLayout = view.findViewById(R.id.tentang_kami)
+        val BantuanDanLaporan: LinearLayout = view.findViewById(R.id.bantuan_dan_laporan)
+        val btnKeluar: Button = view.findViewById(R.id.btn_keluar)
 
         gantiKataSandi.setOnClickListener {
             val intent = Intent(activity, GantiKataSandiActivity::class.java)
@@ -45,11 +51,19 @@ class ProfileFragment : Fragment() {
         }
 
         btnKeluar.setOnClickListener {
-            val intent = Intent(activity, LoginActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish()
+            logout()
         }
 
         return view
+    }
+
+    private fun logout() {
+        with(sharedPreferences.edit()) {
+            remove("isLoggedIn")
+            remove("userRole")
+            apply()
+        }
+        startActivity(Intent(requireActivity(), LoginActivity::class.java))
+        requireActivity().finish()
     }
 }

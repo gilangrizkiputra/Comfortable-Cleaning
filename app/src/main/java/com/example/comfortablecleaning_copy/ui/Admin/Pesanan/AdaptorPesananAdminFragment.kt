@@ -16,7 +16,7 @@ class AdaptorPesananAdminFragment(fragmentManager: FragmentManager, lifecycle: L
         return if (position == 0) {
             PesananAdminFragment()
         }else {
-            PesananSelesaiAdminFragment()
+            PesananAdminFragment()
         }
     }
 }

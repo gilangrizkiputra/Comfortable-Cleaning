@@ -1,6 +1,8 @@
 package com.example.comfortablecleaning_copy.Admin.BerandaAdmin
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
 import android.widget.LinearLayout
@@ -13,12 +15,13 @@ import com.example.comfortablecleaning_copy.Admin.ListTerdaftar.ListTerdaftarAct
 import com.example.comfortablecleaning_copy.Admin.Pesanan.PesananActivity
 import com.example.comfortablecleaning_copy.Admin.Profile.ProfileAdminActivity
 import com.example.comfortablecleaning_copy.Admin.TambahCleaning.TambahCleaningActivity
-import com.example.comfortablecleaning_copy.Customer.Beranda.BerandaFragment
-import com.example.comfortablecleaning_copy.Customer.Profile.ProfileFragment
 import com.example.comfortablecleaning_copy.Login.LoginActivity
 import com.example.comfortablecleaning_copy.R
 
 class BerandaAdminActivity : AppCompatActivity() {
+
+    private lateinit var sharedPreferences: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -29,13 +32,15 @@ class BerandaAdminActivity : AppCompatActivity() {
             insets
         }
 
-        val pesananAdmin : LinearLayout = findViewById(R.id.pesanan_admin)
-        val pesananSelesaiAdmin : LinearLayout = findViewById(R.id.pesanan_selesai_admin)
-        val tambahCleaning : CardView = findViewById(R.id.cv_tambah_cleaning)
-        val listTerdaftar : CardView = findViewById(R.id.cv_list_terdaftar)
-        val repaint : CardView = findViewById(R.id.cv_repaint)
-        val profileAdmin : CardView = findViewById(R.id.cv_profile_admin)
-        val btnKeluarAdmin : Button = findViewById(R.id.btn_keluar_admin)
+        sharedPreferences = getSharedPreferences("login_status", Context.MODE_PRIVATE)
+
+        val pesananAdmin: LinearLayout = findViewById(R.id.pesanan_admin)
+        val pesananSelesaiAdmin: LinearLayout = findViewById(R.id.pesanan_selesai_admin)
+        val tambahCleaning: CardView = findViewById(R.id.cv_tambah_cleaning)
+        val listTerdaftar: CardView = findViewById(R.id.cv_list_terdaftar)
+        val repaint: CardView = findViewById(R.id.cv_repaint)
+        val profileAdmin: CardView = findViewById(R.id.cv_profile_admin)
+        val btnKeluarAdmin: Button = findViewById(R.id.btn_keluar_admin)
 
         pesananAdmin.setOnClickListener {
             val intent = Intent(this, PesananActivity::class.java)
@@ -63,11 +68,17 @@ class BerandaAdminActivity : AppCompatActivity() {
         }
 
         btnKeluarAdmin.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
+            logout()
         }
+    }
 
-
+    private fun logout() {
+        with(sharedPreferences.edit()) {
+            remove("isLoggedIn")
+            remove("userRole")
+            apply()
+        }
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
     }
 }
