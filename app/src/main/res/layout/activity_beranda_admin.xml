@@ -126,7 +126,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tambah Cleaning"
+                android:text="Tambah Item"
                 android:fontFamily="@font/poppins_semi_bold"
                 android:textSize="14sp"
                 android:textColor="@color/black"
@@ -170,44 +170,10 @@
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_repaint"
-        android:layout_below="@+id/cv_list_terdaftar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="10dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginHorizontal="20dp"
-        app:cardElevation="2dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp"
-            android:gravity="center_vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_profile_admin"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Repaint"
-                android:fontFamily="@font/poppins_semi_bold"
-                android:textSize="14sp"
-                android:textColor="@color/black"
-                android:layout_marginStart="10dp"/>
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_profile_admin"
-        android:layout_below="@+id/cv_repaint"
+        android:layout_below="@+id/cv_list_terdaftar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/white"

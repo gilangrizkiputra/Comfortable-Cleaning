@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/list_item_admin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="20dp">
+        <LinearLayout
+            android:background="@drawable/custom_cornerradius_top"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_list_judul_jenis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fast Cleaning"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:textSize="19sp"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:orientation="horizontal"
+            android:background="@drawable/custom_corneradius_buttom"
+            android:gravity="center_vertical"
+            android:paddingStart="8dp">
+
+            <ImageView
+                android:id="@+id/iv_list_produk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/image_tipe_cleaning_shoes"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="10dp">
+
+                <TextView
+                    android:id="@+id/tv_list_nama_produk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="London"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="19sp"/>
+
+                <TextView
+                    android:id="@+id/tv_list_harga_produk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rp. 30.000"
+                    android:fontFamily="@font/poppins_semi_bold"
+                    android:textSize="22sp"
+                    android:textColor="@color/primaryBlue"/>
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/ib_list_hapus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/ic_delete_list_cleaning_admin"
+                android:layout_marginEnd="20dp"/>
+            <ImageButton
+                android:id="@+id/ib_list_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/ic_edit_list_terdaftar"
+                android:layout_marginEnd="20dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

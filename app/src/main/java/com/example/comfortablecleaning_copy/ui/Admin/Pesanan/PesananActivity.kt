@@ -11,10 +11,6 @@ import com.google.android.material.tabs.TabLayout
 
 class PesananActivity : AppCompatActivity() {
 
-    private lateinit var vpPesananAdmin: ViewPager2
-    private lateinit var tabLayout: TabLayout
-    private lateinit var adapter: AdaptorPesananAdminFragment
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,31 +20,5 @@ class PesananActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        tabLayout = findViewById(R.id.tablayout_pesanan_admin)
-        vpPesananAdmin = findViewById(R.id.vp_pesananAdmin)
-        adapter = AdaptorPesananAdminFragment(supportFragmentManager, lifecycle)
-        vpPesananAdmin.adapter = adapter
-
-        tabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                if (tab != null){
-                    vpPesananAdmin.currentItem = tab.position
-                }
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-        })
-
-        vpPesananAdmin.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                tabLayout.selectTab(tabLayout.getTabAt(position))
-            }
-        })
     }
 }

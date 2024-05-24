@@ -14,9 +14,10 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.comfortablecleaning_copy.Admin.ListTerdaftar.ListTerdaftarActivity
 import com.example.comfortablecleaning_copy.Admin.Pesanan.PesananActivity
 import com.example.comfortablecleaning_copy.Admin.Profile.ProfileAdminActivity
-import com.example.comfortablecleaning_copy.Admin.TambahCleaning.TambahCleaningActivity
+import com.example.comfortablecleaning_copy.Admin.TambahCleaning.TambahItemActivity
 import com.example.comfortablecleaning_copy.Login.LoginActivity
 import com.example.comfortablecleaning_copy.R
+import com.example.comfortablecleaning_copy.ui.Admin.Pesanan.PesananSelesaiActivity
 
 class BerandaAdminActivity : AppCompatActivity() {
 
@@ -38,33 +39,37 @@ class BerandaAdminActivity : AppCompatActivity() {
         val pesananSelesaiAdmin: LinearLayout = findViewById(R.id.pesanan_selesai_admin)
         val tambahCleaning: CardView = findViewById(R.id.cv_tambah_cleaning)
         val listTerdaftar: CardView = findViewById(R.id.cv_list_terdaftar)
-        val repaint: CardView = findViewById(R.id.cv_repaint)
         val profileAdmin: CardView = findViewById(R.id.cv_profile_admin)
         val btnKeluarAdmin: Button = findViewById(R.id.btn_keluar_admin)
 
         pesananAdmin.setOnClickListener {
             val intent = Intent(this, PesananActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         pesananSelesaiAdmin.setOnClickListener {
-            val intent = Intent(this, PesananActivity::class.java)
+            val intent = Intent(this, PesananSelesaiActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         tambahCleaning.setOnClickListener {
-            val intent = Intent(this, TambahCleaningActivity::class.java)
+            val intent = Intent(this, TambahItemActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         listTerdaftar.setOnClickListener {
             val intent = Intent(this, ListTerdaftarActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         profileAdmin.setOnClickListener {
             val intent = Intent(this, ProfileAdminActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         btnKeluarAdmin.setOnClickListener {
