@@ -94,7 +94,7 @@
         android:inputType="textPassword"/>
 
     <Button
-        android:id="@+id/btn_masuk"
+        android:id="@+id/btn_ubah_password"
         style="@style/ButtonGeneral.PrimaryVariant"
         android:layout_height="50dp"
         android:layout_below="@+id/edt_konfirm_password_baru"
