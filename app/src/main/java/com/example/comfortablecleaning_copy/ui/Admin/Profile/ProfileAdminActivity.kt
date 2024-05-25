@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -60,14 +59,18 @@ class ProfileAdminActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
         val userId = currentUser?.uid ?: ""
         database = FirebaseDatabase.getInstance().getReference("users/$userId")
-
         database.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
+                    val namaAdmin = snapshot.child("username").value.toString()
+                    tvUsernameAdmin.text = namaAdmin
+                    val emailAdmin = snapshot.child("email").value.toString()
+                    tvEmailAdmin.text = emailAdmin
                     if (snapshot.hasChild("profileImageUrl")) {
                         val profileImageUrl = snapshot.child("profileImageUrl").value.toString()
                         if (profileImageUrl.isNotEmpty()) {
-                            Glide.with(this@ProfileAdminActivity).load(profileImageUrl).into(imageViewProfile)
+                            Glide.with(this@ProfileAdminActivity).load(profileImageUrl)
+                                .into(imageViewProfile)
                         } else {
                             imageViewProfile.setImageResource(R.drawable.image_profil)
                         }
@@ -75,7 +78,6 @@ class ProfileAdminActivity : AppCompatActivity() {
                         imageViewProfile.setImageResource(R.drawable.image_profil)
                     }
                 }
-
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -90,7 +92,7 @@ class ProfileAdminActivity : AppCompatActivity() {
         val gantiKataSandi: LinearLayout = findViewById(R.id.ganti_kata_sandi)
         val tentangKami: LinearLayout = findViewById(R.id.tentang_kami)
         val bantuanDanLaporan: LinearLayout = findViewById(R.id.bantuan_dan_laporan)
-        val btnKembaliBeranda : Button = findViewById(R.id.btn_kembali_beranda_admin)
+        val btnKembaliBeranda: Button = findViewById(R.id.btn_kembali_beranda_admin)
 
         gantiKataSandi.setOnClickListener {
             val intent = Intent(this, GantiKataSandiActivity::class.java)
@@ -150,18 +152,20 @@ class ProfileAdminActivity : AppCompatActivity() {
 
             val storageRef = FirebaseStorage.getInstance().getReference("users/$userId.jpg")
 
-            // Setelah berhasil mengunggah gambar profil ke Firebase Storage
             storageRef.putFile(fileUri!!)
                 .addOnSuccessListener { taskSnapshot ->
                     progressDialog.dismiss()
                     Toast.makeText(applicationContext, "Berhasil mengupload gambar profil", Toast.LENGTH_SHORT).show()
 
-                    // Ambil URL gambar yang diunggah
                     storageRef.downloadUrl.addOnSuccessListener { uri ->
                         val downloadUrl = uri.toString()
-
-                        // Simpan URL gambar ke database Firebase
                         database.child("profileImageUrl").setValue(downloadUrl)
+                            .addOnSuccessListener {
+                                Log.d("ProfileImageUrl", "URL gambar berhasil disimpan di Realtime Database")
+                            }
+                            .addOnFailureListener { e ->
+                                Log.e("ProfileImageUrl", "Gagal menyimpan URL gambar di Realtime Database: ${e.message}")
+                            }
                     }
                 }
                 .addOnFailureListener { exception ->
@@ -171,7 +175,6 @@ class ProfileAdminActivity : AppCompatActivity() {
                 .addOnCompleteListener {
                     progressDialog.dismiss()
                 }
-
         }
     }
 }

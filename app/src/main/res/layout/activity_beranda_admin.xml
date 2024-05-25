@@ -38,10 +38,12 @@
                 android:textSize="14sp"/>
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/image_user_home"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_gambar_profile_beranda_admin"
+            android:layout_width="59dp"
+            android:layout_height="59dp"
+            android:src="@drawable/image_user_home" />
+
     </LinearLayout>
 
     <LinearLayout

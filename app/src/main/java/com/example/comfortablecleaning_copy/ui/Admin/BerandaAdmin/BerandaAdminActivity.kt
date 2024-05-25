@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.bumptech.glide.Glide
 import com.example.comfortablecleaning_copy.Admin.ListTerdaftar.ListTerdaftarActivity
 import com.example.comfortablecleaning_copy.Admin.Pesanan.PesananActivity
 import com.example.comfortablecleaning_copy.Admin.Profile.ProfileAdminActivity
@@ -32,6 +34,7 @@ class BerandaAdminActivity : AppCompatActivity() {
     private lateinit var tvNamaAdmin: TextView
     private lateinit var database: DatabaseReference
     private lateinit var auth: FirebaseAuth
+    private lateinit var ivGambarProfilAdmin : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +48,7 @@ class BerandaAdminActivity : AppCompatActivity() {
 
         sharedPreferences = getSharedPreferences("login_status", Context.MODE_PRIVATE)
         tvNamaAdmin = findViewById(R.id.tv_nama_admin)
+        ivGambarProfilAdmin = findViewById(R.id.iv_gambar_profile_beranda_admin)
 
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
@@ -53,9 +57,22 @@ class BerandaAdminActivity : AppCompatActivity() {
 
         database.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()){
+                if (snapshot.exists()) {
                     val namaAdmin = snapshot.child("username").value.toString()
                     tvNamaAdmin.text = namaAdmin
+
+                    // Mendapatkan profileImageUrl dari Realtime Database
+                    val profileImageUrl = snapshot.child("profileImageUrl").value.toString()
+
+                    // Menampilkan gambar profil menggunakan Glide atau library lain
+                    if (profileImageUrl.isNotEmpty()) {
+                        Glide.with(this@BerandaAdminActivity)
+                            .load(profileImageUrl)
+                            .into(ivGambarProfilAdmin)
+                    } else {
+                        // Tampilkan gambar default jika tidak ada gambar profil
+                        ivGambarProfilAdmin.setImageResource(R.drawable.image_profil)
+                    }
                 }
             }
 
