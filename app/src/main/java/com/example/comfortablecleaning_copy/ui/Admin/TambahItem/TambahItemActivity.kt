@@ -29,6 +29,7 @@ class TambahItemActivity : AppCompatActivity() {
     private lateinit var edtjenis: EditText
     private lateinit var edtNamaProduk: EditText
     private lateinit var edtHarga: EditText
+    private lateinit var edtEstimasi: EditText
     private lateinit var edtDeskripsi: EditText
     private lateinit var btnTambahkan: Button
     private lateinit var ivBackAdmin: ImageView
@@ -52,6 +53,7 @@ class TambahItemActivity : AppCompatActivity() {
         edtjenis = findViewById(R.id.edt_jenis)
         edtNamaProduk = findViewById(R.id.edt_nama_cleaning)
         edtHarga = findViewById(R.id.edt_harga)
+        edtEstimasi = findViewById(R.id.edt_estimasi)
         edtDeskripsi = findViewById(R.id.edt_deskripsi)
         btnTambahkan = findViewById(R.id.btn_tambah)
         ivBackAdmin = findViewById(R.id.iv_back_admin)
@@ -65,20 +67,35 @@ class TambahItemActivity : AppCompatActivity() {
             val jenis = edtjenis.text.toString()
             val namaProduk = edtNamaProduk.text.toString()
             val harga = edtHarga.text.toString()
+            val estimasi = edtEstimasi.text.toString()
             val deskripsi = edtDeskripsi.text.toString()
 
             if (jenis.isEmpty() || namaProduk.isEmpty() || harga.isEmpty() || deskripsi.isEmpty() || fileUri == null) {
                 Toast.makeText(applicationContext, "Ada Data Yang Masih Kosong!!", Toast.LENGTH_SHORT).show()
                 Toast.makeText(applicationContext, "Tolong pilih gambar jika ingin mengupload", Toast.LENGTH_SHORT).show()
             } else {
-                database = FirebaseDatabase.getInstance().getReference("admin")
-                database.child(namaProduk).child("jenis").setValue(jenis)
-                database.child(namaProduk).child("namaProduk").setValue(namaProduk)
-                database.child(namaProduk).child("harga").setValue(harga)
-                database.child(namaProduk).child("deskripsi").setValue(deskripsi)
-                uploadImage()
 
-                Toast.makeText(applicationContext, "Berhasil menambahkan Item", Toast.LENGTH_SHORT).show()
+                //id random
+                val idProduk = UUID.randomUUID().toString()
+
+                val produkMap = HashMap<String, Any>()
+                produkMap["idProduk"] = idProduk
+                produkMap["jenis"] = jenis
+                produkMap["namaProduk"] = namaProduk
+                produkMap["harga"] = harga
+                produkMap["estimasi"] = estimasi
+                produkMap["deskripsi"] = deskripsi
+
+                database = FirebaseDatabase.getInstance().getReference("admin").child(idProduk)
+                database.setValue(produkMap)
+                    .addOnSuccessListener {
+                        uploadImage(idProduk)
+                        Toast.makeText(applicationContext, "Berhasil menambahkan Item", Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(applicationContext, "Gagal menambahkan Item: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+
             }
         }
 
@@ -113,7 +130,7 @@ class TambahItemActivity : AppCompatActivity() {
         startActivityForResult(Intent.createChooser(intent, "Pilih gambar untuk di upload"), 0)
     }
 
-    private fun uploadImage() {
+    private fun uploadImage(idProduk: String) {
         if (fileUri != null) {
             val progressDialog = ProgressDialog(this)
             progressDialog.setTitle("Uploading Image...")
@@ -121,15 +138,23 @@ class TambahItemActivity : AppCompatActivity() {
             progressDialog.setCancelable(false)
             progressDialog.show()
 
-            val namaProduk = edtNamaProduk.text.toString()
+            val storageRef = FirebaseStorage.getInstance().getReference("admin/$idProduk.jpg")
 
-            val ref: StorageReference = FirebaseStorage.getInstance().getReference()
-                .child("$namaProduk.jpg")
-
-            ref.putFile(fileUri!!)
-                .addOnSuccessListener {
+            storageRef.putFile(fileUri!!)
+                .addOnSuccessListener { taskSnapshot ->
                     progressDialog.dismiss()
                     Toast.makeText(applicationContext, "Berhasil mengupload gambar", Toast.LENGTH_SHORT).show()
+
+                    storageRef.downloadUrl.addOnSuccessListener { uri ->
+                        val downloadUrl = uri.toString()
+                        database.child("imageUrl").setValue(downloadUrl)
+                            .addOnSuccessListener {
+                                Log.d("imageUrl", "URL gambar berhasil disimpan di Realtime Database admin")
+                            }
+                            .addOnFailureListener { e ->
+                                Log.e("imageUrl", "Gagal menyimpan URL gambar di Realtime Database admin: ${e.message}")
+                            }
+                    }
                 }
                 .addOnFailureListener { exception ->
                     progressDialog.dismiss()

@@ -100,11 +100,33 @@
         android:inputType="text"/>
 
     <TextView
+        android:id="@+id/tv_estimasi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edt_harga"
+        android:layout_marginTop="7dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Estimasi"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/edt_estimasi"
+        style="@style/EditTextGeneral.SecondaryVariant"
+        android:layout_below="@+id/tv_estimasi"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/custom_edt_radius_bg"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="Masukkan estimasi (x : 2 - 3 Hari)"
+        android:padding="12dp"
+        android:textSize="12sp"
+        android:inputType="text"/>
+
+    <TextView
         android:id="@+id/tv_deskripsi_cleaning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
-        android:layout_below="@+id/edt_harga"
+        android:layout_below="@+id/edt_estimasi"
         android:fontFamily="@font/poppins_regular"
         android:text="Deskripsi"
         android:textSize="12sp" />

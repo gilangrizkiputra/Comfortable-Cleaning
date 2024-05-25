@@ -16,6 +16,7 @@ import com.example.comfortablecleaning_copy.R
 import com.example.comfortablecleaning_copy.ui.Entitas.Admin
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import java.util.UUID
 
 class AdaptorListTerdaftarAdmin(private val mlist: List<Admin>, private val context: Context) :
     RecyclerView.Adapter<AdaptorListTerdaftarAdmin.MyViewHolder>() {
@@ -34,22 +35,28 @@ class AdaptorListTerdaftarAdmin(private val mlist: List<Admin>, private val cont
         holder.tvHargaProduk.text = "Rp. ${item.harga}"
 
         holder.btnHapus.setOnClickListener {
-            item.namaProduk?.let { it1 -> database.child(it1).setValue(null) }
+            item.idProduk?.let { it1 -> database.child(it1).setValue(null) }
             Toast.makeText(context, "Item berhasil di hapus", Toast.LENGTH_SHORT).show()
         }
 
         holder.btnEdit.setOnClickListener {
             val item = mlist.getOrNull(position)
             if (item != null) {
+                val idProduk = item.idProduk
                 val jenis = item.jenis
                 val namaProduk = item.namaProduk
                 val harga = item.harga
+                val estimasi = item.estimasi
                 val deskripsi = item.deskripsi
+                val imageUrl = item.imageUrl
                 val edit = Intent(context, EditDataCleaningActivity::class.java)
+                edit.putExtra("idProduk", idProduk)
                 edit.putExtra("jenis", jenis)
                 edit.putExtra("namaProduk", namaProduk)
                 edit.putExtra("harga", harga)
+                edit.putExtra("estimasi", estimasi)
                 edit.putExtra("deskripsi", deskripsi)
+                edit.putExtra("imageUrl", imageUrl)
                 context.startActivity(edit)
             } else {
                 Toast.makeText(context, "Terjadi kesalahan saat mengambil data", Toast.LENGTH_SHORT)
