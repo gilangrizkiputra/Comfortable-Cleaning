@@ -1,4 +1,4 @@
-package com.example.comfortablecleaning_copy.ui.Admin.Entitas
+package com.example.comfortablecleaning_copy.ui.Entitas
 
 data class Admin (
     var jenis: String? = null,

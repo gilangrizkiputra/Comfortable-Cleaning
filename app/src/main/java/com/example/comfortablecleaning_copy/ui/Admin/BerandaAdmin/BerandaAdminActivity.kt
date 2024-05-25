@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -18,10 +19,19 @@ import com.example.comfortablecleaning_copy.Admin.TambahCleaning.TambahItemActiv
 import com.example.comfortablecleaning_copy.Login.LoginActivity
 import com.example.comfortablecleaning_copy.R
 import com.example.comfortablecleaning_copy.ui.Admin.Pesanan.PesananSelesaiActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class BerandaAdminActivity : AppCompatActivity() {
 
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var tvNamaAdmin: TextView
+    private lateinit var database: DatabaseReference
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +44,25 @@ class BerandaAdminActivity : AppCompatActivity() {
         }
 
         sharedPreferences = getSharedPreferences("login_status", Context.MODE_PRIVATE)
+        tvNamaAdmin = findViewById(R.id.tv_nama_admin)
+
+        auth = FirebaseAuth.getInstance()
+        val currentUser = auth.currentUser
+        val userId = currentUser?.uid ?: ""
+        database = FirebaseDatabase.getInstance().getReference("users/$userId")
+
+        database.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+                    val namaAdmin = snapshot.child("username").value.toString()
+                    tvNamaAdmin.text = namaAdmin
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
 
         val pesananAdmin: LinearLayout = findViewById(R.id.pesanan_admin)
         val pesananSelesaiAdmin: LinearLayout = findViewById(R.id.pesanan_selesai_admin)
@@ -45,31 +74,26 @@ class BerandaAdminActivity : AppCompatActivity() {
         pesananAdmin.setOnClickListener {
             val intent = Intent(this, PesananActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
         pesananSelesaiAdmin.setOnClickListener {
             val intent = Intent(this, PesananSelesaiActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
         tambahCleaning.setOnClickListener {
             val intent = Intent(this, TambahItemActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
         listTerdaftar.setOnClickListener {
             val intent = Intent(this, ListTerdaftarActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
         profileAdmin.setOnClickListener {
             val intent = Intent(this, ProfileAdminActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
         btnKeluarAdmin.setOnClickListener {

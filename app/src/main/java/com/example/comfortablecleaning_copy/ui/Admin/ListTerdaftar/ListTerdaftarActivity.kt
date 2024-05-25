@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.comfortablecleaning_copy.Admin.BerandaAdmin.BerandaAdminActivity
 import com.example.comfortablecleaning_copy.R
-import com.example.comfortablecleaning_copy.ui.Admin.Entitas.Admin
+import com.example.comfortablecleaning_copy.ui.Entitas.Admin
 import com.example.comfortablecleaning_copy.ui.Admin.ListTerdaftar.AdaptorListTerdaftarAdmin
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -70,6 +70,7 @@ class ListTerdaftarActivity : AppCompatActivity() {
                     admin.jenis = item.child("jenis").getValue(String::class.java)
                     admin.namaProduk = item.child("namaProduk").getValue(String::class.java)
                     admin.harga = item.child("harga").getValue(String::class.java)
+                    admin.deskripsi = item.child("deskripsi").getValue(String::class.java)
                     arrayList.add(admin)
                 }
 

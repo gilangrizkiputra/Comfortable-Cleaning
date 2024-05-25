@@ -13,7 +13,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.comfortablecleaning_copy.Admin.EditData.Cleaning.EditDataCleaningActivity
 import com.example.comfortablecleaning_copy.R
-import com.example.comfortablecleaning_copy.ui.Admin.Entitas.Admin
+import com.example.comfortablecleaning_copy.ui.Entitas.Admin
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 

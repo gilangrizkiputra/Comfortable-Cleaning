@@ -85,7 +85,7 @@ class EditDataCleaningActivity : AppCompatActivity() {
         }
 
         ivBackAdmin.setOnClickListener {
-            val intent = Intent(this, ListTerdaftarActivity::class.java)
+            val intent = Intent(this, ListTerdaftarActivity ::class.java)
             startActivity(intent)
             finish()
         }
