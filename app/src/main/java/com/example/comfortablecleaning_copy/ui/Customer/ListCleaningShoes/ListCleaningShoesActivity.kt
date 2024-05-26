@@ -63,9 +63,9 @@ class ListCleaningShoesActivity : AppCompatActivity() {
         adaptorListCleaningShoes = AdaptorListCleaningShoes(arrayList, this)
         adaptorListCleaningShoes.setOnItemClickListener(object : AdaptorListCleaningShoes.OnItemClickListener {
             override fun onItemClick(position: Int) {
-                // Buka DetailCleaningActivity dengan data yang dipilih
+                val selectedData = arrayList[position]
                 val intent = Intent(this@ListCleaningShoesActivity, DetailCleaningActivity::class.java)
-                intent.putExtra("selectedData", arrayList[position])
+                intent.putExtra("selectedData", selectedData)
                 startActivity(intent)
             }
         })

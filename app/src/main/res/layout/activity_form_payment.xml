@@ -103,7 +103,7 @@
                     android:textSize="12sp" />
 
                 <EditText
-                    android:id="@+id/edt_nama"
+                    android:id="@+id/edt_nama_pemesan"
                     style="@style/EditTextGeneral.SecondaryVariant"
                     android:layout_marginTop="4dp"
                     android:background="@drawable/custom_edt_radius_bg"
@@ -123,7 +123,7 @@
                     android:textSize="12sp" />
 
                 <EditText
-                    android:id="@+id/edt_no_telp"
+                    android:id="@+id/edt_no_telp_pemesan"
                     style="@style/EditTextGeneral.SecondaryVariant"
                     android:layout_marginTop="4dp"
                     android:background="@drawable/custom_edt_radius_bg"
@@ -143,10 +143,12 @@
                     android:textSize="12sp" />
 
                 <RadioGroup
+                    android:id="@+id/radioGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <RadioButton
+                        android:id="@+id/rb_bektim"
                         android:layout_width="wrap_content"
                         android:layout_height="25dp"
                         android:text="Bekasi Timur"
@@ -155,6 +157,7 @@
                         android:textColor="@color/black"/>
 
                     <RadioButton
+                        android:id="@+id/rd_diluar_daerah"
                         android:layout_width="wrap_content"
                         android:layout_height="25dp"
                         android:layout_marginLeft="16sp"
@@ -174,7 +177,7 @@
                     android:textSize="12sp" />
 
                 <EditText
-                    android:id="@+id/edt_alamat"
+                    android:id="@+id/edt_alamat_pemesan"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:minLines="1"
@@ -196,7 +199,7 @@
                     android:textSize="12sp" />
 
                 <EditText
-                    android:id="@+id/edt_catatan"
+                    android:id="@+id/edt_catatan_pemesan"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:minLines="1"
@@ -232,10 +235,11 @@
                             android:textColor="@color/black"/>
 
                         <TextView
+                            android:id="@+id/detail_pesanan"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:text="@string/detail_pesanan_form"
+                            android:text=""
                             android:fontFamily="@font/poppins_regular"
                             android:textSize="11sp"
                             android:textColor="@color/black"

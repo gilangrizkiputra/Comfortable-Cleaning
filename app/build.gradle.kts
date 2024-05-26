@@ -62,7 +62,9 @@ dependencies {
 
     implementation("com.tbuonomo:dotsindicator:5.0")
     implementation("de.hdodenhof:circleimageview:3.1.0")
+
     implementation ("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.9.0")
 
     implementation ("com.github.denzcoskun:ImageSlideshow:0.1.2")
 

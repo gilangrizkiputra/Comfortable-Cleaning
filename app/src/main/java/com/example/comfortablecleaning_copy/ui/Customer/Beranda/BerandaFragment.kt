@@ -44,6 +44,8 @@ class BerandaFragment : Fragment() {
         binding = FragmentBerandaBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        val fragmentContext = requireContext()
+
         // button to layout activity
         val cleaningKategori = view.findViewById<RelativeLayout>(R.id.cleaning_kategori)
         cleaningKategori.setOnClickListener {
@@ -59,6 +61,7 @@ class BerandaFragment : Fragment() {
         val userId = currentUser?.uid ?: ""
         database = FirebaseDatabase.getInstance().getReference("users/$userId")
 
+
         database.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
@@ -70,22 +73,17 @@ class BerandaFragment : Fragment() {
 
                     // Menampilkan gambar profil menggunakan Glide atau library lain
                     if (profileImageUrl.isNotEmpty()) {
-                        Glide.with(this@BerandaFragment)
-                            .load(profileImageUrl)
-                            .into(ivGambarProfilBeranda)
+                        Glide.with(fragmentContext).load(profileImageUrl).into(ivGambarProfilBeranda)
                     } else {
                         // Tampilkan gambar default jika tidak ada gambar profil
                         ivGambarProfilBeranda.setImageResource(R.drawable.image_profil)
                     }
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
         })
-
-
         return view
     }
 
@@ -111,7 +109,7 @@ class BerandaFragment : Fragment() {
                 } else {
                     val itemPosition = imageList[position]
                     val itemMessage = "Selected image $position"
-                    Toast.makeText(requireContext(), itemMessage, Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireContext(), itemMessage, Toast.LENGTH_SHORT).show()
                 }
             }
         })
