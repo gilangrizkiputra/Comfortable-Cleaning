@@ -32,9 +32,9 @@ class BerandaAdminActivity : AppCompatActivity() {
 
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var tvNamaAdmin: TextView
+    private lateinit var ivGambarProfilAdmin : ImageView
     private lateinit var database: DatabaseReference
     private lateinit var auth: FirebaseAuth
-    private lateinit var ivGambarProfilAdmin : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
