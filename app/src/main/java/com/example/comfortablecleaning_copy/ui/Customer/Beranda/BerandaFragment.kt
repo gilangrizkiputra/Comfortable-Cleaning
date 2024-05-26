@@ -109,7 +109,7 @@ class BerandaFragment : Fragment() {
                 } else {
                     val itemPosition = imageList[position]
                     val itemMessage = "Selected image $position"
-                    //Toast.makeText(requireContext(), itemMessage, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), itemMessage, Toast.LENGTH_SHORT).show()
                 }
             }
         })

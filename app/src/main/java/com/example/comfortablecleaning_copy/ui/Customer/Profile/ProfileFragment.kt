@@ -43,8 +43,12 @@ class ProfileFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private var selectedFileUri: Uri? = null
     private lateinit var imageViewProfile: ImageView
-
     private lateinit var sharedPreferences: SharedPreferences
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedPreferences = requireActivity().getSharedPreferences("login_status", Context.MODE_PRIVATE)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,34 +68,11 @@ class ProfileFragment : Fragment() {
         database = FirebaseDatabase.getInstance().getReference("users/$userId")
 
         // Mengambil data pengguna dari Realtime Database
-        database.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    val username = snapshot.child("username").value.toString()
-                    tvUsername.text = username
-                    val email = snapshot.child("email").value.toString()
-                    tvEmail.text = email
-
-                    // Mengambil URL gambar profil dari Realtime Database
-                    val profileImageUrl = snapshot.child("profileImageUrl").value.toString()
-                    if (profileImageUrl.isNotEmpty()) {
-                        Glide.with(this@ProfileFragment).load(profileImageUrl).into(imageViewProfile)
-                    } else {
-                        imageViewProfile.setImageResource(R.drawable.image_profil)
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Tangani error jika terjadi
-            }
-        })
+        loadUserData()
 
         ubahFotoProfil.setOnClickListener {
             openGallery()
         }
-
-        sharedPreferences = requireActivity().getSharedPreferences("login_status", Context.MODE_PRIVATE)
 
         val gantiKataSandi: LinearLayout = view.findViewById(R.id.ganti_kata_sandi)
         val tentangKami: LinearLayout = view.findViewById(R.id.tentang_kami)
@@ -118,6 +99,31 @@ class ProfileFragment : Fragment() {
         }
 
         return view
+    }
+
+    private fun loadUserData() {
+        database.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val username = snapshot.child("username").value.toString()
+                    tvUsername.text = username
+                    val email = snapshot.child("email").value.toString()
+                    tvEmail.text = email
+
+                    // Mengambil URL gambar profil dari Realtime Database
+                    val profileImageUrl = snapshot.child("profileImageUrl").value.toString()
+                    if (profileImageUrl.isNotEmpty()) {
+                        Glide.with(this@ProfileFragment).load(profileImageUrl).into(imageViewProfile)
+                    } else {
+                        imageViewProfile.setImageResource(R.drawable.image_profil)
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Tangani error jika terjadi
+            }
+        })
     }
 
     private fun logout() {
@@ -186,9 +192,6 @@ class ProfileFragment : Fragment() {
                 .addOnFailureListener { exception ->
                     progressDialog.dismiss()
                     Toast.makeText(activity, "Gagal mengupload gambar profil: ${exception.message}", Toast.LENGTH_SHORT).show()
-                }
-                .addOnCompleteListener {
-                    progressDialog.dismiss()
                 }
         }
     }

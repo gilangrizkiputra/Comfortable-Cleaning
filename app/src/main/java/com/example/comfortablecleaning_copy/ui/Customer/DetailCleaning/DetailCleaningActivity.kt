@@ -4,6 +4,7 @@ import android.content.Intent
 import android.media.Image
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -29,7 +30,7 @@ class DetailCleaningActivity : AppCompatActivity() {
     private lateinit var iv2: ImageView
     private lateinit var iv3: ImageView
 
-//    image viewpager
+    //image viewpager
     private lateinit var viewPager2: ViewPager2
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,12 +50,6 @@ class DetailCleaningActivity : AppCompatActivity() {
             finish()
         }
 
-        val btnPesanCleaning : Button = findViewById(R.id.btn_pesan)
-        btnPesanCleaning.setOnClickListener {
-            val intent = Intent(this, FormPaymentActivity::class.java)
-            startActivity(intent)
-        }
-
         tvHargaItem = findViewById(R.id.tv_harga_item)
         tvEstimasiDetail = findViewById(R.id.tv_estimasi_detail)
         tvNamaProdukItem = findViewById(R.id.tv_nama_produk_item)
@@ -66,6 +61,16 @@ class DetailCleaningActivity : AppCompatActivity() {
             tvEstimasiDetail.text = "Estimasi ${selectedData.estimasi}"
             tvNamaProdukItem.text = selectedData.namaProduk
             tvDeskripsiDetail.text = selectedData.deskripsi
+        }
+
+
+        val btnPesanCleaning : Button = findViewById(R.id.btn_pesan)
+        btnPesanCleaning.setOnClickListener {
+            val intent = Intent(this, FormPaymentActivity::class.java)
+            intent.putExtra("selectedData", selectedData)
+            intent.putExtra("namaProduk", selectedData?.namaProduk)
+            intent.putExtra("hargaProduk", selectedData?.harga)
+            startActivity(intent)
         }
 
         //menampilkan gambar image

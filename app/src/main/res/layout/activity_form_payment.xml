@@ -32,6 +32,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
+                        android:id="@+id/tv_nama_produk_item_form"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="4"
@@ -57,6 +58,7 @@
                     android:gravity="center">
 
                     <TextView
+                        android:id="@+id/tv_harga_item_form"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Rp. 60.000"
@@ -66,12 +68,14 @@
                         android:layout_weight="1"/>
 
                     <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btn_kurang"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/backgroundColor"
-                        android:src="@drawable/button_minus_order"/>
+                        android:src="@drawable/button_minus_order" />
 
                     <TextView
+                        android:id="@+id/tv_qty"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1"
@@ -81,6 +85,7 @@
                         android:textColor="@color/black"/>
 
                     <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/btn_tambah"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/backgroundColor"
@@ -154,7 +159,8 @@
                         android:text="Bekasi Timur"
                         android:fontFamily="@font/poppins_regular"
                         android:textSize="12sp"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        android:checked="false"/>
 
                     <RadioButton
                         android:id="@+id/rd_diluar_daerah"
@@ -164,7 +170,8 @@
                         android:text="Di Luar Daerah Bekasi Timur"
                         android:fontFamily="@font/poppins_regular"
                         android:textSize="12sp"
-                        android:textColor="@color/black"/>
+                        android:textColor="@color/black"
+                        android:checked="false"/>
                 </RadioGroup>
 
                 <TextView
