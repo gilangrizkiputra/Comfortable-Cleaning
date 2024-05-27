@@ -21,6 +21,7 @@ import com.example.comfortablecleaning_copy.Admin.TambahCleaning.TambahItemActiv
 import com.example.comfortablecleaning_copy.Login.LoginActivity
 import com.example.comfortablecleaning_copy.R
 import com.example.comfortablecleaning_copy.ui.Admin.Pesanan.PesananSelesaiActivity
+import com.example.comfortablecleaning_copy.ui.Entitas.Admin
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -88,8 +89,12 @@ class BerandaAdminActivity : AppCompatActivity() {
         val profileAdmin: CardView = findViewById(R.id.cv_profile_admin)
         val btnKeluarAdmin: Button = findViewById(R.id.btn_keluar_admin)
 
+        val selectedData = intent.getParcelableExtra<Admin>("selectedData")
+
         pesananAdmin.setOnClickListener {
             val intent = Intent(this, PesananActivity::class.java)
+            intent.putExtra("selectedData", selectedData)
+            intent.putExtra("jenis", selectedData?.jenis)
             startActivity(intent)
         }
 

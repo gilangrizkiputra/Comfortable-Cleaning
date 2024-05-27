@@ -1,14 +1,17 @@
 package com.example.comfortablecleaning_copy.ui.Entitas
 
+import com.google.android.gms.common.api.Status
+
 data class Pesanan(
-    val idPesanan: String? = null,
-    val namaPemesan: String? = null,
-    val namaProduk: String? = null,
-    val quantity: Int? = null,
-    val noTelpPemesan: String? = null,
-    val daerahPemesan: String? = null,
-    val alamatPemesan: String? = null,
-    val catatanPemesan: String? = null,
-    val ongkir: Int? = null,
-    val totalHarga: Int? = null
+    var idPesanan: String? = null,
+    var namaPemesan: String? = null,
+    var namaProduk: String? = null,
+    var quantity: Int? = null,
+    var noTelpPemesan: String? = null,
+    var daerahPemesan: String? = null,
+    var alamatPemesan: String? = null,
+    var catatanPemesan: String? = null,
+    var ongkir: Int? = null,
+    var totalHarga: Int? = null,
+    var status: String = "Menunggu"
 )
