@@ -70,7 +70,7 @@ class ListTerdaftarActivity : AppCompatActivity() {
                     admin.idProduk = item.child("idProduk").getValue(String::class.java)
                     admin.jenis = item.child("jenis").getValue(String::class.java)
                     admin.namaProduk = item.child("namaProduk").getValue(String::class.java)
-                    admin.harga = item.child("harga").getValue(String::class.java)
+                    admin.harga = item.child("harga").getValue(Int::class.java)
                     admin.estimasi = item.child("estimasi").getValue(String::class.java)
                     admin.deskripsi = item.child("deskripsi").getValue(String::class.java)
                     admin.imageUrl = item.child("imageUrl").getValue(String::class.java)

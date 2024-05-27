@@ -21,7 +21,6 @@ import com.example.comfortablecleaning_copy.R
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import java.util.UUID
 
 class TambahItemActivity : AppCompatActivity() {
@@ -66,36 +65,39 @@ class TambahItemActivity : AppCompatActivity() {
         btnTambahkan.setOnClickListener {
             val jenis = edtjenis.text.toString()
             val namaProduk = edtNamaProduk.text.toString()
-            val harga = edtHarga.text.toString()
+            val hargaText = edtHarga.text.toString()
             val estimasi = edtEstimasi.text.toString()
             val deskripsi = edtDeskripsi.text.toString()
 
-            if (jenis.isEmpty() || namaProduk.isEmpty() || harga.isEmpty() || deskripsi.isEmpty() || fileUri == null) {
+            if (jenis.isEmpty() || namaProduk.isEmpty() || hargaText.isEmpty() || deskripsi.isEmpty() || fileUri == null) {
                 Toast.makeText(applicationContext, "Ada Data Yang Masih Kosong!!", Toast.LENGTH_SHORT).show()
                 Toast.makeText(applicationContext, "Tolong pilih gambar jika ingin mengupload", Toast.LENGTH_SHORT).show()
             } else {
+                val harga: Int? = hargaText.toIntOrNull()
+                if (harga == null) {
+                    Toast.makeText(applicationContext, "Harga harus berupa angka", Toast.LENGTH_SHORT).show()
+                } else {
+                    // id random
+                    val idProduk = UUID.randomUUID().toString()
 
-                //id random
-                val idProduk = UUID.randomUUID().toString()
+                    val produkMap = HashMap<String, Any>()
+                    produkMap["idProduk"] = idProduk
+                    produkMap["jenis"] = jenis
+                    produkMap["namaProduk"] = namaProduk
+                    produkMap["harga"] = harga
+                    produkMap["estimasi"] = estimasi
+                    produkMap["deskripsi"] = deskripsi
 
-                val produkMap = HashMap<String, Any>()
-                produkMap["idProduk"] = idProduk
-                produkMap["jenis"] = jenis
-                produkMap["namaProduk"] = namaProduk
-                produkMap["harga"] = harga
-                produkMap["estimasi"] = estimasi
-                produkMap["deskripsi"] = deskripsi
-
-                database = FirebaseDatabase.getInstance().getReference("admin").child(idProduk)
-                database.setValue(produkMap)
-                    .addOnSuccessListener {
-                        uploadImage(idProduk)
-                        Toast.makeText(applicationContext, "Berhasil menambahkan Item", Toast.LENGTH_SHORT).show()
-                    }
-                    .addOnFailureListener { e ->
-                        Toast.makeText(applicationContext, "Gagal menambahkan Item: ${e.message}", Toast.LENGTH_SHORT).show()
-                    }
-
+                    database = FirebaseDatabase.getInstance().getReference("admin").child(idProduk)
+                    database.setValue(produkMap)
+                        .addOnSuccessListener {
+                            uploadImage(idProduk)
+                            Toast.makeText(applicationContext, "Berhasil menambahkan Item", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(applicationContext, "Gagal menambahkan Item: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
+                }
             }
         }
 
