@@ -23,11 +23,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_pesanan_user"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="670dp"
         android:layout_below="@+id/judul_pesanan"
         tools:listitem="@layout/item_pesanan_cleaning"/>
-
-
-
-
 </RelativeLayout>

@@ -173,8 +173,10 @@ class FormPaymentActivity : AppCompatActivity() {
         database.child(orderId).setValue(pesanan).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Toast.makeText(this, "Pesanan anda berhasil", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, MainActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                val intent = Intent(this, MainActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    putExtra("navigateTo", "BerandaFragment") // Pass the fragment name
+                }
                 startActivity(intent)
                 finish()
             } else {
