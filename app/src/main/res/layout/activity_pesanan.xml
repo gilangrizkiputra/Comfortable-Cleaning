@@ -32,54 +32,19 @@
             android:gravity="center" />
     </LinearLayout>
 
-    <View
-        android:id="@+id/line1"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/grey"
+    <ScrollView
+        android:id="@+id/sv_pesanan_selesai"
         android:layout_below="@+id/judul_pesanan"
-        android:layout_marginTop="20dp"/>
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tablayout_pesanan_admin"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:background="@color/backgroundColor"
-        app:tabSelectedTextColor="@color/black"
-        app:tabTextColor="@color/grey"
-        app:tabIndicator="@drawable/tab_indicator_blue"
-        app:tabIndicatorColor="@null"
-        app:tabIndicatorGravity="bottom"
-        app:tabGravity="fill"
-        app:tabMode="fixed"
-        app:tabRippleColor="@null"
-        app:tabIndicatorFullWidth="false"
-        android:layout_below="@+id/line1">
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pesanan" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_pesanan_admin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_pesanan_admin"/>
+    </ScrollView>
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Selesai" />
-
-    </com.google.android.material.tabs.TabLayout>
-
-    <View
-        android:id="@id/line2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/grey"
-        android:layout_below="@+id/tablayout_pesanan_admin"/>
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vp_pesananAdmin"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/line2"
-        android:layout_marginTop="20dp"/>
 
 </RelativeLayout>

@@ -20,262 +20,41 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"/>
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/judul_list_terdaftar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_back_list_terdaftar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="List Terdaftar"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:textSize="19sp"
+            android:textColor="@color/black"
+            android:layout_marginStart="90dp"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_list_terdaftar_admin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="20dp">
+        android:layout_below="@+id/judul_list_terdaftar"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"
+        tools:listitem="@layout/item_list_terdaftar"
+        />
 
-        <LinearLayout
-            android:id="@+id/judul_list_terdaftar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:gravity="center_vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_back" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="List Terdaftar"
-                android:fontFamily="@font/poppins_semi_bold"
-                android:textSize="19sp"
-                android:textColor="@color/black"
-                android:layout_marginStart="78dp"
-                android:gravity="center" />
-        </LinearLayout>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/judul_list_terdaftar"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/item1"
-                    android:layout_below="@+id/judul_cleaning"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="20dp">
-                    <LinearLayout
-                        android:background="@drawable/custom_cornerradius_top"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Fast Cleaning"
-                            android:fontFamily="@font/poppins_semi_bold"
-                            android:textSize="19sp"
-                            android:textColor="@color/white"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="96dp"
-                        android:orientation="horizontal"
-                        android:background="@drawable/custom_corneradius_buttom"
-                        android:gravity="center_vertical"
-                        android:paddingStart="8dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/image_tipe_cleaning_shoes"/>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:layout_marginStart="10dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="London"
-                                android:fontFamily="@font/poppins_regular"
-                                android:textSize="19sp"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Rp. 30.000"
-                                android:fontFamily="@font/poppins_semi_bold"
-                                android:textSize="22sp"
-                                android:textColor="@color/primaryBlue"/>
-                        </LinearLayout>
-
-                        <ImageButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@null"
-                            android:src="@drawable/ic_delete_list_cleaning_admin"
-                            android:layout_marginEnd="20dp"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/item2"
-                    android:layout_below="@+id/judul_cleaning"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="20dp">
-                    <LinearLayout
-                        android:background="@drawable/custom_cornerradius_top"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Fast Cleaning"
-                            android:fontFamily="@font/poppins_semi_bold"
-                            android:textSize="19sp"
-                            android:textColor="@color/white"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="96dp"
-                        android:orientation="horizontal"
-                        android:background="@drawable/custom_corneradius_buttom"
-                        android:gravity="center_vertical"
-                        android:paddingStart="8dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/image_tipe_cleaning_shoes"/>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:layout_marginStart="10dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="London"
-                                android:fontFamily="@font/poppins_regular"
-                                android:textSize="19sp"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Rp. 30.000"
-                                android:fontFamily="@font/poppins_semi_bold"
-                                android:textSize="22sp"
-                                android:textColor="@color/primaryBlue"/>
-                        </LinearLayout>
-
-                        <ImageButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@null"
-                            android:src="@drawable/ic_delete_list_cleaning_admin"
-                            android:layout_marginEnd="20dp"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/item3"
-                    android:layout_below="@+id/judul_cleaning"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="20dp">
-                    <LinearLayout
-                        android:background="@drawable/custom_cornerradius_top"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:gravity="center">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Fast Cleaning"
-                            android:fontFamily="@font/poppins_semi_bold"
-                            android:textSize="19sp"
-                            android:textColor="@color/white"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="96dp"
-                        android:orientation="horizontal"
-                        android:background="@drawable/custom_corneradius_buttom"
-                        android:gravity="center_vertical"
-                        android:paddingStart="8dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/image_tipe_cleaning_shoes"/>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:layout_marginStart="10dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="London"
-                                android:fontFamily="@font/poppins_regular"
-                                android:textSize="19sp"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Rp. 30.000"
-                                android:fontFamily="@font/poppins_semi_bold"
-                                android:textSize="22sp"
-                                android:textColor="@color/primaryBlue"/>
-                        </LinearLayout>
-
-                        <ImageButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@null"
-                            android:src="@drawable/ic_delete_list_cleaning_admin"
-                            android:layout_marginEnd="20dp"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-
-        </ScrollView>
-
-    </RelativeLayout>
 
 </RelativeLayout>
