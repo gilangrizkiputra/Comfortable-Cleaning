@@ -1,5 +1,6 @@
 package com.example.comfortablecleaning_copy.Customer.Pesanan
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.example.comfortablecleaning_copy.Customer.DetailCleaning.DetailCleaningActivity
+import com.example.comfortablecleaning_copy.Customer.Pesanan.DetailPesanan.DetailPesananActivity
 import com.example.comfortablecleaning_copy.R
 import com.example.comfortablecleaning_copy.ui.Customer.Pesanan.Adaptor.AdaptorPesanan
 import com.example.comfortablecleaning_copy.ui.Entitas.Admin
@@ -47,6 +50,16 @@ class PesananFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             itemAnimator = DefaultItemAnimator()
         }
+
+        adaptorPesanan = AdaptorPesanan(arrayList, requireContext())
+        adaptorPesanan.setOnItemClickListener(object : AdaptorPesanan.OnItemClickListener{
+            override fun onItemClick(position: Int) {
+                val selectedData = arrayList[position]
+                val intent = Intent(requireContext(), DetailPesananActivity::class.java)
+                intent.putExtra("PESANAN_DATA", selectedData)
+                startActivity(intent)
+            }
+        })
 
         showData()
 

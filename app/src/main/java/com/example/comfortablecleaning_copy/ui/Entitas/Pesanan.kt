@@ -1,7 +1,10 @@
 package com.example.comfortablecleaning_copy.ui.Entitas
 
+import android.os.Parcelable
 import com.google.android.gms.common.api.Status
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Pesanan(
     var idPesanan: String? = null,
     var namaPemesan: String? = null,
@@ -13,5 +16,7 @@ data class Pesanan(
     var catatanPemesan: String? = null,
     var ongkir: Int? = null,
     var totalHarga: Int? = null,
-    var status: String = "Menunggu"
-)
+    var status: String = "Menunggu",
+    var jenis: String? = null,
+    var statusPembayaran : String = ""
+) : Parcelable

@@ -52,8 +52,7 @@ class AdaptorListCleaningShoes(private val mlist: List<Admin>, private val conte
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         val tvJudulCleaning: TextView = itemView.findViewById(R.id.tv_list_judul_cleaning)
-        val tvNamaProdukCleaning: TextView =
-            itemView.findViewById(R.id.tv_list_nama_produk_cleaning)
+        val tvNamaProdukCleaning: TextView = itemView.findViewById(R.id.tv_list_nama_produk_cleaning)
         val tvHargaProdukCleaning: TextView = itemView.findViewById(R.id.tv_list_harga_cleaning)
         val tvEstimasiCleaning: TextView = itemView.findViewById(R.id.tv_estimasi_cleaning)
         val ivProduk: ImageView = itemView.findViewById(R.id.iv_list_cleaning)

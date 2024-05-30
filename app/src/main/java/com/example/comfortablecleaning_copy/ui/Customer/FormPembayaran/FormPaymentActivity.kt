@@ -51,6 +51,8 @@ class FormPaymentActivity : AppCompatActivity() {
         btnBayarSekarang.setOnClickListener {
             saveOrderToDatabase()
         }
+
+
     }
 
     private fun initializeViews() {
@@ -167,7 +169,11 @@ class FormPaymentActivity : AppCompatActivity() {
             catatanPemesan = catatanPemesan,
             ongkir = ongkir,
             totalHarga = totalHarga,
-            status = "menunggu" // Set default status
+            status = "menunggu", // Set default status
+            jenis = selectedData?.jenis,
+            statusPembayaran = ""
+
+
         )
 
         database.child(orderId).setValue(pesanan).addOnCompleteListener { task ->
