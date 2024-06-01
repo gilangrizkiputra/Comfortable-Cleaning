@@ -11,7 +11,7 @@ class ImageViewPagerAdaptor(private val images:List<Int>): RecyclerView.Adapter<
 
     inner class ViewPagerViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-        val  imageView: ImageView = itemView.findViewById(R.id.imageView)
+        val  imageView: ImageView = itemView.findViewById(R.id.imageView2)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewPagerAdaptor.ViewPagerViewHolder {

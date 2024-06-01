@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.comfortablecleaning_copy.MainActivity
@@ -80,6 +81,9 @@ class FormPaymentActivity : AppCompatActivity() {
         detailPesanan = findViewById(R.id.detail_pesanan)
         tvNamaProdukItemForm = findViewById(R.id.tv_nama_produk_item_form)
         tvHargaItemForm = findViewById(R.id.tv_harga_item_form)
+
+        // Hide detailPesanan TextView initially
+        detailPesanan.visibility = View.GONE
     }
 
     private fun getOngkir(): Int {
@@ -106,6 +110,9 @@ class FormPaymentActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
+                if (s?.isNotEmpty() == true) {
+                    detailPesanan.visibility = View.VISIBLE
+                }
                 updateDetailPesanan()
             }
         }
@@ -116,9 +123,11 @@ class FormPaymentActivity : AppCompatActivity() {
         edtCatatan.addTextChangedListener(textWatcher)
 
         radioGroup.setOnCheckedChangeListener { _, _ ->
+            detailPesanan.visibility = View.VISIBLE
             updateDetailPesanan()
         }
     }
+
 
     private fun updateDetailPesanan() {
         val quantity = qty
