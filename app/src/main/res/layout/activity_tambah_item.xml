@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    tools:context=".Admin.TambahCleaning.TambahItemActivity">
+
+
+    <LinearLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_back_admin"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Tambahkan Item!"
+            android:textSize="23sp"/>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_jenis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Jenis (Cleaning/Repaint)"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/edt_jenis"
+        style="@style/EditTextGeneral.SecondaryVariant"
+        android:layout_below="@+id/tv_jenis"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/custom_edt_radius_bg"
+        android:fontFamily="@font/poppins_bold"
+        android:hint="Masukkan jenis item"
+        android:padding="12dp"
+        android:textSize="12sp"
+        android:inputType="text"/>
+
+
+    <TextView
+        android:id="@+id/tv_nama_cleaning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edt_jenis"
+        android:layout_marginTop="7dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Nama Cleaning/Repaint"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/edt_nama_cleaning"
+        style="@style/EditTextGeneral.SecondaryVariant"
+        android:layout_below="@+id/tv_nama_cleaning"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/custom_edt_radius_bg"
+        android:fontFamily="@font/poppins_bold"
+        android:hint="Masukkan Nama Cleaning/Repaint"
+        android:padding="12dp"
+        android:textSize="12sp"
+        android:inputType="text"/>
+
+    <TextView
+        android:id="@+id/tv_harga_cleaning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edt_nama_cleaning"
+        android:layout_marginTop="7dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Harga"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/edt_harga"
+        style="@style/EditTextGeneral.SecondaryVariant"
+        android:layout_below="@+id/tv_harga_cleaning"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/custom_edt_radius_bg"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="Masukkan Harga"
+        android:padding="12dp"
+        android:textSize="12sp"
+        android:inputType="text"/>
+
+    <TextView
+        android:id="@+id/tv_estimasi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edt_harga"
+        android:layout_marginTop="7dp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Estimasi"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/edt_estimasi"
+        style="@style/EditTextGeneral.SecondaryVariant"
+        android:layout_below="@+id/tv_estimasi"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/custom_edt_radius_bg"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="Masukkan estimasi (x : 2 - 3 Hari)"
+        android:padding="12dp"
+        android:textSize="12sp"
+        android:inputType="text"/>
+
+    <TextView
+        android:id="@+id/tv_deskripsi_cleaning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_below="@+id/edt_estimasi"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Deskripsi"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/edt_deskripsi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_deskripsi_cleaning"
+        android:minLines="1"
+        android:maxLines="5"
+        android:inputType="textMultiLine"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/custom_edt_radius_bg"
+        android:fontFamily="@font/poppins_regular"
+        android:hint="Masukkan Deskripsi Cleaning"
+        android:padding="12dp"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/tv_image_cleaning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_below="@+id/edt_deskripsi"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Foto"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:id="@+id/image_item"
+        android:layout_below="@+id/tv_image_cleaning"
+        android:layout_width="match_parent"
+        android:layout_height="83dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="83dp"
+            android:layout_height="83dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/image_not_found"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/add_and_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/image_item"
+        android:layout_marginTop="20dp">
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_up_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/backgroundColor"
+            android:src="@drawable/ic_plus_edit_data_admin" />
+    </LinearLayout>
+    
+    <Button
+        android:id="@+id/btn_tambah"
+        style="@style/ButtonGeneral.PrimaryVariant"
+        android:layout_height="50dp"
+        android:layout_below="@+id/add_and_delete"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/custom_button_bg"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="Tambahkan"
+        android:textSize="16sp"/>
+
+</RelativeLayout>

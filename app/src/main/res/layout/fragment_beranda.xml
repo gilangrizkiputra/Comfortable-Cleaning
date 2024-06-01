@@ -22,9 +22,10 @@
             android:orientation="vertical"
             android:layout_weight="1">
             <TextView
+                android:id="@+id/tv_username_beranda"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Halo, Gilang"
+                android:text=""
                 android:fontFamily="@font/poppins_semi_bold"
                 android:textSize="19sp"
                 android:textColor="@color/primaryBlue"/>
@@ -37,10 +38,12 @@
                 android:textSize="12sp"/>
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_gambar_profile_beranda"
+            android:layout_width="59dp"
+            android:layout_height="59dp"
             android:src="@drawable/image_user_home"/>
+
     </LinearLayout>
 
     <EditText
@@ -58,36 +61,32 @@
         android:drawablePadding="8dp"
         android:inputType="text" />
 
-    <HorizontalScrollView
-        android:id="@+id/content_beranda"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scrollbars="none"
-        android:layout_below="@+id/edt_searchbar"
-        android:layout_marginTop="15dp">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_content_beranda"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/image_content1_home" />
+                android:layout_height="122dp"
+                android:layout_marginTop="15dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="10dp"
+                android:layout_below="@+id/edt_searchbar">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/image_content2_home"
-                android:layout_marginStart="1dp"/>
-        </LinearLayout>
-    </HorizontalScrollView>
+                <com.denzcoskun.imageslider.ImageSlider
+                    android:id="@+id/image_slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:iss_auto_cycle="true"
+                    app:iss_no_dots="true"
+                    app:iss_period="2000"
+                    app:iss_delay="2000"
+                    app:iss_text_align="CENTER"/>
+
+            </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/tv_kategori"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/content_beranda"
+        android:layout_below="@+id/cv_content_beranda"
         android:layout_marginTop="15dp"
         android:text="Kategori"
         android:fontFamily="@font/poppins_semi_bold"

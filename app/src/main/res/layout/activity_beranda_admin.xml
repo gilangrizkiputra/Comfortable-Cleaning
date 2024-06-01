@@ -30,17 +30,20 @@
                 android:textColor="@color/primaryBlue"/>
 
             <TextView
+                android:id="@+id/tv_nama_admin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gilang"
+                android:text=""
                 android:fontFamily="@font/poppins_regular"
                 android:textSize="14sp"/>
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/image_user_home"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_gambar_profile_beranda_admin"
+            android:layout_width="59dp"
+            android:layout_height="59dp"
+            android:src="@drawable/image_user_home" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -60,19 +63,21 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatImageButton
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_pesanan_admin"/>
 
             <TextView
+                android:id="@+id/tv_jumlah_pesanan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
-                android:text="Pesanan : 10"
                 android:fontFamily="@font/poppins_semi_bold"
+                android:text="Pesanan : 0"
                 android:textColor="@color/black"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -83,16 +88,18 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <androidx.appcompat.widget.AppCompatImageButton
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_pesanan_selesai_admin"/>
 
             <TextView
+                android:id="@+id/tv_jumlah_pesanan_selesai"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
-                android:text="Selesai : 5"
+                android:text="Selesai : 0"
                 android:fontFamily="@font/poppins_semi_bold"
                 android:textColor="@color/black"
                 android:textSize="14sp"/>
@@ -126,7 +133,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tambah Cleaning"
+                android:text="Tambah Item"
                 android:fontFamily="@font/poppins_semi_bold"
                 android:textSize="14sp"
                 android:textColor="@color/black"
@@ -170,44 +177,10 @@
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_repaint"
-        android:layout_below="@+id/cv_list_terdaftar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="10dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginHorizontal="20dp"
-        app:cardElevation="2dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="10dp"
-            android:gravity="center_vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_profile_admin"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Repaint"
-                android:fontFamily="@font/poppins_semi_bold"
-                android:textSize="14sp"
-                android:textColor="@color/black"
-                android:layout_marginStart="10dp"/>
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_profile_admin"
-        android:layout_below="@+id/cv_repaint"
+        android:layout_below="@+id/cv_list_terdaftar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/white"
@@ -245,7 +218,7 @@
         style="@style/ButtonGeneral.PrimaryVariant"
         android:layout_height="50dp"
         android:layout_below="@+id/cv_profile_admin"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="10dp"
         android:layout_marginHorizontal="20dp"
         android:background="@drawable/custom_button_bg"
         android:fontFamily="@font/poppins_semi_bold"

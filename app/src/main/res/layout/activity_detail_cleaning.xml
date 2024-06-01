@@ -101,6 +101,7 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical">
                     <TextView
+                        android:id="@+id/tv_harga_item"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -109,13 +110,45 @@
                         android:fontFamily="@font/poppins_semi_bold"
                         android:textColor="@color/primaryBlue"/>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/image_estimasi_waktu_detail_pesanan"/>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="20dp"
+                        android:layout_height="23dp"
+                        android:layout_gravity="center"
+                        app:cardBackgroundColor="@color/primaryBlue"
+                        app:cardCornerRadius="5dp"
+                        app:cardElevation="0dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"
+                                android:src="@drawable/ic_estimasi_waktu"
+                                android:contentDescription="Icon"
+                                android:layout_gravity="center_vertical"/>
+
+                            <TextView
+                                android:id="@+id/tv_estimasi_detail"
+                                android:layout_width="wrap_content"
+                                android:layout_height="15dp"
+                                android:text="Estimasi 2-3 Hari"
+                                android:textColor="@color/white"
+                                android:textSize="11sp"
+                                android:fontFamily="@font/poppins_regular"
+                                android:layout_marginStart="4dp"
+                                android:layout_gravity="center_vertical"/>
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/tv_nama_produk_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Barcelona"
@@ -138,6 +171,7 @@
                     android:textColor="@color/black"
                     android:layout_marginTop="15dp"/>
                 <TextView
+                    android:id="@+id/tv_deskripsi_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/isi_desk"
@@ -145,7 +179,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/btn_pesan_cleaning"
+                android:id="@+id/btn_pesan"
                 android:layout_width="match_parent"
                 android:layout_height="41dp"
                 android:layout_alignParentBottom="true"
