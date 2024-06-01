@@ -28,7 +28,6 @@ class EditDataCleaningActivity : AppCompatActivity() {
     private lateinit var edtDeskripsi: EditText
     private lateinit var ivEditGambar: ImageView
     private lateinit var btnTambahDataEditText: ImageButton
-    private lateinit var btnHapusDataEdit: ImageButton
     private lateinit var btnSimpan: Button
     private lateinit var idProduk : String
     private lateinit var jenis: String
@@ -54,7 +53,6 @@ class EditDataCleaningActivity : AppCompatActivity() {
         edtEditEstimasi = findViewById(R.id.edt_edit_estimasi)
         edtDeskripsi = findViewById(R.id.edt_edit_deskripsi)
         btnTambahDataEditText = findViewById(R.id.btn_tambah_data_edit)
-        btnHapusDataEdit = findViewById(R.id.btn_hapus_data_edit)
         btnSimpan = findViewById(R.id.btn_simpan_edit)
 
         if (intent.hasExtra("idProduk") && intent.hasExtra("jenis") && intent.hasExtra("namaProduk" ) && intent.hasExtra("harga" ) && intent.hasExtra("estimasi") && intent.hasExtra("deskripsi")){

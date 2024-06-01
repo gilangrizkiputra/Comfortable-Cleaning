@@ -33,7 +33,7 @@
                 android:id="@+id/tv_nama_admin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gilang"
+                android:text=""
                 android:fontFamily="@font/poppins_regular"
                 android:textSize="14sp"/>
         </LinearLayout>
@@ -42,7 +42,7 @@
             android:id="@+id/iv_gambar_profile_beranda_admin"
             android:layout_width="59dp"
             android:layout_height="59dp"
-            android:src="@drawable/image_user_home" />
+            android:src="@color/grey" />
 
     </LinearLayout>
 
@@ -70,13 +70,14 @@
                 android:src="@drawable/ic_pesanan_admin"/>
 
             <TextView
+                android:id="@+id/tv_jumlah_pesanan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
-                android:text="Pesanan : 10"
                 android:fontFamily="@font/poppins_semi_bold"
+                android:text="Pesanan : 0"
                 android:textColor="@color/black"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -94,10 +95,11 @@
                 android:src="@drawable/ic_pesanan_selesai_admin"/>
 
             <TextView
+                android:id="@+id/tv_jumlah_pesanan_selesai"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
-                android:text="Selesai : 5"
+                android:text="Selesai : 0"
                 android:fontFamily="@font/poppins_semi_bold"
                 android:textColor="@color/black"
                 android:textSize="14sp"/>

@@ -25,7 +25,7 @@
                 android:id="@+id/tv_username_beranda"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Halo, Gilang"
+                android:text=""
                 android:fontFamily="@font/poppins_semi_bold"
                 android:textSize="19sp"
                 android:textColor="@color/primaryBlue"/>
@@ -42,7 +42,7 @@
             android:id="@+id/iv_gambar_profile_beranda"
             android:layout_width="59dp"
             android:layout_height="59dp"
-            android:src="@drawable/image_user_home"/>
+            android:src="@color/grey"/>
 
     </LinearLayout>
 

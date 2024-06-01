@@ -32,13 +32,13 @@
             android:layout_width="163dp"
             android:layout_height="163dp"
             android:layout_gravity="center"
-            android:src="@drawable/image_profil" />
+            android:src="@color/grey" />
 
         <TextView
             android:id="@+id/tv_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Gilang"
+            android:text=""
             android:fontFamily="@font/poppins_semi_bold"
             android:textSize="23sp"
             android:textColor="@color/darkGrey"
@@ -49,7 +49,7 @@
             android:id="@+id/tv_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Gilang@uiux.com"
+            android:text=""
             android:fontFamily="@font/poppins_regular"
             android:textSize="16sp"
             android:textColor="@color/darkGrey"
