@@ -111,17 +111,22 @@ class ProfileFragment : Fragment() {
                     tvEmail.text = email
 
                     // Mengambil URL gambar profil dari Realtime Database
-                    val profileImageUrl = snapshot.child("profileImageUrl").value.toString()
+                    val profileImageUrl = snapshot.child("profileImageUrl").getValue(String::class.java) ?: ""
+
                     if (profileImageUrl.isNotEmpty()) {
                         Glide.with(this@ProfileFragment).load(profileImageUrl).into(imageViewProfile)
                     } else {
                         imageViewProfile.setImageResource(R.drawable.image_profil)
                     }
+                } else {
+                    // Jika snapshot tidak ada, setel gambar profil ke gambar default
+                    imageViewProfile.setImageResource(R.drawable.image_profil)
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
                 // Tangani error jika terjadi
+                Log.e("DatabaseError", error.message)
             }
         })
     }

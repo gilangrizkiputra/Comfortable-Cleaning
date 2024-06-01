@@ -19,6 +19,7 @@ import com.example.comfortablecleaning_copy.ui.Customer.Pesanan.Adaptor.AdaptorP
 import com.example.comfortablecleaning_copy.ui.Entitas.Admin
 import com.example.comfortablecleaning_copy.ui.Entitas.Pesanan
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -67,26 +68,17 @@ class PesananFragment : Fragment() {
     }
 
     private fun showData() {
-        database.addValueEventListener(object : ValueEventListener{
+        val userId = FirebaseAuth.getInstance().currentUser?.uid // Dapatkan ID pengguna saat ini
+        database.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                if (!isAdded) return
+
                 arrayList.clear()
-//                for (item in snapshot.children){
-//                    val pesanan = Pesanan()
-//                    pesanan.idPesanan = item.child("idPesanan").getValue(String::class.java)
-//                    pesanan.namaPemesan = item.child("namaPemesan").getValue(String::class.java)
-//                    pesanan.namaProduk = item.child("namaProduk").getValue(String::class.java)
-//                    pesanan.quantity = item.child("quantity").getValue(Int::class.java)
-//                    pesanan.noTelpPemesan = item.child("noTelpPemesan").getValue(String::class.java)
-//                    pesanan.daerahPemesan = item.child("daerahPemesan").getValue(String::class.java)
-//                    pesanan.alamatPemesan = item.child("alamatPemesan").getValue(String::class.java)
-//                    pesanan.catatanPemesan = item.child("catatanPemesan").getValue(String::class.java)
-//                    pesanan.ongkir = item.child("ongkir").getValue(Int::class.java)
-//                    pesanan.totalHarga = item.child("totalHarga").getValue(Int::class.java)
-//                    pesanan.status = item.child("status").getValue(String::class.java) ?: "menunggu"
-//                }
-                for (item in snapshot.children){
+                for (item in snapshot.children) {
                     val pesanan = item.getValue(Pesanan::class.java)
-                    pesanan?.let { arrayList.add(it) }
+                    if (pesanan?.userId == userId) { // Filter berdasarkan userId
+                        pesanan?.let { arrayList.add(it) }
+                    }
                 }
                 adaptorPesanan = AdaptorPesanan(arrayList, requireContext())
                 rvPesananUser.adapter = adaptorPesanan
@@ -94,8 +86,10 @@ class PesananFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
+                if (!isAdded) return
                 Toast.makeText(context, "Terjadi kesalahan: " + error.message, Toast.LENGTH_SHORT).show()
             }
         })
     }
+
 }

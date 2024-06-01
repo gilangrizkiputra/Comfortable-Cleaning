@@ -10,6 +10,7 @@ import com.example.comfortablecleaning_copy.MainActivity
 import com.example.comfortablecleaning_copy.R
 import com.example.comfortablecleaning_copy.ui.Entitas.Admin
 import com.example.comfortablecleaning_copy.ui.Entitas.Pesanan
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.util.UUID
@@ -49,11 +50,23 @@ class FormPaymentActivity : AppCompatActivity() {
 
         btnBayarSekarang = findViewById(R.id.btn_bayar_sekarang)
         btnBayarSekarang.setOnClickListener {
-            saveOrderToDatabase()
+            if (isFormValid()) {
+                saveOrderToDatabase()
+            } else {
+                Toast.makeText(this, "Data belum lengkap", Toast.LENGTH_SHORT).show()
+            }
         }
 
 
     }
+
+    private fun isFormValid(): Boolean {
+        return edtNama.text.isNotEmpty() &&
+                edtNoTelp.text.isNotEmpty() &&
+                edtAlamat.text.isNotEmpty() &&
+                radioGroup.checkedRadioButtonId != -1
+    }
+
 
     private fun initializeViews() {
         btnKurang = findViewById(R.id.btn_kurang)
@@ -157,6 +170,7 @@ class FormPaymentActivity : AppCompatActivity() {
         val rbBekTim = findViewById<RadioButton>(R.id.rb_bektim)
         val daerahPemesan = if (rbBekTim.isChecked) "Bekasi Timur" else "Di Luar Daerah Bekasi Timur"
         val orderId = UUID.randomUUID().toString()
+        val userId = FirebaseAuth.getInstance().currentUser?.uid // Dapatkan ID pengguna saat ini
 
         val pesanan = Pesanan(
             idPesanan = orderId,
@@ -171,9 +185,8 @@ class FormPaymentActivity : AppCompatActivity() {
             totalHarga = totalHarga,
             status = "menunggu", // Set default status
             jenis = selectedData?.jenis,
-            statusPembayaran = ""
-
-
+            statusPembayaran = "",
+            userId = userId // Set userId
         )
 
         database.child(orderId).setValue(pesanan).addOnCompleteListener { task ->
@@ -190,4 +203,5 @@ class FormPaymentActivity : AppCompatActivity() {
             }
         }
     }
+
 }

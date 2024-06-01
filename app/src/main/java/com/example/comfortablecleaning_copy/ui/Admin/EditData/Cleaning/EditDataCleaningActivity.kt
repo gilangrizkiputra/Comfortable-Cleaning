@@ -2,7 +2,6 @@ package com.example.comfortablecleaning_copy.Admin.EditData.Cleaning
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -29,13 +28,14 @@ class EditDataCleaningActivity : AppCompatActivity() {
     private lateinit var ivEditGambar: ImageView
     private lateinit var btnTambahDataEditText: ImageButton
     private lateinit var btnSimpan: Button
-    private lateinit var idProduk : String
+    private lateinit var idProduk: String
     private lateinit var jenis: String
     private lateinit var namaProduk: String
-    private lateinit var harga: String
+    private var harga: Int = 0
     private lateinit var estimasi: String
     private lateinit var deskripsi: String
     private val database: DatabaseReference = FirebaseDatabase.getInstance().getReference("admin")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -52,29 +52,33 @@ class EditDataCleaningActivity : AppCompatActivity() {
         edtHarga = findViewById(R.id.edt_edit_harga)
         edtEditEstimasi = findViewById(R.id.edt_edit_estimasi)
         edtDeskripsi = findViewById(R.id.edt_edit_deskripsi)
+        ivEditGambar = findViewById(R.id.img_edit_data)
         btnTambahDataEditText = findViewById(R.id.btn_tambah_data_edit)
         btnSimpan = findViewById(R.id.btn_simpan_edit)
 
-        if (intent.hasExtra("idProduk") && intent.hasExtra("jenis") && intent.hasExtra("namaProduk" ) && intent.hasExtra("harga" ) && intent.hasExtra("estimasi") && intent.hasExtra("deskripsi")){
+        // Check for intent extras and parse them correctly
+        if (intent.hasExtra("idProduk") && intent.hasExtra("jenis") && intent.hasExtra("namaProduk") &&
+            intent.hasExtra("harga") && intent.hasExtra("estimasi") && intent.hasExtra("deskripsi")) {
+
             idProduk = intent.getStringExtra("idProduk") ?: ""
             jenis = intent.getStringExtra("jenis") ?: ""
             namaProduk = intent.getStringExtra("namaProduk") ?: ""
-            harga = intent.getStringExtra("harga") ?: ""
+            harga = intent.getIntExtra("harga", 0) // Directly get as Integer
             estimasi = intent.getStringExtra("estimasi") ?: ""
             deskripsi = intent.getStringExtra("deskripsi") ?: ""
-
         }
 
+        // Set the EditTexts with the retrieved values
         edtEditJenis.setText(jenis)
         edtNamaProduk.setText(namaProduk)
-        edtHarga.setText(harga)
+        edtHarga.setText(harga.toString()) // Convert Integer to String
         edtEditEstimasi.setText(estimasi)
         edtDeskripsi.setText(deskripsi)
 
         btnSimpan.setOnClickListener {
             val jenisBaru = edtEditJenis.text.toString()
             val namaProdukBaru = edtNamaProduk.text.toString()
-            val hargaBaru = edtHarga.text.toString()
+            val hargaBaru = edtHarga.text.toString().toIntOrNull() ?: 0
             val estimasiBaru = edtEditEstimasi.text.toString()
             val deskripsiBaru = edtDeskripsi.text.toString()
 
@@ -93,7 +97,7 @@ class EditDataCleaningActivity : AppCompatActivity() {
         }
 
         ivBackAdmin.setOnClickListener {
-            val intent = Intent(this, ListTerdaftarActivity ::class.java)
+            val intent = Intent(this, ListTerdaftarActivity::class.java)
             startActivity(intent)
             finish()
         }

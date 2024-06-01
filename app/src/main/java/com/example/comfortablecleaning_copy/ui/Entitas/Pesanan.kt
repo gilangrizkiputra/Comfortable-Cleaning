@@ -18,5 +18,6 @@ data class Pesanan(
     var totalHarga: Int? = null,
     var status: String = "Menunggu",
     var jenis: String? = null,
-    var statusPembayaran : String = ""
+    var statusPembayaran : String = "",
+    var userId: String? = null
 ) : Parcelable

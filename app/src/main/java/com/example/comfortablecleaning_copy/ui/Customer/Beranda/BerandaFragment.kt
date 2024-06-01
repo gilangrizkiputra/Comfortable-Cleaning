@@ -68,16 +68,17 @@ class BerandaFragment : Fragment() {
                     val username = snapshot.child("username").value.toString()
                     tvUsernameBeranda.text = "Halo, $username"
 
-                    // Mendapatkan profileImageUrl dari Realtime Database
-                    val profileImageUrl = snapshot.child("profileImageUrl").value.toString()
+                    // Mengambil URL gambar profil dari Realtime Database
+                    val profileImageUrl = snapshot.child("profileImageUrl").getValue(String::class.java) ?: ""
 
-                    // Menampilkan gambar profil menggunakan Glide atau library lain
                     if (profileImageUrl.isNotEmpty()) {
                         Glide.with(fragmentContext).load(profileImageUrl).into(ivGambarProfilBeranda)
                     } else {
-                        // Tampilkan gambar default jika tidak ada gambar profil
-                        ivGambarProfilBeranda.setImageResource(R.drawable.image_profil)
+                        ivGambarProfilBeranda.setImageResource(R.drawable.image_user_home)
                     }
+                } else {
+                    // Jika snapshot tidak ada, setel gambar profil ke gambar default
+                    ivGambarProfilBeranda.setImageResource(R.drawable.image_user_home)
                 }
             }
             override fun onCancelled(error: DatabaseError) {
