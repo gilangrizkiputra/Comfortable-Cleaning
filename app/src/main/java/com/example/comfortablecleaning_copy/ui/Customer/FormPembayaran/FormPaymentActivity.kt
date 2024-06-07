@@ -178,7 +178,7 @@ class FormPaymentActivity : AppCompatActivity() {
 
         val rbBekTim = findViewById<RadioButton>(R.id.rb_bektim)
         val daerahPemesan = if (rbBekTim.isChecked) "Bekasi Timur" else "Di Luar Daerah Bekasi Timur"
-        val orderId = UUID.randomUUID().toString()
+        val orderId = UUID.randomUUID().toString().take(8)
         val userId = FirebaseAuth.getInstance().currentUser?.uid // Dapatkan ID pengguna saat ini
 
         val pesanan = Pesanan(
