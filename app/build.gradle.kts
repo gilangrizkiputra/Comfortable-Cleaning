@@ -69,4 +69,13 @@ dependencies {
     implementation ("com.github.denzcoskun:ImageSlideshow:0.1.2")
 
     implementation ("org.jetbrains.kotlin:kotlin-parcelize-runtime:1.6.10")
+
+    // For using the Midtrans Sandbox
+    implementation ("com.midtrans:uikit:2.0.0-SANDBOX")
+    implementation ("com.midtrans:uikit:2.0.0")
+
+    implementation ("com.squareup.okhttp3:okhttp:4.9.2")
+
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 }

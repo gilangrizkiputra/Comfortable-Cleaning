@@ -14,14 +14,17 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/btm_nav_bar"
         android:layout_width="0dp"
-        android:layout_height="85dp"
+        android:layout_height="60dp"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:itemIconTint="@color/bottom_nav_color"
         app:itemTextColor="@color/bottom_nav_color"
-        app:itemIconSize="20dp"
+        app:itemActiveIndicatorStyle="@color/primaryBlue"
+        app:itemPaddingBottom="0dp"
+        app:itemPaddingTop="10dp"
+        app:itemIconSize="17dp"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav"/>
 
