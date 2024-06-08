@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -22,18 +23,22 @@ import com.example.comfortablecleaning_copy.Login.LoginActivity
 import com.example.comfortablecleaning_copy.R
 import com.example.comfortablecleaning_copy.ui.Admin.Pesanan.PesananSelesaiActivity
 import com.example.comfortablecleaning_copy.ui.Entitas.Admin
+import com.example.comfortablecleaning_copy.ui.Entitas.Pesanan
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import org.w3c.dom.Text
 
 class BerandaAdminActivity : AppCompatActivity() {
 
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var tvNamaAdmin: TextView
     private lateinit var ivGambarProfilAdmin : ImageView
+    private lateinit var tvJumlahPesanan: TextView
+    private lateinit var tvJumlahPesananSelesai: TextView
     private lateinit var database: DatabaseReference
     private lateinit var auth: FirebaseAuth
 
@@ -50,6 +55,8 @@ class BerandaAdminActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("login_status", Context.MODE_PRIVATE)
         tvNamaAdmin = findViewById(R.id.tv_nama_admin)
         ivGambarProfilAdmin = findViewById(R.id.iv_gambar_profile_beranda_admin)
+        tvJumlahPesanan = findViewById(R.id.tv_jumlah_pesanan)
+        tvJumlahPesananSelesai = findViewById(R.id.tv_jumlah_pesanan_selesai)
 
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
@@ -78,7 +85,34 @@ class BerandaAdminActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Toast.makeText(applicationContext, "Terjadi kesalahan: " + error.message, Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        // Mengambil jumlah pesanan dari Firebase
+        val pesananRef = FirebaseDatabase.getInstance().getReference("pesanan")
+        pesananRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    var totalPesanan = 0
+                    var totalPesananSelesai = 0
+                    for (item in snapshot.children) {
+                        val pesanan = item.getValue(Pesanan::class.java)
+                        pesanan?.let {
+                            totalPesanan++
+                            if (it.status == "Selesai") {
+                                totalPesananSelesai++
+                                totalPesanan--
+                            }
+                        }
+                    }
+                    tvJumlahPesanan.text = "Pesanan : $totalPesanan"
+                    tvJumlahPesananSelesai.text = "Selesai : $totalPesananSelesai"
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(applicationContext, "Terjadi kesalahan: " + error.message, Toast.LENGTH_SHORT).show()
             }
         })
 

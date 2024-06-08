@@ -153,7 +153,7 @@
         android:layout_marginTop="7dp"
         android:layout_below="@+id/edt_deskripsi"
         android:fontFamily="@font/poppins_regular"
-        android:text="Foto (minimal 3)"
+        android:text="Foto"
         android:textSize="12sp" />
 
     <LinearLayout

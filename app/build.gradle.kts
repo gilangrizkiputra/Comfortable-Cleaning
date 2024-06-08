@@ -15,6 +15,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+        multiDexEnabled = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -64,11 +65,13 @@ dependencies {
     implementation("de.hdodenhof:circleimageview:3.1.0")
 
     implementation ("com.github.bumptech.glide:glide:4.12.0")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.9.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
 
     implementation ("com.github.denzcoskun:ImageSlideshow:0.1.2")
 
     implementation ("org.jetbrains.kotlin:kotlin-parcelize-runtime:1.6.10")
+
+    implementation ("com.squareup.picasso:picasso:2.71828")
 
     // For using the Midtrans Sandbox
     implementation ("com.midtrans:uikit:2.0.0-SANDBOX")

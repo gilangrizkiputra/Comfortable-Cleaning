@@ -13,6 +13,8 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.comfortablecleaning_copy.MainActivity
 import com.example.comfortablecleaning_copy.PaymentHMidtrans
@@ -82,6 +84,11 @@ class FormPaymentActivity : AppCompatActivity() {
         if (buttonCanceled == null || buttonAccept == null) {
             Toast.makeText(this, "error", Toast.LENGTH_LONG).show()
             return
+            if (isFormValid()) {
+                saveOrderToDatabase()
+            } else {
+                Toast.makeText(this, "Data belum lengkap", Toast.LENGTH_SHORT).show()
+            }
         }
 
         buttonCanceled.setOnClickListener {
@@ -123,6 +130,14 @@ class FormPaymentActivity : AppCompatActivity() {
         dialog.show()
     }
 
+    private fun isFormValid(): Boolean {
+        return edtNama.text.isNotEmpty() &&
+                edtNoTelp.text.isNotEmpty() &&
+                edtAlamat.text.isNotEmpty() &&
+                radioGroup.checkedRadioButtonId != -1
+    }
+
+
     private fun initializeViews() {
         btnKurang = findViewById(R.id.btn_kurang)
         btnTambah = findViewById(R.id.btn_tambah)
@@ -135,6 +150,9 @@ class FormPaymentActivity : AppCompatActivity() {
         detailPesanan = findViewById(R.id.detail_pesanan)
         tvNamaProdukItemForm = findViewById(R.id.tv_nama_produk_item_form)
         tvHargaItemForm = findViewById(R.id.tv_harga_item_form)
+
+        // Hide detailPesanan TextView initially
+        detailPesanan.visibility = View.GONE
     }
 
     private fun getOngkir(): Int {
@@ -161,6 +179,9 @@ class FormPaymentActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
+                if (s?.isNotEmpty() == true) {
+                    detailPesanan.visibility = View.VISIBLE
+                }
                 updateDetailPesanan()
             }
         }
@@ -171,9 +192,11 @@ class FormPaymentActivity : AppCompatActivity() {
         edtCatatan.addTextChangedListener(textWatcher)
 
         radioGroup.setOnCheckedChangeListener { _, _ ->
+            detailPesanan.visibility = View.VISIBLE
             updateDetailPesanan()
         }
     }
+
 
     private fun updateDetailPesanan() {
         val quantity = qty
@@ -226,6 +249,7 @@ class FormPaymentActivity : AppCompatActivity() {
         val rbBekTim = findViewById<RadioButton>(R.id.rb_bektim)
         val daerahPemesan = if (rbBekTim.isChecked) "Bekasi Timur" else "Di Luar Daerah Bekasi Timur"
         val orderId = UUID.randomUUID().toString().take(8)
+        val userId = FirebaseAuth.getInstance().currentUser?.uid // Dapatkan ID pengguna saat ini
 
         val pesanan = Pesanan(
             idPesanan = orderId,
@@ -240,9 +264,8 @@ class FormPaymentActivity : AppCompatActivity() {
             totalHarga = totalHarga,
             status = "menunggu", // Set default status
             jenis = selectedData?.jenis,
-            statusPembayaran = ""
-
-
+            statusPembayaran = "",
+            userId = userId // Set userId
         )
 
         database.child(orderId).setValue(pesanan).addOnCompleteListener { task ->
@@ -259,4 +282,5 @@ class FormPaymentActivity : AppCompatActivity() {
             }
         }
     }
+
 }

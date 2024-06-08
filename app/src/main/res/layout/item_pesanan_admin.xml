@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/primaryBlue"
         app:cardCornerRadius="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginHorizontal="20dp"
         app:cardElevation="2dp">
 
@@ -20,6 +20,7 @@
             android:orientation="vertical"
             android:gravity="center">
             <TextView
+                android:id="@+id/tv_jenis_item_pesanan_admin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cleaning"
@@ -55,6 +56,7 @@
                         android:layout_weight="1">
 
                         <TextView
+                            android:id="@+id/tv_nama_produk_pesanan_admin"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Barcelona"
@@ -64,6 +66,7 @@
                             android:textColor="@color/black"/>
 
                         <TextView
+                            android:id="@+id/tv_nama_user_pemesan_admin"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Pesanan oleh Gilang"
@@ -72,6 +75,7 @@
                             android:textColor="@color/grey"/>
 
                         <TextView
+                            android:id="@+id/tv_qty_pesanan_admin"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Qty. 1"
@@ -82,18 +86,37 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="82dp"
-                        android:layout_height="18dp"
-                        android:background="@drawable/custom_status_pesanan"
-                        android:gravity="center">
+                        android:layout_width="140dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="0dp"
+                        android:paddingTop="0dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Menunggu"
-                            android:fontFamily="@font/poppins_regular"
-                            android:textSize="12sp"
-                            android:textColor="@color/white"/>
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:background="@drawable/custom_status_pesanan"
+                            app:endIconTint="@color/white"
+                            app:boxCornerRadiusBottomStart="10dp"
+                            app:boxCornerRadiusBottomEnd="10dp"
+                            app:boxCornerRadiusTopStart="10dp"
+                            app:boxCornerRadiusTopEnd="10dp"
+                            app:boxStrokeWidth="0dp">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/act_update_status"
+                                android:layout_width="match_parent"
+                                android:layout_height="20dp"
+                                android:text="Menunggu"
+                                android:textColor="@color/white"
+                                android:fontFamily="@font/poppins_regular"
+                                android:background="@android:color/transparent"
+                                android:textSize="12sp"
+                                android:inputType="none"
+                                android:paddingTop="0dp"
+                                android:paddingBottom="0dp"
+                                android:gravity="center_vertical"/>
+                        </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>

@@ -145,46 +145,32 @@
         android:layout_marginTop="7dp"
         android:layout_below="@+id/edt_edit_deskripsi"
         android:fontFamily="@font/poppins_regular"
-        android:text="Foto (minimal 3)"
+        android:text="Foto"
         android:textSize="12sp" />
 
     <ImageView
         android:id="@+id/img_edit_data"
         android:layout_width="82dp"
         android:layout_height="83dp"
-        android:src="@drawable/image_tipe_cleaning_shoes"
+        android:src="@color/grey"
         android:layout_below="@+id/tv_image_cleaning"
         android:layout_marginTop="10dp"/>
 
-    <LinearLayout
-        android:id="@+id/btn_plus_dan_minus"
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_tambah_data_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_below="@id/img_edit_data"
-        android:layout_marginTop="10dp">
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/btn_tambah_data_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/backgroundColor"
-            android:src="@drawable/ic_plus_edit_data_admin"
-            android:layout_marginRight="15dp"/>
-
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/btn_hapus_data_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/backgroundColor"
-            android:src="@drawable/ic_hapus_data_admin"/>
-    </LinearLayout>
+        android:layout_marginTop="10dp"
+        android:background="@color/backgroundColor"
+        android:src="@drawable/ic_plus_edit_data_admin"
+        android:layout_marginRight="15dp"/>
 
     <Button
         android:id="@+id/btn_simpan_edit"
         style="@style/ButtonGeneral.PrimaryVariant"
         android:layout_height="50dp"
-        android:layout_below="@+id/btn_plus_dan_minus"
+        android:layout_below="@+id/btn_tambah_data_edit"
         android:layout_marginTop="50dp"
         android:background="@drawable/custom_button_bg"
         android:fontFamily="@font/poppins_semi_bold"
