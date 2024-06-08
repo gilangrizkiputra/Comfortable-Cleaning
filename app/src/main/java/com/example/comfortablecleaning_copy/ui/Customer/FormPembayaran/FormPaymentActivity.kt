@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.view.Window
 import android.widget.Button
 import android.widget.EditText
@@ -13,8 +14,6 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
-import android.view.View
-import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.comfortablecleaning_copy.MainActivity
 import com.example.comfortablecleaning_copy.PaymentHMidtrans
@@ -66,10 +65,19 @@ class FormPaymentActivity : AppCompatActivity() {
 
         btnBayarSekarang = findViewById(R.id.btn_bayar_sekarang)
         btnBayarSekarang.setOnClickListener {
-            showCustomDialog()
-            //saveOrderToDatabase()
-
+            if (isFormValid()){
+                showCustomDialog()
+            }else{
+                Toast.makeText(this, "Data belum lengkap", Toast.LENGTH_LONG).show()
+            }
         }
+    }
+
+    private fun isFormValid(): Boolean {
+        return edtNama.text.isNotEmpty() &&
+                edtNoTelp.text.isNotEmpty() &&
+                edtAlamat.text.isNotEmpty() &&
+                radioGroup.checkedRadioButtonId != -1
     }
 
     private fun showCustomDialog() {
@@ -78,18 +86,9 @@ class FormPaymentActivity : AppCompatActivity() {
         dialog.setCancelable(false)
         dialog.setContentView(R.layout.payment_dialog)
 
-        val buttonCanceled: Button? = dialog.findViewById(R.id.btn_batal_payment)
-        val buttonAccept: Button? = dialog.findViewById(R.id.btn_terima_payment)
+        val buttonCanceled: Button = dialog.findViewById(R.id.btn_batal_payment)
+        val buttonAccept: Button = dialog.findViewById(R.id.btn_terima_payment)
 
-        if (buttonCanceled == null || buttonAccept == null) {
-            Toast.makeText(this, "error", Toast.LENGTH_LONG).show()
-            return
-            if (isFormValid()) {
-                saveOrderToDatabase()
-            } else {
-                Toast.makeText(this, "Data belum lengkap", Toast.LENGTH_SHORT).show()
-            }
-        }
 
         buttonCanceled.setOnClickListener {
             Toast.makeText(this, "Anda membatalkan pesanan", Toast.LENGTH_LONG).show()
@@ -129,14 +128,6 @@ class FormPaymentActivity : AppCompatActivity() {
 
         dialog.show()
     }
-
-    private fun isFormValid(): Boolean {
-        return edtNama.text.isNotEmpty() &&
-                edtNoTelp.text.isNotEmpty() &&
-                edtAlamat.text.isNotEmpty() &&
-                radioGroup.checkedRadioButtonId != -1
-    }
-
 
     private fun initializeViews() {
         btnKurang = findViewById(R.id.btn_kurang)
