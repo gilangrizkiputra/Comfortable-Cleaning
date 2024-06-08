@@ -1,4 +1,6 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+android:color="?attr/colorControlHighlight">
+<item>
     <corners
         android:topLeftRadius="10dp"
         android:topRightRadius="0dp"
@@ -7,4 +9,5 @@
     <solid android:color="@color/white" />
     <stroke android:width="2dp"
         android:color="@color/grey"/>
-</shape>
+</item>
+</ripple>

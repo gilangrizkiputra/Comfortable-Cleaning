@@ -9,4 +9,6 @@
     <color name="darkGrey">#FFAAAAAC</color>
     <color name="backgroundColor">#FFF6F8FB</color>
     <color name="backgroundColorDark">#FF333333</color>
+    <color name="red">#FFFF0000</color>
+    <color name="green">#FF04B254</color>
 </resources>
