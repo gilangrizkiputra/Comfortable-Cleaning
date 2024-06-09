@@ -287,7 +287,7 @@ class FormPaymentActivity : AppCompatActivity() {
             totalHarga = totalHarga,
             status = "menunggu", // Set default status
             jenis = selectedData?.jenis,
-            statusPembayaran = "",
+            statusPembayaran = "Paid",
             userId = userId // Set userId
         )
 
