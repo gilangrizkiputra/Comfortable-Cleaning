@@ -18,13 +18,13 @@ import java.io.IOException
 
 object PaymentHMidtrans {
 
-    fun generatePaymentLink(context: Context, totalAmount: Int, customerDetails: JSONObject, itemDetails: JSONArray) {
+    fun generatePaymentLink(context: Context, totalAmount: Int, customerDetails: JSONObject, itemDetails: JSONArray, orderId: String) {
         val client = OkHttpClient()
         val url = "https://cleancomfortable.my.id/Midtrans.php/charge/"
 
         val json = JSONObject().apply {
             put("transaction_details", JSONObject().apply {
-                put("order_id", "CC-OrderID-" + System.currentTimeMillis())
+                put("order_id", orderId)
                 put("gross_amount", totalAmount)
             })
             put("item_details", itemDetails)
@@ -63,4 +63,42 @@ object PaymentHMidtrans {
             }
         })
     }
+
+    fun checkPaymentStatus(context: Context, orderId: String, callback: (String) -> Unit) {
+        val client = OkHttpClient()
+        val url = "https://api.sandbox.midtrans.com/v2/$orderId/status"
+
+        val request = Request.Builder()
+            .url(url)
+            .header("Authorization", "Basic ${Base64.encodeToString("SB-Mid-server-Xzba3_5u-lTBv-e71pfEXQSw".toByteArray(), Base64.NO_WRAP)}")
+            .get()
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                (context as? FormPaymentActivity)?.runOnUiThread {
+                    Toast.makeText(context, "Failed to check payment status. ${e.message}", Toast.LENGTH_LONG).show()
+                }
+                callback("failure")
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body?.string()
+                    val jsonResponse = JSONObject(responseBody)
+                    val transactionStatus = jsonResponse.getString("transaction_status")
+                    (context as? FormPaymentActivity)?.runOnUiThread {
+                        callback(transactionStatus)
+                    }
+                } else {
+                    (context as? FormPaymentActivity)?.runOnUiThread {
+                        Toast.makeText(context, "Failed to check payment status. ${response.message}", Toast.LENGTH_LONG).show()
+                    }
+                    callback("failure")
+                }
+            }
+        })
+    }
 }
+
+

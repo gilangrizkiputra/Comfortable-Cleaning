@@ -13,7 +13,7 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/btm_nav_bar"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

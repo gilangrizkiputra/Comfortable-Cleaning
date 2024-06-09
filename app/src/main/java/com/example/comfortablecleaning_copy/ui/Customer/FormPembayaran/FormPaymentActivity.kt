@@ -1,6 +1,7 @@
 package com.example.comfortablecleaning_copy.Customer.FormPembayaran
 
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -25,7 +26,6 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import org.json.JSONArray
 import org.json.JSONObject
-import java.util.UUID
 
 class FormPaymentActivity : AppCompatActivity() {
 
@@ -89,7 +89,6 @@ class FormPaymentActivity : AppCompatActivity() {
         val buttonCanceled: Button = dialog.findViewById(R.id.btn_batal_payment)
         val buttonAccept: Button = dialog.findViewById(R.id.btn_terima_payment)
 
-
         buttonCanceled.setOnClickListener {
             Toast.makeText(this, "Anda membatalkan pesanan", Toast.LENGTH_LONG).show()
             dialog.dismiss() // Tutup dialog jika dibatalkan
@@ -122,12 +121,46 @@ class FormPaymentActivity : AppCompatActivity() {
             }
 
             val totalAmount = tvHargaItemForm.text.toString().replace("Rp. ", "").toInt() * qty + ongkir
-            PaymentHMidtrans.generatePaymentLink(this@FormPaymentActivity, totalAmount, customerDetails, itemDetails)
+            val orderId = "CC-OrderID-" + System.currentTimeMillis()
+
+            // Save orderId and reset checked flag in SharedPreferences for later use
+            val sharedPref = getSharedPreferences("PREFS", Context.MODE_PRIVATE)
+            sharedPref.edit().putString("ORDER_ID", orderId).putBoolean("CHECKED_PAYMENT_STATUS", false).apply()
+
+            PaymentHMidtrans.generatePaymentLink(this@FormPaymentActivity, totalAmount, customerDetails, itemDetails, orderId)
             dialog.dismiss() // Tutup dialog jika diterima
         }
 
         dialog.show()
     }
+
+
+    override fun onResume() {
+        super.onResume()
+        // Check payment status when the activity is resumed
+        checkPaymentStatus()
+    }
+
+    private fun checkPaymentStatus() {
+        val sharedPref = getSharedPreferences("PREFS", Context.MODE_PRIVATE)
+        val orderId = sharedPref.getString("ORDER_ID", null) ?: return
+        val checkedPaymentStatus = sharedPref.getBoolean("CHECKED_PAYMENT_STATUS", true)
+
+        if (!checkedPaymentStatus) {
+            // Call Midtrans API to check the payment status
+            PaymentHMidtrans.checkPaymentStatus(this, orderId) { status ->
+                if (status == "settlement" || status == "capture") {
+                    saveOrderToDatabase(orderId)
+                } else {
+                    Toast.makeText(this, "Pembayaran gagal atau belum diproses", Toast.LENGTH_SHORT).show()
+                }
+
+                // Mark the payment status as checked
+                sharedPref.edit().putBoolean("CHECKED_PAYMENT_STATUS", true).apply()
+            }
+        }
+    }
+
 
     private fun initializeViews() {
         btnKurang = findViewById(R.id.btn_kurang)
@@ -222,7 +255,7 @@ class FormPaymentActivity : AppCompatActivity() {
     }
 
     //simpan data ke database jika pembayaran sudah selesai
-    private fun saveOrderToDatabase() {
+    private fun saveOrderToDatabase(orderId: String) {
         val selectedData = intent.getParcelableExtra<Admin>("selectedData")
 
         val namaPemesan = edtNama.text.toString()
@@ -239,7 +272,6 @@ class FormPaymentActivity : AppCompatActivity() {
 
         val rbBekTim = findViewById<RadioButton>(R.id.rb_bektim)
         val daerahPemesan = if (rbBekTim.isChecked) "Bekasi Timur" else "Di Luar Daerah Bekasi Timur"
-        val orderId = UUID.randomUUID().toString().take(8)
         val userId = FirebaseAuth.getInstance().currentUser?.uid // Dapatkan ID pengguna saat ini
 
         val pesanan = Pesanan(
@@ -273,5 +305,4 @@ class FormPaymentActivity : AppCompatActivity() {
             }
         }
     }
-
 }

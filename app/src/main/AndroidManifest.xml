@@ -18,6 +18,10 @@
         android:theme="@style/Theme.ComfortableCleaningCopy"
         tools:targetApi="31">
         <activity
+            android:name=".CekstatusOrderID"
+            android:exported="false">
+        </activity>
+        <activity
             android:name=".ui.Admin.Pesanan.PesananSelesaiActivity"
             android:exported="false" />
         <activity
@@ -84,5 +88,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
