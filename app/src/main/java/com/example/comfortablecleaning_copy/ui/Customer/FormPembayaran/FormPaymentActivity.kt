@@ -118,6 +118,14 @@ class FormPaymentActivity : AppCompatActivity() {
                     put("quantity", qty)
                     put("name", tvNamaProdukItemForm.text.toString())
                 })
+
+                // Tambahkan ongkos kirim sebagai item terpisah
+                put(JSONObject().apply {
+                    put("id", "ONGKIR")
+                    put("price", ongkir)
+                    put("quantity", 1)
+                    put("name", "Ongkos Kirim")
+                })
             }
 
             val totalAmount = tvHargaItemForm.text.toString().replace("Rp. ", "").toInt() * qty + ongkir

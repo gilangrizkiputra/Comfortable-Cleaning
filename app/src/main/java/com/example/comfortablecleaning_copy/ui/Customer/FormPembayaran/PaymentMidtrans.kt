@@ -86,15 +86,22 @@ object PaymentHMidtrans {
                 if (response.isSuccessful) {
                     val responseBody = response.body?.string()
                     val jsonResponse = JSONObject(responseBody)
-                    val transactionStatus = jsonResponse.getString("transaction_status")
-                    (context as? FormPaymentActivity)?.runOnUiThread {
-                        callback(transactionStatus)
+                    if (jsonResponse.has("transaction_status")) {
+                        val transactionStatus = jsonResponse.getString("transaction_status")
+                        (context as? FormPaymentActivity)?.runOnUiThread {
+                            callback(transactionStatus)
+                        }
+                    } else {
+                        (context as? FormPaymentActivity)?.runOnUiThread {
+                            //Toast.makeText(context, "Silahkan Lengkapi Form", Toast.LENGTH_LONG).show()
+                            callback("failure")
+                        }
                     }
                 } else {
                     (context as? FormPaymentActivity)?.runOnUiThread {
                         Toast.makeText(context, "Failed to check payment status. ${response.message}", Toast.LENGTH_LONG).show()
+                        callback("failure")
                     }
-                    callback("failure")
                 }
             }
         })
