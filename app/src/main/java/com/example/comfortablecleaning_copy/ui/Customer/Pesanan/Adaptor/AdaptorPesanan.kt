@@ -5,20 +5,11 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.example.comfortablecleaning_copy.Admin.EditData.Cleaning.EditDataCleaningActivity
 import com.example.comfortablecleaning_copy.Customer.Pesanan.DetailPesanan.DetailPesananActivity
 import com.example.comfortablecleaning_copy.R
-import com.example.comfortablecleaning_copy.ui.Admin.ListTerdaftar.AdaptorListTerdaftarAdmin
-import com.example.comfortablecleaning_copy.ui.Customer.ListCleaningShoes.AdaptorListCleaningShoes
-import com.example.comfortablecleaning_copy.ui.Entitas.Admin
 import com.example.comfortablecleaning_copy.ui.Entitas.Pesanan
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 
 class AdaptorPesanan(private val mlist: List<Pesanan>, private val context: Context) :
     RecyclerView.Adapter<AdaptorPesanan.MyViewHolder>() {

@@ -13,9 +13,12 @@ import com.example.comfortablecleaning_copy.Customer.DetailCleaning.Adaptor.Imag
 import com.example.comfortablecleaning_copy.Customer.FormPembayaran.FormPaymentActivity
 import com.example.comfortablecleaning_copy.Customer.ListCleaningShoes.ListCleaningShoesActivity
 import com.example.comfortablecleaning_copy.R
-import com.example.comfortablecleaning_copy.ui.Entitas.Admin
-import com.google.firebase.database.*
-import com.squareup.picasso.Picasso
+import com.example.comfortablecleaning_copy.ui.Entitas.Produk
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class DetailCleaningActivity : AppCompatActivity() {
 
@@ -55,9 +58,9 @@ class DetailCleaningActivity : AppCompatActivity() {
         iv2 = findViewById(R.id.iv2)
         iv3 = findViewById(R.id.iv3)
 
-        database = FirebaseDatabase.getInstance().getReference("admin")
+        database = FirebaseDatabase.getInstance().getReference("produk")
 
-        val selectedData = intent.getParcelableExtra<Admin>("selectedData")
+        val selectedData = intent.getParcelableExtra<Produk>("selectedData")
         if (selectedData != null) {
             tvHargaItem.text = "Rp ${selectedData.harga}"
             tvEstimasiDetail.text = "Estimasi ${selectedData.estimasi}"
@@ -96,7 +99,7 @@ class DetailCleaningActivity : AppCompatActivity() {
     private fun loadImages(productId: String) {
         database.child(productId).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val cleaningItem = dataSnapshot.getValue(Admin::class.java)
+                val cleaningItem = dataSnapshot.getValue(Produk::class.java)
                 cleaningItem?.let {
                     val images = it.imageUrl?.split(",")?.map { url -> url.trim() } ?: listOf()
                     val adapter = ImageViewPagerAdaptor(images)

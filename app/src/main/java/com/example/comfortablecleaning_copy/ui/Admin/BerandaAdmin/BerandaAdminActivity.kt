@@ -22,15 +22,14 @@ import com.example.comfortablecleaning_copy.Admin.TambahCleaning.TambahItemActiv
 import com.example.comfortablecleaning_copy.Login.LoginActivity
 import com.example.comfortablecleaning_copy.R
 import com.example.comfortablecleaning_copy.ui.Admin.Pesanan.PesananSelesaiActivity
-import com.example.comfortablecleaning_copy.ui.Entitas.Admin
 import com.example.comfortablecleaning_copy.ui.Entitas.Pesanan
+import com.example.comfortablecleaning_copy.ui.Entitas.Produk
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import org.w3c.dom.Text
 
 class BerandaAdminActivity : AppCompatActivity() {
 
@@ -123,7 +122,7 @@ class BerandaAdminActivity : AppCompatActivity() {
         val profileAdmin: CardView = findViewById(R.id.cv_profile_admin)
         val btnKeluarAdmin: Button = findViewById(R.id.btn_keluar_admin)
 
-        val selectedData = intent.getParcelableExtra<Admin>("selectedData")
+        val selectedData = intent.getParcelableExtra<Produk>("selectedData")
 
         pesananAdmin.setOnClickListener {
             val intent = Intent(this, PesananActivity::class.java)

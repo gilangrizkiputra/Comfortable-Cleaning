@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.comfortablecleaning_copy.Admin.BerandaAdmin.BerandaAdminActivity
 import com.example.comfortablecleaning_copy.R
-import com.example.comfortablecleaning_copy.ui.Entitas.Admin
 import com.example.comfortablecleaning_copy.ui.Admin.ListTerdaftar.AdaptorListTerdaftarAdmin
+import com.example.comfortablecleaning_copy.ui.Entitas.Produk
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -27,7 +27,7 @@ class ListTerdaftarActivity : AppCompatActivity() {
     private lateinit var rvListTerdaftarAdmin : RecyclerView
     private lateinit var database: DatabaseReference
     private lateinit var adaptorListTerdaftarAdmin: AdaptorListTerdaftarAdmin
-    private var arrayList: ArrayList<Admin> = ArrayList()
+    private var arrayList: ArrayList<Produk> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +49,7 @@ class ListTerdaftarActivity : AppCompatActivity() {
             finish()
         }
 
-        database = FirebaseDatabase.getInstance().getReference("admin")
+        database = FirebaseDatabase.getInstance().getReference("produk")
 
         rvListTerdaftarAdmin.apply {
             setHasFixedSize(true)
@@ -67,15 +67,15 @@ class ListTerdaftarActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrayList.clear()
                 for (item in snapshot.children){
-                    val admin = Admin()
-                    admin.idProduk = item.child("idProduk").getValue(String::class.java)
-                    admin.jenis = item.child("jenis").getValue(String::class.java)
-                    admin.namaProduk = item.child("namaProduk").getValue(String::class.java)
-                    admin.harga = item.child("harga").getValue(Int::class.java)
-                    admin.estimasi = item.child("estimasi").getValue(String::class.java)
-                    admin.deskripsi = item.child("deskripsi").getValue(String::class.java)
-                    admin.imageUrl = item.child("imageUrl").getValue(String::class.java)
-                    arrayList.add(admin)
+                    val produk = Produk()
+                    produk.idProduk = item.child("idProduk").getValue(String::class.java)
+                    produk.jenis = item.child("jenis").getValue(String::class.java)
+                    produk.namaProduk = item.child("namaProduk").getValue(String::class.java)
+                    produk.harga = item.child("harga").getValue(Int::class.java)
+                    produk.estimasi = item.child("estimasi").getValue(String::class.java)
+                    produk.deskripsi = item.child("deskripsi").getValue(String::class.java)
+                    produk.imageUrl = item.child("imageUrl").getValue(String::class.java)
+                    arrayList.add(produk)
                 }
 
                 adaptorListTerdaftarAdmin = AdaptorListTerdaftarAdmin(arrayList, this@ListTerdaftarActivity)

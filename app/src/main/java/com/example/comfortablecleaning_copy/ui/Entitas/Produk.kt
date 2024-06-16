@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Admin(
+data class Produk(
     var idProduk: String? = null,
     var jenis: String? = null,
     var namaProduk: String? = null,

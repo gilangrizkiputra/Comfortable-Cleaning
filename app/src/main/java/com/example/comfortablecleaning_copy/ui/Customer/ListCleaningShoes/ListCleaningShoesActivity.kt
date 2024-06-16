@@ -2,26 +2,20 @@ package com.example.comfortablecleaning_copy.Customer.ListCleaningShoes
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.comfortablecleaning_copy.Admin.BerandaAdmin.BerandaAdminActivity
-import com.example.comfortablecleaning_copy.Customer.Beranda.BerandaFragment
 import com.example.comfortablecleaning_copy.Customer.DetailCleaning.DetailCleaningActivity
 import com.example.comfortablecleaning_copy.MainActivity
 import com.example.comfortablecleaning_copy.R
-import com.example.comfortablecleaning_copy.ui.Admin.ListTerdaftar.AdaptorListTerdaftarAdmin
 import com.example.comfortablecleaning_copy.ui.Customer.ListCleaningShoes.AdaptorListCleaningShoes
-import com.example.comfortablecleaning_copy.ui.Entitas.Admin
+import com.example.comfortablecleaning_copy.ui.Entitas.Produk
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -34,7 +28,7 @@ class ListCleaningShoesActivity : AppCompatActivity() {
     private lateinit var backButton: ImageView
     private lateinit var database: DatabaseReference
     private lateinit var adaptorListCleaningShoes: AdaptorListCleaningShoes
-    private var arrayList: ArrayList<Admin> = ArrayList()
+    private var arrayList: ArrayList<Produk> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -70,7 +64,7 @@ class ListCleaningShoesActivity : AppCompatActivity() {
             }
         })
         rvListCleaning.adapter = adaptorListCleaningShoes
-        database = FirebaseDatabase.getInstance().getReference("admin")
+        database = FirebaseDatabase.getInstance().getReference("produk")
         ShowData()
     }
 
@@ -104,9 +98,9 @@ class ListCleaningShoesActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 arrayList.clear()
                 for (item in snapshot.children) {
-                    val admin = item.getValue(Admin::class.java)
-                    if (admin != null) {
-                        arrayList.add(admin)
+                    val produk = item.getValue(Produk::class.java)
+                    if (produk != null) {
+                        arrayList.add(produk)
                     }
                 }
                 adaptorListCleaningShoes.notifyDataSetChanged()

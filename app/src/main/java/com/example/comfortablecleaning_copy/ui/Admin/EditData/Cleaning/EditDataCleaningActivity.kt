@@ -147,7 +147,7 @@ class EditDataCleaningActivity : AppCompatActivity() {
         progressDialog.setCancelable(false)
         progressDialog.show()
 
-        val storageRef = FirebaseStorage.getInstance().getReference("admin/$idProduk.jpg")
+        val storageRef = FirebaseStorage.getInstance().getReference("produk/$idProduk.jpg")
 
         storageRef.putFile(fileUri!!)
             .addOnSuccessListener { taskSnapshot ->

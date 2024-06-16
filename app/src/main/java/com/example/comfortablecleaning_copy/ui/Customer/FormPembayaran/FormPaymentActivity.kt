@@ -19,8 +19,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.comfortablecleaning_copy.MainActivity
 import com.example.comfortablecleaning_copy.PaymentHMidtrans
 import com.example.comfortablecleaning_copy.R
-import com.example.comfortablecleaning_copy.ui.Entitas.Admin
 import com.example.comfortablecleaning_copy.ui.Entitas.Pesanan
+import com.example.comfortablecleaning_copy.ui.Entitas.Produk
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -55,7 +55,7 @@ class FormPaymentActivity : AppCompatActivity() {
         setupListeners()
         updateDetailPesanan()
 
-        val selectedData = intent.getParcelableExtra<Admin>("selectedData")
+        val selectedData = intent.getParcelableExtra<Produk>("selectedData")
         tvNamaProdukItemForm.text = selectedData?.namaProduk ?: ""
         tvHargaItemForm.text = "Rp. " + selectedData?.harga ?: "0"
 
@@ -236,7 +236,7 @@ class FormPaymentActivity : AppCompatActivity() {
         val noTelpPemesan = edtNoTelp.text.toString()
         val alamatPemesan = edtAlamat.text.toString()
         val catatanPemesan = edtCatatan.text.toString()
-        val selectedData = intent.getParcelableExtra<Admin>("selectedData")
+        val selectedData = intent.getParcelableExtra<Produk>("selectedData")
 
         val hargaPerItem = try {
             selectedData?.harga?.toInt() ?: 0
@@ -264,7 +264,7 @@ class FormPaymentActivity : AppCompatActivity() {
 
     //simpan data ke database jika pembayaran sudah selesai
     private fun saveOrderToDatabase(orderId: String) {
-        val selectedData = intent.getParcelableExtra<Admin>("selectedData")
+        val selectedData = intent.getParcelableExtra<Produk>("selectedData")
 
         val namaPemesan = edtNama.text.toString()
         val noTelpPemesan = edtNoTelp.text.toString()
