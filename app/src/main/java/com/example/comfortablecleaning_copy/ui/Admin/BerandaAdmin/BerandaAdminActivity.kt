@@ -35,7 +35,7 @@ class BerandaAdminActivity : AppCompatActivity() {
 
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var tvNamaAdmin: TextView
-    private lateinit var ivGambarProfilAdmin : ImageView
+    private lateinit var ivGambarProfilAdmin: ImageView
     private lateinit var tvJumlahPesanan: TextView
     private lateinit var tvJumlahPesananSelesai: TextView
     private lateinit var database: DatabaseReference
@@ -62,7 +62,7 @@ class BerandaAdminActivity : AppCompatActivity() {
         val userId = currentUser?.uid ?: ""
         database = FirebaseDatabase.getInstance().getReference("users/$userId")
 
-        database.addValueEventListener(object : ValueEventListener{
+        database.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
                     val namaAdmin = snapshot.child("username").value.toString()
@@ -73,9 +73,12 @@ class BerandaAdminActivity : AppCompatActivity() {
 
                     // Menampilkan gambar profil menggunakan Glide atau library lain
                     if (profileImageUrl.isNotEmpty()) {
-                        Glide.with(this@BerandaAdminActivity)
-                            .load(profileImageUrl)
-                            .into(ivGambarProfilAdmin)
+                        // Pastikan Activity belum dihancurkan
+                        if (!isFinishing && !isDestroyed) {
+                            Glide.with(this@BerandaAdminActivity)
+                                .load(profileImageUrl)
+                                .into(ivGambarProfilAdmin)
+                        }
                     } else {
                         // Tampilkan gambar default jika tidak ada gambar profil
                         ivGambarProfilAdmin.setImageResource(R.drawable.image_profil)
