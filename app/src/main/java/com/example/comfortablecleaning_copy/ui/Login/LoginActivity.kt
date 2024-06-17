@@ -13,14 +13,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.comfortablecleaning_copy.Admin.BerandaAdmin.BerandaAdminActivity
-import com.example.comfortablecleaning_copy.Customer.Beranda.BerandaFragment
 import com.example.comfortablecleaning_copy.MainActivity
 import com.example.comfortablecleaning_copy.R
 import com.example.comfortablecleaning_copy.Register.RegisterActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
@@ -34,8 +32,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
 
     companion object {
-        const val REQUEST_LOGOUT = 123
-        const val RESULT_LOGOUT = 124
+        const val REQUEST_LOGOUT = 123 // Kode permintaan unik untuk memulai aktivitas logout
+        const val RESULT_LOGOUT = 124 // Kode hasil unik untuk menangani hasil dari aktivitas logout
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,7 +91,7 @@ class LoginActivity : AppCompatActivity() {
                                 // Menyimpan status login setelah berhasil login
                                 saveLoginStatus(role)
 
-                                // Redirect ke halaman sesuai peran
+                                // Arahkan ke halaman sesuai peran
                                 if (role == "admin") {
                                     Toast.makeText(
                                         applicationContext,
@@ -132,7 +130,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    // Fungsi untuk menyimpan status login ke SharedPreferences
+    // menyimpan status login ke SharedPreferences
     private fun saveLoginStatus(role: String?) {
         with(sharedPreferences.edit()) {
             putBoolean("isLoggedIn", true)
@@ -141,12 +139,12 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    // Fungsi untuk mengecek apakah pengguna sudah login
+    // cek apakah pengguna sudah login
     private fun isLoggedIn(): Boolean {
         return sharedPreferences.getBoolean("isLoggedIn", false)
     }
 
-    // Fungsi untuk mengarahkan pengguna ke halaman yang sesuai berdasarkan status login
+    // mengarahkan pengguna ke halaman yang sesuai berdasarkan status login
     private fun redirectToAppropriateScreen() {
         val role = sharedPreferences.getString("userRole", "")
 
@@ -178,7 +176,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_LOGOUT && resultCode == RESULT_LOGOUT) {
-            // Pengguna telah logout, tidak perlu melakukan apa-apa
+            logout()
         }
     }
 }

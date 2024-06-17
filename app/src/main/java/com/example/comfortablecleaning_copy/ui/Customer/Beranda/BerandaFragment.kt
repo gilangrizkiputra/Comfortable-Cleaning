@@ -3,16 +3,14 @@ package com.example.comfortablecleaning_copy.Customer.Beranda
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.Telephony.Mms.Intents
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemClickListener
@@ -32,7 +30,7 @@ class BerandaFragment : Fragment() {
     private lateinit var binding: FragmentBerandaBinding
 
     private lateinit var tvUsernameBeranda: TextView
-    private lateinit var ivGambarProfilBeranda : ImageView
+    private lateinit var ivGambarProfilBeranda: ImageView
     private lateinit var database: DatabaseReference
     private lateinit var auth: FirebaseAuth
 
@@ -40,7 +38,6 @@ class BerandaFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         binding = FragmentBerandaBinding.inflate(inflater, container, false)
         val view = binding.root
 
@@ -61,7 +58,6 @@ class BerandaFragment : Fragment() {
         val userId = currentUser?.uid ?: ""
         database = FirebaseDatabase.getInstance().getReference("users/$userId")
 
-
         database.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
@@ -71,7 +67,7 @@ class BerandaFragment : Fragment() {
                     // Mengambil URL gambar profil dari Realtime Database
                     val profileImageUrl = snapshot.child("profileImageUrl").getValue(String::class.java) ?: ""
 
-                    if (profileImageUrl.isNotEmpty()) {
+                    if (profileImageUrl.isNotEmpty() && isAdded && context != null) {
                         Glide.with(fragmentContext).load(profileImageUrl).into(ivGambarProfilBeranda)
                     } else {
                         ivGambarProfilBeranda.setImageResource(R.drawable.image_user_home)
@@ -81,8 +77,10 @@ class BerandaFragment : Fragment() {
                     ivGambarProfilBeranda.setImageResource(R.drawable.image_user_home)
                 }
             }
+
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                // Handle possible errors.
+                ivGambarProfilBeranda.setImageResource(R.drawable.image_user_home)
             }
         })
         return view

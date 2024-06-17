@@ -40,6 +40,4 @@
         android:layout_below="@+id/judul_pesanan"
         android:layout_marginTop="20dp"
         tools:listitem="@layout/item_pesanan_admin"/>
-
-
 </RelativeLayout>

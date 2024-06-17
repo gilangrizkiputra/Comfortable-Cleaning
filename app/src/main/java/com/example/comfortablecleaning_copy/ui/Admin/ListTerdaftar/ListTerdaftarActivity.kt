@@ -56,10 +56,7 @@ class ListTerdaftarActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@ListTerdaftarActivity)
             itemAnimator = DefaultItemAnimator()
         }
-
         ShowData()
-
-
     }
 
     private fun ShowData() {

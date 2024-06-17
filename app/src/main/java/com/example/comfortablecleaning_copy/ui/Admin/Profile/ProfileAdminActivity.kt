@@ -1,6 +1,7 @@
 package com.example.comfortablecleaning_copy.Admin.Profile
 
 import android.app.ProgressDialog
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -81,7 +82,8 @@ class ProfileAdminActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Tangani error jika terjadi
+                Log.w(TAG, "Failed to read value.", error.toException())
+
             }
         })
 

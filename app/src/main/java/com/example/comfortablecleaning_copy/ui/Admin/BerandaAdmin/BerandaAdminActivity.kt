@@ -73,6 +73,7 @@ class BerandaAdminActivity : AppCompatActivity() {
 
                     // Menampilkan gambar profil menggunakan Glide atau library lain
                     if (profileImageUrl.isNotEmpty()) {
+
                         // Pastikan Activity belum dihancurkan
                         if (!isFinishing && !isDestroyed) {
                             Glide.with(this@BerandaAdminActivity)
