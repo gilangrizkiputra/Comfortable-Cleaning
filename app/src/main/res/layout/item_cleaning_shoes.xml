@@ -38,7 +38,7 @@
                 android:id="@+id/iv_list_cleaning"
                 android:layout_width="82dp"
                 android:layout_height="83dp"
-                android:src="@drawable/image_tipe_cleaning_shoes"/>
+                android:src="@drawable/image_categori_cleaning"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
