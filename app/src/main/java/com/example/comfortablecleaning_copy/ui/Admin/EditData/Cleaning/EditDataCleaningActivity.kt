@@ -42,7 +42,7 @@ class EditDataCleaningActivity : AppCompatActivity() {
     private lateinit var deskripsi: String
     private lateinit var imageUrl: String
     private var fileUri: Uri? = null
-    private val database: DatabaseReference = FirebaseDatabase.getInstance().getReference("admin")
+    private val database: DatabaseReference = FirebaseDatabase.getInstance().getReference("produk")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
