@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="33dp">
+        android:layout_marginTop="20dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_foto_profile_admin"
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:orientation="horizontal"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/custom_btn_profile"
             android:gravity="center_vertical">
 
@@ -92,7 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:orientation="horizontal"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/custom_btn_profile"
             android:gravity="center_vertical">
 
@@ -126,7 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:orientation="horizontal"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/custom_btn_profile"
             android:gravity="center_vertical">
 
@@ -160,7 +160,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:orientation="horizontal"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/custom_btn_profile"
             android:gravity="center_vertical">
 
@@ -186,15 +186,17 @@
                 android:src="@drawable/ic_to_profile"
                 android:layout_marginHorizontal="10dp"/>
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_kembali_beranda_admin"
-            android:layout_width="match_parent"
-            android:layout_height="46dp"
-            android:background="@drawable/custom_button_bg"
-            android:fontFamily="@font/poppins_semi_bold"
-            android:text="Kembali Ke Beranda"
-            android:textSize="16sp"
-            android:layout_marginTop="90dp"/>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_kembali_beranda_admin"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="64dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/custom_button_bg"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:text="Kembali Ke Beranda"
+        android:textSize="16sp"/>
 </RelativeLayout>

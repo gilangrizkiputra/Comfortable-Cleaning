@@ -15,14 +15,14 @@
         android:layout_height="wrap_content"
         android:src="@drawable/logo_login"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"/>
+        android:layout_marginTop="64dp"/>
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_logo_login"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="16sp"
         android:layout_centerHorizontal="true"
         android:fontFamily="@font/poppins_bold"
         android:text="DAFTAR"
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_title"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/poppins_bold"
         android:text="Username"
         android:textSize="12sp" />
@@ -148,7 +148,7 @@
         style="@style/ButtonGeneral.PrimaryVariant"
         android:layout_height="50dp"
         android:layout_below="@+id/edt_daftar_akun_reg"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/custom_button_bg"
         android:fontFamily="@font/poppins_semi_bold"
         android:text="Daftar"

@@ -2,24 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_marginHorizontal="20dp"
     tools:context=".Onboarding.Screen.OnboardingScreen3">
 
     <ImageView
         android:id="@+id/iv_onboarding3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="270dp"
         android:src="@drawable/onboarding3"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="108dp"/>
+        android:layout_marginTop="90dp"/>
 
     <TextView
         android:id="@+id/tv_judulonboarding3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_onboarding3"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/poppins_bold"
         android:text="Bersihkan Sepatu Anda"
         android:textSize="19sp"
