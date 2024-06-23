@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsCompat.Type.systemBars
 import androidx.fragment.app.Fragment
 import com.example.comfortablecleaning_copy.Customer.Beranda.BerandaFragment
 import com.example.comfortablecleaning_copy.Customer.Pesanan.PesananFragment
@@ -19,24 +19,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+
+        bottomNavigationView = findViewById(R.id.btm_nav_bar)
+
+        ViewCompat.setOnApplyWindowInsetsListener(bottomNavigationView) { view, insets ->
+            val systemBars = insets.getInsets(systemBars())
+            view.setPadding(0, 0, 0, systemBars.bottom)
             insets
         }
 
-        bottomNavigationView = findViewById(R.id.btm_nav_bar)
-        bottomNavigationView.setOnItemSelectedListener {menuItem ->
-            when(menuItem.itemId){
-                R.id.berandaFragment ->{
+        bottomNavigationView.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.berandaFragment -> {
                     replaceFragment(BerandaFragment())
                     true
                 }
-                R.id.pesananFragment ->{
+                R.id.pesananFragment -> {
                     replaceFragment(PesananFragment())
                     true
                 }
-                R.id.profileFragment ->{
+                R.id.profileFragment -> {
                     replaceFragment(ProfileFragment())
                     true
                 }
@@ -46,9 +48,7 @@ class MainActivity : AppCompatActivity() {
         replaceFragment(BerandaFragment())
     }
 
-
-    private fun replaceFragment(fragment: Fragment){
+    private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit()
     }
-
 }
