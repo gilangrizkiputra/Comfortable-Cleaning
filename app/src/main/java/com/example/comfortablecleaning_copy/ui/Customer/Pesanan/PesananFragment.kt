@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -25,6 +26,7 @@ class PesananFragment : Fragment() {
 
     lateinit var rvPesananUser : RecyclerView
     lateinit var adaptorPesanan: AdaptorPesanan
+    lateinit var tvNoOrder: TextView
     private lateinit var database: DatabaseReference
     private var arrayList: ArrayList<Pesanan> = ArrayList()
 
@@ -37,6 +39,7 @@ class PesananFragment : Fragment() {
 
 
         rvPesananUser = view.findViewById(R.id.rv_pesanan_user)
+        tvNoOrder = view.findViewById(R.id.tv_no_orders)
 
         database = FirebaseDatabase.getInstance().getReference("pesanan")
 
@@ -77,6 +80,9 @@ class PesananFragment : Fragment() {
                 adaptorPesanan = AdaptorPesanan(arrayList, requireContext())
                 rvPesananUser.adapter = adaptorPesanan
                 adaptorPesanan.notifyDataSetChanged()
+
+
+                tvNoOrder.visibility = if (arrayList.isEmpty()) View.VISIBLE else View.GONE
             }
 
             override fun onCancelled(error: DatabaseError) {

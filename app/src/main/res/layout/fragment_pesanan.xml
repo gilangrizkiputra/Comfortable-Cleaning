@@ -20,6 +20,19 @@
         android:textColor="@color/black"
         android:gravity="center" />
 
+
+    <TextView
+        android:id="@+id/tv_no_orders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Pesanan Tidak Ada"
+        android:visibility="gone"
+        android:textSize="19sp"
+        android:textColor="@color/grey"
+        android:fontFamily="@font/poppins_semi_bold"
+        android:gravity="center" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_pesanan_user"
         android:layout_width="match_parent"
