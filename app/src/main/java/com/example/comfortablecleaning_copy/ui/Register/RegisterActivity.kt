@@ -63,10 +63,14 @@ class RegisterActivity : AppCompatActivity() {
             val password = edtPasswordReg.text.toString()
             val passwordKonfirmasi = edtPasswordKonfirmReg.text.toString()
 
+            if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                edtEmailReg.error = "Email tidak valid"
+            }
+
             if (username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordKonfirmasi.isEmpty()) {
                 Toast.makeText(applicationContext, "Ada Data yang masih kosong", Toast.LENGTH_SHORT).show()
-            } else if (password.length <= 6) {
-                edtPasswordReg.setError("Password harus lebih dari 6 karakter")
+            } else if (password.length <= 8) {
+                edtPasswordReg.setError("Password harus lebih dari 8 karakter")
             } else if (!passwordKonfirmasi.equals(password)) {
                 edtPasswordKonfirmReg.setError("Password tidak sama")
             } else {

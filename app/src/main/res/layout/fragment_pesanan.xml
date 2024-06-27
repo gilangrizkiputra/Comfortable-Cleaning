@@ -20,7 +20,6 @@
         android:textColor="@color/black"
         android:gravity="center" />
 
-
     <TextView
         android:id="@+id/tv_no_orders"
         android:layout_width="wrap_content"
