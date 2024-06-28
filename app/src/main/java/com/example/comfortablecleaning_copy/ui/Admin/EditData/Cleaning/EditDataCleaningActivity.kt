@@ -170,7 +170,9 @@ class EditDataCleaningActivity : AppCompatActivity() {
     private fun updateData(hashMap: HashMap<String, Any>) {
         database.child(idProduk).updateChildren(hashMap).addOnSuccessListener {
             Toast.makeText(applicationContext, "Update Berhasil", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(applicationContext, BerandaAdminActivity::class.java))
+            val intent = Intent(this, BerandaAdminActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
             finish()
         }
     }
