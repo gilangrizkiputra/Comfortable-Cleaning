@@ -10,7 +10,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +18,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.comfortablecleaning_copy.Customer.Profile.BantuanDanLaporan.BantuanDanLaporanActivity
 import com.example.comfortablecleaning_copy.Customer.Profile.GantiKataSandi.GantiKataSandiActivity
@@ -114,7 +114,10 @@ class ProfileFragment : Fragment() {
                     val profileImageUrl = snapshot.child("profileImageUrl").getValue(String::class.java) ?: ""
 
                     if (profileImageUrl.isNotEmpty()) {
-                        Glide.with(this@ProfileFragment).load(profileImageUrl).into(imageViewProfile)
+                        // Pastikan Fragment sudah terlampir ke Activity
+                        if (isAdded) {
+                            Glide.with(requireActivity()).load(profileImageUrl).into(imageViewProfile)
+                        }
                     } else {
                         imageViewProfile.setImageResource(R.drawable.image_profil)
                     }
@@ -130,6 +133,7 @@ class ProfileFragment : Fragment() {
             }
         })
     }
+
 
     private fun logout() {
         with(sharedPreferences.edit()) {
@@ -187,7 +191,9 @@ class ProfileFragment : Fragment() {
                             .addOnSuccessListener {
                                 Log.d("ProfileImageUrl", "URL gambar berhasil disimpan di Realtime Database")
                                 // Memuat ulang gambar profil setelah berhasil diupload
-                                Glide.with(this@ProfileFragment).load(downloadUrl).into(imageViewProfile)
+                                if (isAdded) {
+                                    Glide.with(this@ProfileFragment).load(downloadUrl).into(imageViewProfile)
+                                }
                             }
                             .addOnFailureListener { e ->
                                 Log.e("ProfileImageUrl", "Gagal menyimpan URL gambar di Realtime Database: ${e.message}")

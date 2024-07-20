@@ -12,9 +12,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.example.comfortablecleaning_copy.Login.LoginActivity
-import com.example.comfortablecleaning_copy.Onboarding.Screen.OnboardingScreen1
-import com.example.comfortablecleaning_copy.Onboarding.Screen.OnboardingScreen2
-import com.example.comfortablecleaning_copy.Onboarding.Screen.OnboardingScreen3
 import com.example.comfortablecleaning_copy.R
 import com.example.comfortablecleaning_copy.Register.RegisterActivity
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator

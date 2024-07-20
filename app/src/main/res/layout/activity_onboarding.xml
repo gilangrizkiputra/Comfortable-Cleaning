@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginHorizontal="20dp"
+    android:fitsSystemWindows="true"
     tools:context=".Onboarding.OnboardingActivity">
 
     <androidx.viewpager2.widget.ViewPager2
@@ -17,36 +18,37 @@
         android:id="@+id/dots_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         app:dotsColor="@color/grey"
         app:dotsCornerRadius="8dp"
         app:dotsSize="12dp"
         app:dotsSpacing="4dp"
         app:progressMode="true"
         app:selectedDotColor="@color/primaryBlue"
-        android:layout_marginTop="640dp"
+        android:layout_marginBottom="151dp"
         android:layout_centerHorizontal="true"
         />
     <Button
         android:id="@+id/btn_mulai"
         style="@style/ButtonGeneral.PrimaryVariant"
+        android:layout_alignParentBottom="true"
         android:background="@drawable/custom_button_bg"
         android:fontFamily="@font/poppins_semi_bold"
         android:text="Mulai"
         android:textSize="20sp"
-        android:layout_below="@id/dots_indicator"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginBottom="84dp"/>
 
     <TextView
         android:id="@+id/tv_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:text="Sudah punya akun"
-        android:layout_below="@+id/btn_mulai"
         android:fontFamily="@font/poppins_bold"
         android:textSize="14sp"
         android:textColor="@color/primaryBlue"
         android:textAlignment="center"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginBottom="45dp"/>
 
 </RelativeLayout>

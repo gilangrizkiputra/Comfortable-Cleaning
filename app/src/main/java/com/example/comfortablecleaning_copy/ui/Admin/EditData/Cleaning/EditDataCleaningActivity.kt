@@ -42,7 +42,7 @@ class EditDataCleaningActivity : AppCompatActivity() {
     private lateinit var deskripsi: String
     private lateinit var imageUrl: String
     private var fileUri: Uri? = null
-    private val database: DatabaseReference = FirebaseDatabase.getInstance().getReference("admin")
+    private val database: DatabaseReference = FirebaseDatabase.getInstance().getReference("produk")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -147,7 +147,7 @@ class EditDataCleaningActivity : AppCompatActivity() {
         progressDialog.setCancelable(false)
         progressDialog.show()
 
-        val storageRef = FirebaseStorage.getInstance().getReference("admin/$idProduk.jpg")
+        val storageRef = FirebaseStorage.getInstance().getReference("produk/$idProduk.jpg")
 
         storageRef.putFile(fileUri!!)
             .addOnSuccessListener { taskSnapshot ->
@@ -170,7 +170,9 @@ class EditDataCleaningActivity : AppCompatActivity() {
     private fun updateData(hashMap: HashMap<String, Any>) {
         database.child(idProduk).updateChildren(hashMap).addOnSuccessListener {
             Toast.makeText(applicationContext, "Update Berhasil", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(applicationContext, BerandaAdminActivity::class.java))
+            val intent = Intent(this, BerandaAdminActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
             finish()
         }
     }

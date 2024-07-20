@@ -136,7 +136,7 @@
                     android:hint="Masukkan nomor telephone"
                     android:padding="12dp"
                     android:textSize="12sp"
-                    android:inputType="text"/>
+                    android:inputType="number"/>
 
                 <TextView
                     android:id="@+id/tv_pilih_daerah"
@@ -234,6 +234,7 @@
                         android:padding="10dp">
 
                         <TextView
+                            android:id="@+id/title_idpesanan"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Detail Pesanan"

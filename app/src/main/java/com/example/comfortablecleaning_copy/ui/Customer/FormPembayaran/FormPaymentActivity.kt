@@ -1,20 +1,31 @@
 package com.example.comfortablecleaning_copy.Customer.FormPembayaran
 
+import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.*
+import android.view.Window
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.comfortablecleaning_copy.MainActivity
+import com.example.comfortablecleaning_copy.PaymentHMidtrans
 import com.example.comfortablecleaning_copy.R
-import com.example.comfortablecleaning_copy.ui.Entitas.Admin
 import com.example.comfortablecleaning_copy.ui.Entitas.Pesanan
+import com.example.comfortablecleaning_copy.ui.Entitas.Produk
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import java.util.UUID
+import org.json.JSONArray
+import org.json.JSONObject
 
 class FormPaymentActivity : AppCompatActivity() {
 
@@ -34,6 +45,7 @@ class FormPaymentActivity : AppCompatActivity() {
     private var ongkir: Int = 10000
 
     private lateinit var database: DatabaseReference
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,22 +55,23 @@ class FormPaymentActivity : AppCompatActivity() {
         setupListeners()
         updateDetailPesanan()
 
-        val selectedData = intent.getParcelableExtra<Admin>("selectedData")
+        val selectedData = intent.getParcelableExtra<Produk>("selectedData")
         tvNamaProdukItemForm.text = selectedData?.namaProduk ?: ""
         tvHargaItemForm.text = "Rp. " + selectedData?.harga ?: "0"
 
         database = FirebaseDatabase.getInstance().reference.child("pesanan")
 
+        auth = FirebaseAuth.getInstance()
+
         btnBayarSekarang = findViewById(R.id.btn_bayar_sekarang)
+
         btnBayarSekarang.setOnClickListener {
-            if (isFormValid()) {
-                saveOrderToDatabase()
-            } else {
-                Toast.makeText(this, "Data belum lengkap", Toast.LENGTH_SHORT).show()
+            if (isFormValid()){
+                showCustomDialog()
+            }else{
+                Toast.makeText(this, "Data belum lengkap", Toast.LENGTH_LONG).show()
             }
         }
-
-
     }
 
     private fun isFormValid(): Boolean {
@@ -66,6 +79,97 @@ class FormPaymentActivity : AppCompatActivity() {
                 edtNoTelp.text.isNotEmpty() &&
                 edtAlamat.text.isNotEmpty() &&
                 radioGroup.checkedRadioButtonId != -1
+    }
+
+    private fun showCustomDialog() {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.payment_dialog)
+
+        val buttonCanceled: Button = dialog.findViewById(R.id.btn_batal_payment)
+        val buttonAccept: Button = dialog.findViewById(R.id.btn_terima_payment)
+
+        buttonCanceled.setOnClickListener {
+            Toast.makeText(this, "Anda membatalkan pesanan", Toast.LENGTH_LONG).show()
+            dialog.dismiss()
+        }
+
+        buttonAccept.setOnClickListener {
+            Toast.makeText(this, "HARAP TUNGGU! Anda akan di alihkan ke web browser", Toast.LENGTH_LONG).show()
+            val currentUser = auth.currentUser
+            val email = currentUser?.email ?: "default@example.com"
+
+            val customerDetails = JSONObject().apply {
+                put("name", edtNama.text.toString())
+                put("email", email)
+                put("phone", edtNoTelp.text.toString())
+                put("billing_address", JSONObject().apply {
+                    put("address", edtAlamat.text.toString())
+                })
+                put("shipping_address", JSONObject().apply {
+                    put("address", edtAlamat.text.toString())
+                })
+            }
+
+            val itemDetails = JSONArray().apply {
+                put(JSONObject().apply {
+                    put("id", "ID_PRODUK")
+                    put("price", tvHargaItemForm.text.toString().replace("Rp. ", "").toInt())
+                    put("quantity", qty)
+                    put("name", tvNamaProdukItemForm.text.toString())
+                })
+
+                // Tambahkan ongkos kirim sebagai item terpisah
+                put(JSONObject().apply {
+                    put("id", "ONGKIR")
+                    put("price", ongkir)
+                    put("quantity", 1)
+                    put("name", "Ongkos Kirim")
+                })
+            }
+
+            //hitung total harga
+            val totalAmount = tvHargaItemForm.text.toString().replace("Rp. ", "").toInt() * qty + ongkir
+            val orderId = "CC-OrderID-" + System.currentTimeMillis()
+
+            // Simpan status payment
+            val sharedPref = getSharedPreferences("PREFS", Context.MODE_PRIVATE)
+            sharedPref.edit().putString("ORDER_ID", orderId).putBoolean("CHECKED_PAYMENT_STATUS", false).apply()
+
+            //panggil payment midtrans
+            PaymentHMidtrans.generatePaymentLink(this@FormPaymentActivity, totalAmount, customerDetails, itemDetails, orderId)
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        // Cek payment status
+        checkPaymentStatus()
+    }
+
+    private fun checkPaymentStatus() {
+        val sharedPref = getSharedPreferences("PREFS", Context.MODE_PRIVATE)
+        val orderId = sharedPref.getString("ORDER_ID", null) ?: return
+        val checkedPaymentStatus = sharedPref.getBoolean("CHECKED_PAYMENT_STATUS", true)
+
+        if (!checkedPaymentStatus) {
+            // panggil midtrans api untuk cek status
+            PaymentHMidtrans.checkPaymentStatus(this, orderId) { status ->
+                if (status == "settlement" || status == "capture") {
+                    saveOrderToDatabase(orderId)
+                } else {
+                    Toast.makeText(this, "Pembayaran gagal atau belum diproses", Toast.LENGTH_SHORT).show()
+                }
+
+                // tandai payment status
+                sharedPref.edit().putBoolean("CHECKED_PAYMENT_STATUS", true).apply()
+            }
+        }
     }
 
 
@@ -135,7 +239,7 @@ class FormPaymentActivity : AppCompatActivity() {
         val noTelpPemesan = edtNoTelp.text.toString()
         val alamatPemesan = edtAlamat.text.toString()
         val catatanPemesan = edtCatatan.text.toString()
-        val selectedData = intent.getParcelableExtra<Admin>("selectedData")
+        val selectedData = intent.getParcelableExtra<Produk>("selectedData")
 
         val hargaPerItem = try {
             selectedData?.harga?.toInt() ?: 0
@@ -143,6 +247,7 @@ class FormPaymentActivity : AppCompatActivity() {
             0
         }
 
+        //hitung total pembayaran
         ongkir = getOngkir()
         val totalHarga = hargaPerItem * quantity + ongkir
 
@@ -161,8 +266,9 @@ class FormPaymentActivity : AppCompatActivity() {
         detailPesanan.text = detailPesananText
     }
 
-    private fun saveOrderToDatabase() {
-        val selectedData = intent.getParcelableExtra<Admin>("selectedData")
+    //simpan data ke database jika pembayaran sudah selesai
+    private fun saveOrderToDatabase(orderId: String) {
+        val selectedData = intent.getParcelableExtra<Produk>("selectedData")
 
         val namaPemesan = edtNama.text.toString()
         val noTelpPemesan = edtNoTelp.text.toString()
@@ -178,7 +284,6 @@ class FormPaymentActivity : AppCompatActivity() {
 
         val rbBekTim = findViewById<RadioButton>(R.id.rb_bektim)
         val daerahPemesan = if (rbBekTim.isChecked) "Bekasi Timur" else "Di Luar Daerah Bekasi Timur"
-        val orderId = UUID.randomUUID().toString()
         val userId = FirebaseAuth.getInstance().currentUser?.uid // Dapatkan ID pengguna saat ini
 
         val pesanan = Pesanan(
@@ -194,7 +299,7 @@ class FormPaymentActivity : AppCompatActivity() {
             totalHarga = totalHarga,
             status = "menunggu", // Set default status
             jenis = selectedData?.jenis,
-            statusPembayaran = "",
+            statusPembayaran = "Paid",
             userId = userId // Set userId
         )
 
@@ -203,7 +308,7 @@ class FormPaymentActivity : AppCompatActivity() {
                 Toast.makeText(this, "Pesanan anda berhasil", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                    putExtra("navigateTo", "BerandaFragment") // Pass the fragment name
+                    putExtra("navigateTo", "BerandaFragment")
                 }
                 startActivity(intent)
                 finish()
@@ -212,5 +317,4 @@ class FormPaymentActivity : AppCompatActivity() {
             }
         }
     }
-
 }

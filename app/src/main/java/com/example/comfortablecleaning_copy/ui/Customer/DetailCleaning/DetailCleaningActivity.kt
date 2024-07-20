@@ -1,13 +1,10 @@
 package com.example.comfortablecleaning_copy.Customer.DetailCleaning
 
 import android.content.Intent
-import android.media.Image
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -16,8 +13,12 @@ import com.example.comfortablecleaning_copy.Customer.DetailCleaning.Adaptor.Imag
 import com.example.comfortablecleaning_copy.Customer.FormPembayaran.FormPaymentActivity
 import com.example.comfortablecleaning_copy.Customer.ListCleaningShoes.ListCleaningShoesActivity
 import com.example.comfortablecleaning_copy.R
-import com.example.comfortablecleaning_copy.ui.Entitas.Admin
-import com.google.android.material.tabs.TabLayout
+import com.example.comfortablecleaning_copy.ui.Entitas.Produk
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class DetailCleaningActivity : AppCompatActivity() {
 
@@ -25,17 +26,14 @@ class DetailCleaningActivity : AppCompatActivity() {
     private lateinit var tvEstimasiDetail: TextView
     private lateinit var tvNamaProdukItem: TextView
     private lateinit var tvDeskripsiDetail: TextView
-
+    private lateinit var viewPager2: ViewPager2
+    private lateinit var database: DatabaseReference
     private lateinit var iv1: ImageView
     private lateinit var iv2: ImageView
     private lateinit var iv3: ImageView
 
-    //image viewpager
-    private lateinit var viewPager2: ViewPager2
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_detail_cleaning)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -43,7 +41,7 @@ class DetailCleaningActivity : AppCompatActivity() {
             insets
         }
 
-        val backButton : ImageView = findViewById(R.id.iv_back)
+        val backButton: ImageView = findViewById(R.id.iv_back)
         backButton.setOnClickListener {
             val intent = Intent(this, ListCleaningShoesActivity::class.java)
             startActivity(intent)
@@ -55,16 +53,24 @@ class DetailCleaningActivity : AppCompatActivity() {
         tvNamaProdukItem = findViewById(R.id.tv_nama_produk_item)
         tvDeskripsiDetail = findViewById(R.id.tv_deskripsi_detail)
 
-        val selectedData = intent.getParcelableExtra<Admin>("selectedData")
+        viewPager2 = findViewById(R.id.vp_image_cleaning)
+        iv1 = findViewById(R.id.iv1)
+        iv2 = findViewById(R.id.iv2)
+        iv3 = findViewById(R.id.iv3)
+
+        database = FirebaseDatabase.getInstance().getReference("produk")
+
+        val selectedData = intent.getParcelableExtra<Produk>("selectedData")
         if (selectedData != null) {
             tvHargaItem.text = "Rp ${selectedData.harga}"
             tvEstimasiDetail.text = "Estimasi ${selectedData.estimasi}"
             tvNamaProdukItem.text = selectedData.namaProduk
             tvDeskripsiDetail.text = selectedData.deskripsi
+
+            loadImages(selectedData.idProduk!!)
         }
 
-
-        val btnPesanCleaning : Button = findViewById(R.id.btn_pesan)
+        val btnPesanCleaning: Button = findViewById(R.id.btn_pesan)
         btnPesanCleaning.setOnClickListener {
             val intent = Intent(this, FormPaymentActivity::class.java)
             intent.putExtra("selectedData", selectedData)
@@ -73,24 +79,9 @@ class DetailCleaningActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //menampilkan gambar image
-        viewPager2 = findViewById(R.id.vp_image_cleaning)
-        iv1 = findViewById(R.id.iv1)
-        iv2 = findViewById(R.id.iv2)
-        iv3 = findViewById(R.id.iv3)
-
-        val images = listOf(R.drawable.image_detail_pencucian, R.drawable.image_detail_pencucian, R.drawable.image_detail_pencucian)
-        val adapter = ImageViewPagerAdaptor(images)
-        viewPager2.adapter = adapter
-
-        //gambar lapangan dan dot animation
         viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-                super.onPageSelected(position)
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
                 changeColor()
             }
 
@@ -105,9 +96,25 @@ class DetailCleaningActivity : AppCompatActivity() {
         })
     }
 
-    //gambar lapangan dan dot animation
-    fun changeColor(){
-        when(viewPager2.currentItem){
+    private fun loadImages(productId: String) {
+        database.child(productId).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val cleaningItem = dataSnapshot.getValue(Produk::class.java)
+                cleaningItem?.let {
+                    val images = it.imageUrl?.split(",")?.map { url -> url.trim() } ?: listOf()
+                    val adapter = ImageViewPagerAdaptor(images)
+                    viewPager2.adapter = adapter
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Handle database error
+            }
+        })
+    }
+
+    private fun changeColor() {
+        when (viewPager2.currentItem) {
             0 -> {
                 iv1.setBackgroundColor(applicationContext.resources.getColor(R.color.primaryBlue))
                 iv2.setBackgroundColor(applicationContext.resources.getColor(R.color.grey))
@@ -125,6 +132,4 @@ class DetailCleaningActivity : AppCompatActivity() {
             }
         }
     }
-
-
 }

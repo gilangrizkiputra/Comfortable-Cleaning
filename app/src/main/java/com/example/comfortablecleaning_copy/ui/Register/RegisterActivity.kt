@@ -63,10 +63,14 @@ class RegisterActivity : AppCompatActivity() {
             val password = edtPasswordReg.text.toString()
             val passwordKonfirmasi = edtPasswordKonfirmReg.text.toString()
 
+            if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                edtEmailReg.error = "Email tidak valid"
+            }
+
             if (username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordKonfirmasi.isEmpty()) {
                 Toast.makeText(applicationContext, "Ada Data yang masih kosong", Toast.LENGTH_SHORT).show()
-            } else if (password.length <= 6) {
-                edtPasswordReg.setError("Password harus lebih dari 6 karakter")
+            } else if (password.length <= 8) {
+                edtPasswordReg.setError("Password harus lebih dari 8 karakter")
             } else if (!passwordKonfirmasi.equals(password)) {
                 edtPasswordKonfirmReg.setError("Password tidak sama")
             } else {
@@ -128,48 +132,5 @@ class RegisterActivity : AppCompatActivity() {
                     }
             }
         }
-
-//        btnDaftar.setOnClickListener {
-//            val username = edtUsernameReg.text.toString()
-//            val email = edtEmailReg.text.toString()
-//            val password = edtPasswordReg.text.toString()
-//            val passwordKonfirmasi = edtPasswordKonfirmReg.text.toString()
-//
-//            if (username.isEmpty() || email.isEmpty() || password.isEmpty() || passwordKonfirmasi.isEmpty()) {
-//                Toast.makeText(applicationContext, "Ada Data yang masih kosong", Toast.LENGTH_SHORT).show()
-//            } else if (password.length <= 6) {
-//                edtPasswordReg.setError("Password harus lebih dari 6 karakter")
-//            } else if (!passwordKonfirmasi.equals(password)) {
-//                edtPasswordKonfirmReg.setError("Password tidak sama")
-//            } else {
-//                auth.createUserWithEmailAndPassword(email, password)
-//                    .addOnCompleteListener { task ->
-//                        if (task.isSuccessful) {
-//                            auth.currentUser?.sendEmailVerification()?.addOnCompleteListener { verificationTask ->
-//                                if (verificationTask.isSuccessful) {
-//                                    Toast.makeText(
-//                                        applicationContext,
-//                                        "Daftar Berhasil. Silakan verifikasi email Anda.",
-//                                        Toast.LENGTH_SHORT
-//                                    ).show()
-//                                    startActivity(Intent(applicationContext, LoginActivity::class.java))
-//                                } else {
-//                                    Toast.makeText(
-//                                        applicationContext,
-//                                        "Gagal mengirim email verifikasi.",
-//                                        Toast.LENGTH_SHORT
-//                                    ).show()
-//                                }
-//                            }
-//                        } else {
-//                            Toast.makeText(
-//                                applicationContext,
-//                                "Gagal mendaftar. Mohon coba lagi.",
-//                                Toast.LENGTH_SHORT
-//                            ).show()
-//                        }
-//                    }
-//            }
-//        }
     }
 }

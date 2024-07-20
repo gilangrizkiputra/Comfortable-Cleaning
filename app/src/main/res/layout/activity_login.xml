@@ -14,14 +14,14 @@
         android:layout_height="wrap_content"
         android:src="@drawable/logo_login"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"/>
+        android:layout_marginTop="64dp"/>
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_logo_login"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="32dp"
         android:layout_centerHorizontal="true"
         android:fontFamily="@font/poppins_bold"
         android:text="MASUK"
@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_title"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/poppins_bold"
         android:text="Email"
         android:textSize="12sp" />
@@ -103,7 +103,7 @@
         style="@style/ButtonGeneral.PrimaryVariant"
         android:layout_height="50dp"
         android:layout_below="@+id/edt_daftar_akun"
-        android:layout_marginTop="38dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/custom_button_bg"
         android:fontFamily="@font/poppins_semi_bold"
         android:text="Masuk"

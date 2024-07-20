@@ -13,14 +13,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.comfortablecleaning_copy.Admin.BerandaAdmin.BerandaAdminActivity
-import com.example.comfortablecleaning_copy.Customer.Beranda.BerandaFragment
 import com.example.comfortablecleaning_copy.MainActivity
 import com.example.comfortablecleaning_copy.R
 import com.example.comfortablecleaning_copy.Register.RegisterActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
@@ -34,8 +32,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
 
     companion object {
-        const val REQUEST_LOGOUT = 123
-        const val RESULT_LOGOUT = 124
+        const val REQUEST_LOGOUT = 123 // Kode permintaan unik untuk memulai aktivitas logout
+        const val RESULT_LOGOUT = 124 // Kode hasil unik untuk menangani hasil dari aktivitas logout
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +50,6 @@ class LoginActivity : AppCompatActivity() {
 
         // Cek apakah pengguna sudah login sebelumnya
         if (isLoggedIn()) {
-            // Jika sudah login, arahkan ke halaman sesuai peran
             redirectToAppropriateScreen()
             return
         }
@@ -74,15 +71,21 @@ class LoginActivity : AppCompatActivity() {
             val email = edtEmail.text.toString()
             val password = edtPassword.text.toString()
 
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(
-                    applicationContext,
-                    "Email atau password tidak boleh kosong",
-                    Toast.LENGTH_SHORT
-                ).show()
+            if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                edtEmail.error = "Email tidak valid"
             } else {
+            edtEmail.error = null
+            }
+
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(applicationContext, "Email atau password tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            }
+            else {
                 auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
+
+                        Toast.makeText(applicationContext, "Harap tunggu", Toast.LENGTH_SHORT).show()
+
                         val userId = auth.currentUser?.uid
                         val userReference =
                             FirebaseDatabase.getInstance().getReference("users").child(userId.toString())
@@ -93,7 +96,6 @@ class LoginActivity : AppCompatActivity() {
                                 // Menyimpan status login setelah berhasil login
                                 saveLoginStatus(role)
 
-                                // Redirect ke halaman sesuai peran
                                 if (role == "admin") {
                                     Toast.makeText(
                                         applicationContext,
@@ -121,18 +123,13 @@ class LoginActivity : AppCompatActivity() {
                             }
                         })
                     } else {
-                        Toast.makeText(
-                            applicationContext,
-                            "Email atau password salah",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        Toast.makeText(applicationContext, "Email atau password salah", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
         }
     }
 
-    // Fungsi untuk menyimpan status login ke SharedPreferences
     private fun saveLoginStatus(role: String?) {
         with(sharedPreferences.edit()) {
             putBoolean("isLoggedIn", true)
@@ -141,12 +138,10 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    // Fungsi untuk mengecek apakah pengguna sudah login
     private fun isLoggedIn(): Boolean {
         return sharedPreferences.getBoolean("isLoggedIn", false)
     }
 
-    // Fungsi untuk mengarahkan pengguna ke halaman yang sesuai berdasarkan status login
     private fun redirectToAppropriateScreen() {
         val role = sharedPreferences.getString("userRole", "")
 
@@ -158,7 +153,6 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 
-    // Fungsi untuk logout
     private fun logout() {
         with(sharedPreferences.edit()) {
             remove("isLoggedIn")
@@ -178,7 +172,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_LOGOUT && resultCode == RESULT_LOGOUT) {
-            // Pengguna telah logout, tidak perlu melakukan apa-apa
+            logout()
         }
     }
 }

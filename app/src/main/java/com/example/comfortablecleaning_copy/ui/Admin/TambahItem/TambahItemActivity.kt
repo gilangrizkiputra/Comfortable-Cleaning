@@ -88,7 +88,7 @@ class TambahItemActivity : AppCompatActivity() {
                     produkMap["estimasi"] = estimasi
                     produkMap["deskripsi"] = deskripsi
 
-                    database = FirebaseDatabase.getInstance().getReference("admin").child(idProduk)
+                    database = FirebaseDatabase.getInstance().getReference("produk").child(idProduk)
                     database.setValue(produkMap)
                         .addOnSuccessListener {
                             uploadImage(idProduk)
@@ -141,7 +141,7 @@ class TambahItemActivity : AppCompatActivity() {
             progressDialog.setCancelable(false)
             progressDialog.show()
 
-            val storageRef = FirebaseStorage.getInstance().getReference("admin/$idProduk.jpg")
+            val storageRef = FirebaseStorage.getInstance().getReference("produk/$idProduk.jpg")
 
             storageRef.putFile(fileUri!!)
                 .addOnSuccessListener { taskSnapshot ->
@@ -152,10 +152,10 @@ class TambahItemActivity : AppCompatActivity() {
                         val downloadUrl = uri.toString()
                         database.child("imageUrl").setValue(downloadUrl)
                             .addOnSuccessListener {
-                                Log.d("imageUrl", "URL gambar berhasil disimpan di Realtime Database admin")
+                                Log.d("imageUrl", "URL gambar berhasil disimpan di Realtime Database produk")
                             }
                             .addOnFailureListener { e ->
-                                Log.e("imageUrl", "Gagal menyimpan URL gambar di Realtime Database admin: ${e.message}")
+                                Log.e("imageUrl", "Gagal menyimpan URL gambar di Realtime Database produk: ${e.message}")
                             }
                     }
                 }

@@ -60,7 +60,7 @@ class GantiKataSandiActivity : AppCompatActivity() {
             val user = auth.currentUser
 
             // Lakukan re-autentikasi menggunakan password lama
-            val credential = EmailAuthProvider.getCredential(user?.email!!, passwordLama)
+            val credential = EmailAuthProvider.getCredential(user?.email!!, passwordLama)//
             user?.reauthenticateAndRetrieveData(credential)?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     // Ganti kata sandi dengan password baru

@@ -2,7 +2,6 @@ package com.example.comfortablecleaning_copy.ui.Admin.ListTerdaftar
 
 import android.content.Context
 import android.content.Intent
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,15 +12,14 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.comfortablecleaning_copy.Admin.EditData.Cleaning.EditDataCleaningActivity
 import com.example.comfortablecleaning_copy.R
-import com.example.comfortablecleaning_copy.ui.Entitas.Admin
+import com.example.comfortablecleaning_copy.ui.Entitas.Produk
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import java.util.UUID
 
-class AdaptorListTerdaftarAdmin(private val mlist: List<Admin>, private val context: Context) :
+class AdaptorListTerdaftarAdmin(private val mlist: List<Produk>, private val context: Context) :
     RecyclerView.Adapter<AdaptorListTerdaftarAdmin.MyViewHolder>() {
 
-    private val database: DatabaseReference = FirebaseDatabase.getInstance().getReference("admin")
+    private val database: DatabaseReference = FirebaseDatabase.getInstance().getReference("produk")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list_terdaftar, parent, false)
