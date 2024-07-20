@@ -20,7 +20,8 @@ object PaymentHMidtrans {
 
     fun generatePaymentLink(context: Context, totalAmount: Int, customerDetails: JSONObject, itemDetails: JSONArray, orderId: String) {
         val client = OkHttpClient()
-        val url = "https://cleancomfortable.my.id/Midtrans.php/charge/"
+        //API
+        val url = "LINK_URL_MIDTRANS"
 
         val json = JSONObject().apply {
             put("transaction_details", JSONObject().apply {
@@ -34,7 +35,7 @@ object PaymentHMidtrans {
         val body = RequestBody.create("application/json; charset=utf-8".toMediaType(), json.toString())
         val request = Request.Builder()
             .url(url)
-            .header("Authorization", "Basic ${Base64.encodeToString("SB-Mid-server-Xzba3_5u-lTBv-e71pfEXQSw".toByteArray(), Base64.NO_WRAP)}")
+            .header("Authorization", "Basic ${Base64.encodeToString("YOUR_SERVER_KEY".toByteArray(), Base64.NO_WRAP)}")
             .post(body)
             .build()
 
@@ -66,11 +67,11 @@ object PaymentHMidtrans {
 
     fun checkPaymentStatus(context: Context, orderId: String, callback: (String) -> Unit) {
         val client = OkHttpClient()
-        val url = "https://api.sandbox.midtrans.com/v2/$orderId/status"
+        val url = "LINK_URL_MIDTRANS"
 
         val request = Request.Builder()
             .url(url)
-            .header("Authorization", "Basic ${Base64.encodeToString("SB-Mid-server-Xzba3_5u-lTBv-e71pfEXQSw".toByteArray(), Base64.NO_WRAP)}")
+            .header("Authorization", "Basic ${Base64.encodeToString("YOUR_SERVER_KEY".toByteArray(), Base64.NO_WRAP)}")
             .get()
             .build()
 

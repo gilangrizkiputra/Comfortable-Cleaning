@@ -64,6 +64,7 @@ class FormPaymentActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         btnBayarSekarang = findViewById(R.id.btn_bayar_sekarang)
+
         btnBayarSekarang.setOnClickListener {
             if (isFormValid()){
                 showCustomDialog()
@@ -91,7 +92,7 @@ class FormPaymentActivity : AppCompatActivity() {
 
         buttonCanceled.setOnClickListener {
             Toast.makeText(this, "Anda membatalkan pesanan", Toast.LENGTH_LONG).show()
-            dialog.dismiss() // Tutup dialog jika dibatalkan
+            dialog.dismiss()
         }
 
         buttonAccept.setOnClickListener {
@@ -128,15 +129,17 @@ class FormPaymentActivity : AppCompatActivity() {
                 })
             }
 
+            //hitung total harga
             val totalAmount = tvHargaItemForm.text.toString().replace("Rp. ", "").toInt() * qty + ongkir
             val orderId = "CC-OrderID-" + System.currentTimeMillis()
 
-            // Save orderId and reset checked flag in SharedPreferences for later use
+            // Simpan status payment
             val sharedPref = getSharedPreferences("PREFS", Context.MODE_PRIVATE)
             sharedPref.edit().putString("ORDER_ID", orderId).putBoolean("CHECKED_PAYMENT_STATUS", false).apply()
 
+            //panggil payment midtrans
             PaymentHMidtrans.generatePaymentLink(this@FormPaymentActivity, totalAmount, customerDetails, itemDetails, orderId)
-            dialog.dismiss() // Tutup dialog jika diterima
+            dialog.dismiss()
         }
 
         dialog.show()
@@ -145,7 +148,7 @@ class FormPaymentActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // Check payment status when the activity is resumed
+        // Cek payment status
         checkPaymentStatus()
     }
 
@@ -155,7 +158,7 @@ class FormPaymentActivity : AppCompatActivity() {
         val checkedPaymentStatus = sharedPref.getBoolean("CHECKED_PAYMENT_STATUS", true)
 
         if (!checkedPaymentStatus) {
-            // Call Midtrans API to check the payment status
+            // panggil midtrans api untuk cek status
             PaymentHMidtrans.checkPaymentStatus(this, orderId) { status ->
                 if (status == "settlement" || status == "capture") {
                     saveOrderToDatabase(orderId)
@@ -163,7 +166,7 @@ class FormPaymentActivity : AppCompatActivity() {
                     Toast.makeText(this, "Pembayaran gagal atau belum diproses", Toast.LENGTH_SHORT).show()
                 }
 
-                // Mark the payment status as checked
+                // tandai payment status
                 sharedPref.edit().putBoolean("CHECKED_PAYMENT_STATUS", true).apply()
             }
         }
@@ -244,6 +247,7 @@ class FormPaymentActivity : AppCompatActivity() {
             0
         }
 
+        //hitung total pembayaran
         ongkir = getOngkir()
         val totalHarga = hargaPerItem * quantity + ongkir
 
@@ -304,7 +308,7 @@ class FormPaymentActivity : AppCompatActivity() {
                 Toast.makeText(this, "Pesanan anda berhasil", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                    putExtra("navigateTo", "BerandaFragment") // Pass the fragment name
+                    putExtra("navigateTo", "BerandaFragment")
                 }
                 startActivity(intent)
                 finish()

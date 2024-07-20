@@ -179,7 +179,6 @@
 
     </androidx.cardview.widget.CardView>
 
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_profile_admin"
         android:layout_below="@+id/cv_list_terdaftar"
